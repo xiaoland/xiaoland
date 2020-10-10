@@ -1,4 +1,5 @@
-### Hi there 👋
+### Hi there! This is Lanzhijiang(xiaoland). 👋
+- I am developing many interesting project, like xiaolan-robot: a smarthome robot, and GTD-App: time management system base on GTD.
 
 ![xiaoland's github stats](https://github-readme-stats.vercel.app/api?username=xiaoland&theme=tokyonight&show_icons=true)
 
