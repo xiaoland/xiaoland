@@ -1,6 +1,6 @@
 ### Hi there 👋
 
-![xiaoland's github stats](https://github-readme-stats.vercel.app/api?username=xiaoland)
+![xiaoland's github stats](https://github-readme-stats.vercel.app/api?username=xiaoland&theme=merko&show_icons=true)
 
 <!-- Thanks for https://github.com/anuraghazra/github-readme-stats -->
 <!--
