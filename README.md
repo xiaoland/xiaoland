@@ -1,7 +1,7 @@
 ### Hi there! This is Lanzhijiang(xiaoland). 👋
 - I am developing many interesting projects.
   - Like [**xiaolan-robot**](https://github.com/xiaoland/xiaolan): a smarthome talking robot.
-  - And [**GTD-App**](https://github.com/xiaoland/GettingThingsDone-App): a time management system base on GTD.
+  - And [**NothingLeft**](https://github.com/xiaoland/NothingLeft): a time management system based on GTD.
 
 ![xiaoland's github stats](https://github-readme-stats.vercel.app/api?username=xiaoland&theme=tokyonight&show_icons=true)
 
