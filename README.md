@@ -1,22 +1,11 @@
 ### Hi there! This is Lanzhijiang(xiaoland). 👋
-- I am developing many interesting projects.
-  - Like [**HadreamAssistant**](https://github.com/xiaoland/HadreamAssisant): A highly customizeable voice assistant. 
-  - And [**NothingLeft**](https://github.com/xiaoland/NothingLeft): a time management system based on GTD.
+
+I'm **Student/IT Fan/Programmer/Homelab/🏳️‍🌈/ACG** , \
+contact or follow me if you are interested in me. 😘
+
+#### My Projects
+- [InKCre](https://github.com/InKCre), a system solving a series of problems from information to creation
+    - 👯 Currently working on it, join us!
+- [HadreamAssistant](https://github.com/HadreamOrg/HadreamAssistant), a customizable smart home conversation bot
 
 ![xiaoland's github stats](https://github-readme-stats.vercel.app/api?username=xiaoland&theme=tokyonight&show_icons=true)
-
-<!-- Thanks for https://github.com/anuraghazra/github-readme-stats -->
-<!--
-**xiaoland/xiaoland** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
