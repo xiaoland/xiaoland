@@ -1,11 +1,14 @@
 ### Hi there! This is Lanzhijiang(xiaoland). 👋
 
-I'm **Student/IT Fan/Programmer/Homelab/🏳️‍🌈/ACG** , \
-contact or follow me if you are interested in me. 😘
+### Tags 👀
+- Sophomore
+- Homelab
+- Pythonist
+- 🏳️‍🌈
 
-#### My Projects
-- [BlueFirmament](https://github.com/xiaoland/BlueFirmament), a backend framework that covers all you need.
-- [InKCre](https://github.com/InKCre), a system solving a series of problems from information to creation
-- [HadreamAssistant](https://github.com/HadreamOrg/HadreamAssistant), a customizable smart home conversation bot
+### Projects ✨
+- [BlueFirmament](https://github.com/xiaoland/BlueFirmament), Python backend enables you to code less and code happily.
+- [InKCre](https://github.com/InKCre), the real second brain, lets information boost your production without effort.
+- [HadreamAssistant](https://github.com/HadreamOrg/HadreamAssistant), voice conversation bot with intergrated control to smart home devices.
 
 ![xiaoland's github stats](https://github-readme-stats.vercel.app/api?username=xiaoland&theme=tokyonight&show_icons=true)
