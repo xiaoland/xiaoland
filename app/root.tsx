@@ -5,10 +5,27 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "react-router";
+import { getLucia } from "./lib/auth";
 
-import type { Route } from "./+types/root";
 import "./app.css";
+import type { User, Session } from "lucia";
+
+type LoaderData = {
+  user: User | null;
+  session: Session | null;
+};
+
+export const loader = async ({ request, context }: Route.LoaderArgs) => {
+  const lucia = getLucia(context.cloudflare.env.DB);
+  const sessionId = lucia.readSessionCookie(request.headers.get("Cookie") ?? "");
+  if (!sessionId) {
+    return { user: null, session: null };
+  }
+  const { user, session } = await lucia.validateSession(sessionId);
+  return { user, session };
+};
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -42,7 +59,38 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const { user } = useLoaderData() as LoaderData;
+  return (
+    <div>
+      <nav className="bg-gray-800 text-white p-4">
+        <div className="container mx-auto flex justify-between">
+          <a href="/" className="font-bold">
+            Home
+          </a>
+          <div>
+            {user ? (
+              <div className="flex items-center">
+                <span>{user.username}</span>
+                <form action="/api/logout" method="post">
+                  <button type="submit" className="ml-4">
+                    Logout
+                  </button>
+                </form>
+              </div>
+            ) : (
+              <div>
+                <a href="/login" className="mr-4">
+                  Login
+                </a>
+                <a href="/register">Register</a>
+              </div>
+            )}
+          </div>
+        </div>
+      </nav>
+      <Outlet context={{ user }} />
+    </div>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

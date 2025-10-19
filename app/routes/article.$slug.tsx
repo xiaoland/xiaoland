@@ -1,5 +1,7 @@
-import type { Route } from "./+types/article.$slug";
 import React from "react";
+
+import Comments from "../components/Comments";
+import { loader as commentsLoader } from "./api.articles.$slug.comments";
 
 // Eagerly import all MDX files at build time
 const articles = import.meta.glob<{ default: React.ComponentType; frontmatter?: any }>(
@@ -7,7 +9,7 @@ const articles = import.meta.glob<{ default: React.ComponentType; frontmatter?: 
   { eager: true }
 );
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function loader({ params, context, request }: Route.LoaderArgs) {
   const { slug } = params;
   
   // Find the article
@@ -17,10 +19,13 @@ export async function loader({ params }: Route.LoaderArgs) {
   if (!article) {
     throw new Response("Article not found", { status: 404 });
   }
+
+  const comments = await commentsLoader({ params, context, request: new Request(new URL(request.url)) });
   
   return { 
     slug, 
     title: article.frontmatter?.title || slug,
+    comments: await comments.json(),
   };
 }
 
@@ -54,13 +59,7 @@ export default function Article({ loaderData }: Route.ComponentProps) {
         </article>
       </main>
       
-      {/* Comments */}
-      <section className="bg-gray-100 p-4">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-xl font-bold mb-4">Comments</h2>
-          <p className="text-gray-600">Comments section coming soon...</p>
-        </div>
-      </section>
+      <Comments />
       
       {/* Footer */}
       <footer className="bg-gray-800 text-white p-4 mt-8">

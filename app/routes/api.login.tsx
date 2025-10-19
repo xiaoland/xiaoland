@@ -1,0 +1,42 @@
+import { type ActionFunctionArgs } from 'react-router';
+import { getLucia } from '~/lib/auth';
+import { users } from '@drizzle/schema';
+import { json } from '~/lib/json';
+import { Argon2id } from 'oslo/password';
+import { getDb } from '~/lib/db';
+import { eq } from 'drizzle-orm';
+
+export const action = async ({ request, context }: ActionFunctionArgs) => {
+  const lucia = getLucia(context.cloudflare.env.DB);
+  const db = getDb(context.cloudflare.env.DB);
+  const formData = await request.formData();
+  const username = formData.get('username');
+  const password = formData.get('password');
+
+  if (typeof username !== 'string' || username.length < 3 || username.length > 31) {
+    return json({ error: 'Invalid username' }, { status: 400 });
+  }
+  if (typeof password !== 'string' || password.length < 6 || password.length > 255) {
+    return json({ error: 'Invalid password' }, { status: 400 });
+  }
+
+  const existingUser = await db.select().from(users).where(eq(users.username, username)).get();
+  if (!existingUser) {
+    return json({ error: 'Incorrect username or password' }, { status: 400 });
+  }
+
+  const validPassword = await new Argon2id().verify(existingUser.password, password);
+  if (!validPassword) {
+    return json({ error: 'Incorrect username or password' }, { status: 400 });
+  }
+
+  const session = await lucia.createSession(existingUser.id, {});
+  const sessionCookie = lucia.createSessionCookie(session.id);
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: '/',
+      'Set-Cookie': sessionCookie.serialize(),
+    },
+  });
+};
