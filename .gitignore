@@ -16,3 +16,7 @@ worker-configuration.d.ts
 
 !.dev.vars.example
 !.env.example
+
+# Lock files
+package-lock.json
+pnpm-lock.yaml
