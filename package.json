@@ -13,11 +13,11 @@
 	},
 	"dependencies": {
 		"@lucia-auth/adapter-drizzle": "^1.1.0",
+		"bcryptjs": "^3.0.2",
 		"drizzle-kit": "^0.31.5",
 		"drizzle-orm": "^0.44.6",
 		"isbot": "^5.1.31",
 		"lucia": "^3.2.2",
-		"oslo": "^1.2.1",
 		"react": "^19.1.1",
 		"react-dom": "^19.1.1",
 		"react-router": "^7.9.2"
@@ -29,6 +29,7 @@
 		"@mdx-js/rollup": "^3.1.1",
 		"@react-router/dev": "^7.9.4",
 		"@tailwindcss/vite": "^4.1.13",
+		"@types/bcryptjs": "^2.4.6",
 		"@types/node": "^22",
 		"@types/react": "^19.1.13",
 		"@types/react-dom": "^19.1.9",

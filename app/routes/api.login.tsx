@@ -2,7 +2,7 @@ import { type ActionFunctionArgs } from 'react-router';
 import { getLucia } from '~/lib/auth';
 import { users } from '@drizzle/schema';
 import { json } from '~/lib/json';
-import { Argon2id } from 'oslo/password';
+import { compare } from 'bcryptjs';
 import { getDb } from '~/lib/db';
 import { eq } from 'drizzle-orm';
 
@@ -25,7 +25,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
     return json({ error: 'Incorrect username or password' }, { status: 400 });
   }
 
-  const validPassword = await new Argon2id().verify(existingUser.password, password);
+  const validPassword = await compare(password, existingUser.password);
   if (!validPassword) {
     return json({ error: 'Incorrect username or password' }, { status: 400 });
   }

@@ -2,7 +2,7 @@ import { type ActionFunctionArgs } from 'react-router';
 import { getLucia } from '~/lib/auth';
 import { users } from '@drizzle/schema';
 import { json } from '~/lib/json';
-import { Argon2id } from 'oslo/password';
+import { hash } from 'bcryptjs';
 import { generateId } from 'lucia';
 import { getDb } from '~/lib/db';
 
@@ -20,7 +20,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
     return json({ error: 'Invalid password' }, { status: 400 });
   }
 
-  const hashedPassword = await new Argon2id().hash(password);
+  const hashedPassword = await hash(password, 10);
   const userId = generateId(15);
 
   try {
