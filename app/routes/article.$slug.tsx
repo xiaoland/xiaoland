@@ -1,9 +1,9 @@
 import type { Route } from "./+types/article.$slug";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { drizzle } from 'drizzle-orm/d1';
 import { comments } from '../../drizzle/schema';
 import { eq } from 'drizzle-orm';
-import { Form, redirect, useActionData } from "react-router";
+import { useFetcher } from "react-router-dom";
 import type { InferSelectModel } from 'drizzle-orm';
 
 type Comment = InferSelectModel<typeof comments>;
@@ -47,17 +47,16 @@ export async function action({ request, context, params }: Route.ActionArgs) {
   }
 
   try {
-    await db.insert(comments).values({
+    const newComment = await db.insert(comments).values({
       articleSlug: slug,
       author,
       content,
       createdAt: new Date(),
-    }).execute();
+    }).returning().get();
+    return { comment: newComment };
   } catch (error) {
     return { error: "Failed to post comment." };
   }
-
-  return redirect(`/article/${slug}`);
 }
 
 export function meta({ data }: Route.MetaArgs) {
@@ -68,21 +67,32 @@ export function meta({ data }: Route.MetaArgs) {
 }
 
 function CommentForm() {
-  const actionData = useActionData<Route.ActionData>();
+  const fetcher = useFetcher<Route.ActionData>();
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const isSubmitting = fetcher.state === "submitting";
+
+  useEffect(() => {
+    if (fetcher.state === "idle" && fetcher.data?.comment) {
+      formRef.current?.reset();
+    }
+  }, [fetcher.state, fetcher.data]);
 
   return (
-    <Form method="post" className="bg-white p-6 rounded-lg shadow-md">
-      {actionData?.error && <p className="text-red-500 mb-4">{actionData.error}</p>}
+    <fetcher.Form ref={formRef} method="post" className="bg-white p-6 rounded-lg shadow-md">
+      {fetcher.data?.error && <p className="text-red-500 mb-4">{fetcher.data.error}</p>}
       <div className="mb-4">
         <label htmlFor="author" className="block text-sm font-medium text-gray-700">Name</label>
-        <input type="text" name="author" id="author" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
+        <input type="text" name="author" id="author" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required disabled={isSubmitting} />
       </div>
       <div className="mb-4">
         <label htmlFor="content" className="block text-sm font-medium text-gray-700">Comment</label>
-        <textarea name="content" id="content" rows={3} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required></textarea>
+        <textarea name="content" id="content" rows={3} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required disabled={isSubmitting}></textarea>
       </div>
-      <button type="submit" className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Post Comment</button>
-    </Form>
+      <button type="submit" className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" disabled={isSubmitting}>
+        {isSubmitting ? "Posting..." : "Post Comment"}
+      </button>
+    </fetcher.Form>
   );
 }
 
@@ -103,7 +113,15 @@ function CommentList({ comments }: { comments: Comment[] }) {
 }
 
 export default function Article({ loaderData }: Route.ComponentProps) {
-  const { slug, title, comments } = loaderData;
+  const { slug, title } = loaderData;
+  const fetcher = useFetcher<Route.ActionData>();
+  const [comments, setComments] = React.useState(loaderData.comments);
+
+  useEffect(() => {
+    if (fetcher.data?.comment) {
+      setComments((prevComments) => [...prevComments, fetcher.data.comment]);
+    }
+  }, [fetcher.data]);
   
   const articlePath = `../../articles/${slug}/${slug}.mdx`;
   const article = articles[articlePath];
