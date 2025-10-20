@@ -17,7 +17,7 @@
 		{
 			"binding": "DB",
 			"database_name": "site",
-			"database_id": "site",
+			"database_id": "e31726f7-8c24-4343-b293-60cec7413f06",
 			"migrations_dir": "drizzle/migrations"
 		}
 	]

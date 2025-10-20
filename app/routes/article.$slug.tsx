@@ -3,7 +3,10 @@ import React from "react";
 import { drizzle } from 'drizzle-orm/d1';
 import { comments } from '../../drizzle/schema';
 import { eq } from 'drizzle-orm';
-import { Form, redirect } from "react-router";
+import { Form, redirect, useActionData } from "react-router";
+import type { InferSelectModel } from 'drizzle-orm';
+
+type Comment = InferSelectModel<typeof comments>;
 
 // Eagerly import all MDX files at build time
 const articles = import.meta.glob<{ default: React.ComponentType; frontmatter?: any }>(
@@ -65,8 +68,11 @@ export function meta({ data }: Route.MetaArgs) {
 }
 
 function CommentForm() {
+  const actionData = useActionData<Route.ActionData>();
+
   return (
     <Form method="post" className="bg-white p-6 rounded-lg shadow-md">
+      {actionData?.error && <p className="text-red-500 mb-4">{actionData.error}</p>}
       <div className="mb-4">
         <label htmlFor="author" className="block text-sm font-medium text-gray-700">Name</label>
         <input type="text" name="author" id="author" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
@@ -80,7 +86,7 @@ function CommentForm() {
   );
 }
 
-function CommentList({ comments }: { comments: any[] }) {
+function CommentList({ comments }: { comments: Comment[] }) {
   return (
     <div className="space-y-6">
       {comments.map((comment) => (
