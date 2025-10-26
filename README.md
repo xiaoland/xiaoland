@@ -1,18 +1,21 @@
-### Hi there! This is Lanzhijiang(xiaoland). 👋
+```txt
+npm install
+npm run dev
+```
 
-### Tags 👀
+```txt
+npm run deploy
+```
 
-- Sophomore
-- Homelab
-- Pythonist
-- 🏳️‍🌈
+[For generating/synchronizing types based on your Worker configuration run](https://developers.cloudflare.com/workers/wrangler/commands/#types):
 
-### Projects ✨
+```txt
+npm run cf-typegen
+```
 
-- [BlueFirmament](https://github.com/xiaoland/BlueFirmament), Python backend enables you to code less and code happily.
-- [InKCre](https://github.com/InKCre), the real second brain, lets information boost your production without effort.
-- [A-Cup](https://github.com/xiaolan/a-cup), UI to easily managing proxy configuration for a small group users
-- [HadreamAssistant](https://github.com/HadreamOrg/HadreamAssistant), voice conversation bot with intergrated control to smart home devices.
-- [PartnerUp](https://github.com/partner-up-dev)
+Pass the `CloudflareBindings` as generics when instantiation `Hono`:
 
-![xiaoland's github stats](https://github-readme-stats.vercel.app/api?username=xiaoland&theme=tokyonight&show_icons=true)
+```ts
+// src/index.ts
+const app = new Hono<{ Bindings: CloudflareBindings }>()
+```
