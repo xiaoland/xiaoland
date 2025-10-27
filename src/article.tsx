@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import type { D1Database } from "@cloudflare/workers-types";
 import { Script } from "vite-ssr-components/hono";
+import { ArticleComments } from "./ArticleComments";
 
 // Import articles dynamically
 const articles = import.meta.glob("../articles/**/*.mdx", {
@@ -22,10 +23,20 @@ articleApp.get("/:slug", async (c) => {
   const { default: ArticleComponent, frontmatter } = articleModule;
 
   return c.render(
-    <article>
-      <h1>{frontmatter?.title || "Untitled"}</h1>
-      <ArticleComponent />
-    </article>
+    <>
+      <article>
+        <h1>{frontmatter?.title || "Untitled"}</h1>
+        <ArticleComponent />
+      </article>
+      <div id="article-comments" data-slug={slug}>
+        {/* Server-side rendered placeholder */}
+        <div class="article-comments">
+          <h2>评论</h2>
+          <p>加载中...</p>
+        </div>
+      </div>
+      <Script src="/src/article-comments-client.tsx" type="module" />
+    </>
   );
 });
 
