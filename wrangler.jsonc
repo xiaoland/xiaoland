@@ -2,13 +2,14 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "lanzhijiang",
   "compatibility_date": "2025-08-03",
+  "compatibility_flags": ["nodejs_compat"],
   "main": "./src/index.tsx",
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "lanzhijiang",
       "database_id": "82fae678-a39d-4d04-aee8-829e7078e1eb",
-      "migrations_dir": "./drizzle/migrations"
-    }
-  ]
+      "migrations_dir": "./drizzle/migrations",
+    },
+  ],
 }

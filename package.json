@@ -4,9 +4,9 @@
   "packageManager": "pnpm@8.15.4",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "$npm_execpath run build && vite preview",
-    "deploy": "$npm_execpath run build && wrangler deploy",
+    "build": "vite build && node scripts/copy-assets.js",
+    "preview": "pnpm run build && vite preview",
+    "deploy": "pnpm run build && wrangler deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
@@ -25,11 +25,16 @@
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.2.3",
     "@cloudflare/workers-types": "^4.20251014.0",
+    "@types/node": "^24.10.0",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "@unocss/core": "^66.5.5",
+    "@unocss/preset-uno": "^66.5.5",
+    "@unocss/vite": "^66.5.5",
     "prettier": "^3.6.2",
     "sass": "^1.93.2",
     "sass-embedded": "^1.93.2",
+    "unocss": "^66.5.5",
     "vite": "^6.3.5",
     "vite-ssr-components": "^0.5.1",
     "wrangler": "^4.17.0"

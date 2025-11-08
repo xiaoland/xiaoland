@@ -1,5 +1,6 @@
 ---
 title: 记被谷歌送中以及解决方案
+description: '记录通过代理被“送中”导致 google.com 重定向到 google.cn 的排查过程与解决办法：使用 IPv6 并在 Sing-Box 客户端启用 "domain_strategy": "prefer_ipv6" 以强制通过 IPv6 出站。'
 ---
 
 不知道怎么回事，突然某天开始通过 Osaka 的代理就无法访问 Google Gemini, Google Jules 等服务了，访问 `google.com` 就会被重定向到 `google.cn`。

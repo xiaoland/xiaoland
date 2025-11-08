@@ -1,24 +1,41 @@
-import "./ArticleList.scss";
+import ArticleEntry from "./article/ArticleEntry";
 
 export interface ArticleMetadata {
   slug: string;
   title: string;
+  description?: string;
+  lastUpdateDate?: string;
 }
 
-export function ArticleList({ articles }: { articles: ArticleMetadata[] }) {
+export function ArticleList({
+  articles,
+  listTitle,
+}: {
+  articles: ArticleMetadata[];
+  listTitle?: string;
+}) {
   return (
-    <div class="article-list">
-      <h1>文章列表</h1>
+    <div className="flex flex-col gap-[1.5rem]">
+      <span className="text-[2.5rem] text-[#02113b]">
+        {listTitle || "文章列表"}
+      </span>
       {articles.length === 0 ? (
-        <p>暂无文章</p>
+        <p className="text-gray-600 text-base">暂无文章</p>
       ) : (
-        <ul>
-          {articles.map((article) => (
-            <li key={article.slug}>
-              <a href={`/article/${article.slug}`}>{article.title}</a>
-            </li>
-          ))}
-        </ul>
+        articles.map((article) => (
+          <a
+            key={article.slug}
+            href={`/article/${article.slug}`}
+            className="no-underline"
+          >
+            <ArticleEntry
+              slug={article.slug}
+              title={article.title}
+              description={article.description}
+              lastUpdateDate={article.lastUpdateDate}
+            />
+          </a>
+        ))
       )}
     </div>
   );

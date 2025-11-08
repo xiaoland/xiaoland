@@ -1,70 +1,81 @@
 import { Hono } from "hono";
-import { renderer } from "./renderer";
 import articleApp from "./article";
-import { createDb } from "./db";
-import { comments } from "./db/schema";
-import type { D1Database } from "@cloudflare/workers-types";
-import { ArticleList } from "./ArticleList";
+import commentApp from "./comment";
+import { Home } from "./home";
+import { jsxRenderer } from "hono/jsx-renderer";
+import { Link, ViteClient } from "vite-ssr-components/hono";
+import { createGenerator } from "@unocss/core";
+import unoConfig from "../uno.config";
+import { HonoContextT } from "./types";
 
-// Import articles to get metadata
-const articles = import.meta.glob("../articles/**/*.mdx", {
-  eager: true,
-});
+const app = new Hono<HonoContextT>();
 
-const app = new Hono<{ Bindings: { DB: D1Database } }>();
+app.use(
+  jsxRenderer(({ children }) => {
+    return (
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <title>lanzhijiang</title>
+          <Link href="/src/style.css" rel="stylesheet" />
+          <ViteClient />
+        </head>
+        <body>
+          <div id="app">{children}</div>
+        </body>
+      </html>
+    );
+  })
+);
 
-app.use(renderer);
+const uno = await createGenerator(unoConfig);
+app.use(async (c, next) => {
+  await next();
 
-// API routes for comments
-app.get("/api/comments/:slug", async (c) => {
-  const slug = c.req.param("slug");
-  const db = createDb(c.env.DB);
+  // Only process HTML responses
+  const contentType = c.res.headers.get("content-type") || "";
+  if (!contentType.includes("text/html")) return;
 
-  const comments = await db.query.comments.findMany({
-    where: (comments, { eq }) => eq(comments.articleSlug, slug),
-    orderBy: (comments, { desc }) => desc(comments.createdAt),
-  });
+  // Read response body as text
+  // c.res is a Response object; use its text() method:
+  const originalHtml = await c.res.text();
 
-  return c.json(comments);
-});
+  // Generate UnoCSS for the rendered HTML
+  const { css } = await uno.generate(originalHtml, { minify: true });
 
-app.post("/api/comments", async (c) => {
-  const { articleSlug, author, content } = await c.req.json();
-
-  if (!articleSlug || !author || !content) {
-    return c.json({ error: "Missing required fields" }, 400);
+  // Inject the generated CSS before </head>. Fallback: prepend if </head> not found
+  let htmlWithCss: string;
+  if (originalHtml.includes("</head>")) {
+    htmlWithCss = originalHtml.replace(
+      "</head>",
+      `<style id="unocss-ssr">${css}</style></head>`
+    );
+  } else {
+    // fallback: insert at top
+    htmlWithCss = `<style id="unocss-ssr">${css}</style>` + originalHtml;
   }
 
-  const db = createDb(c.env.DB);
+  // Recreate the Response preserving status and headers
+  const headers = new Headers(c.res.headers);
+  // If content-length exists, remove or update it (we replaced body size)
+  headers.delete("content-length");
 
-  const newComment = await db
-    .insert(comments)
-    .values({
-      articleSlug,
-      author,
-      content,
-    })
-    .returning();
-
-  return c.json(newComment[0]);
+  c.res = new Response(htmlWithCss, {
+    status: c.res.status,
+    statusText: c.res.statusText,
+    headers,
+  });
 });
 
 app.get("/", (c) => {
-  // Extract article metadata from imported MDX files
-  const articleList = Object.keys(articles)
-    .filter((path) => path.endsWith(".mdx"))
-    .map((path) => {
-      const articleModule = articles[path] as any;
-      const slug = path.split("/").slice(-2, -1)[0]; // Extract slug from path
-      return {
-        slug,
-        title: articleModule.frontmatter?.title || "Untitled",
-      };
-    });
-
-  return c.render(<ArticleList articles={articleList} />);
+  return c.render(<Home />);
 });
 
 app.route("/article", articleApp);
+app.route("/comment", commentApp);
 
 export default app;
