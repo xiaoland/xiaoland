@@ -7,37 +7,27 @@ export default function ArticleEntry({
 }: ArticleMetadata) {
   return (
     <div
-      className="flex gap-3 h-64 items-start justify-end w-[555px]"
+      className="flex gap-3 justify-end w-[555px]"
       data-name="ArticleEntry"
       data-node-id="201:78"
     >
       <div
-        className="basis-0 border-2 border-gray-600 border-solid box-border flex flex-col font-sans font-light gap-3 grow h-full items-start leading-normal min-h-0 min-w-0 pb-6 pl-3 pr-6 pt-3 relative shrink-0 text-black"
+        className="basis-0 border-2 border-gray-600 border-solid box-border flex flex-col gap-3 grow h-full pb-6 pl-3 pr-6 pt-3  text-black"
         data-node-id="201:90"
       >
-        <span
-          className="relative shrink-0 text-3xl text-nowrap whitespace-pre"
-          data-node-id="201:77"
-        >
+        <span className="relative shrink-0 text-3xl" data-node-id="201:77">
           {title}
         </span>
-        <span
-          className="min-w-full relative shrink-0 text-lg w-min"
-          data-node-id="201:141"
-        >
+        <span className="min-w-full relative text-lg" data-node-id="201:141">
           {description}
         </span>
       </div>
       <div
-        className="flex flex-col font-mono items-end leading-normal not-italic relative shrink-0 text-gray-600 text-lg text-nowrap whitespace-pre"
+        className="flex flex-col font-mono items-end relative text-gray-600 text-lg"
         data-node-id="201:122"
       >
-        <span className="relative shrink-0" data-node-id="201:131">
-          At
-        </span>
-        <span className="relative shrink-0" data-node-id="201:113">
-          {lastUpdateDate}
-        </span>
+        <span data-node-id="201:131">At</span>
+        <span data-node-id="201:113">{lastUpdateDate}</span>
       </div>
     </div>
   );
