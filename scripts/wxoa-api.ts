@@ -1,12 +1,37 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
-const { APP_ID, APP_SECRET } = process.env;
+const {
+  APP_ID,
+  APP_SECRET,
+  WXOA_PROXY,
+  WXOA_PROXY_USERNAME,
+  WXOA_PROXY_PASSWORD,
+} = process.env;
 
 if (!APP_ID || !APP_SECRET) {
   throw new Error('Missing APP_ID or APP_SECRET environment variables');
 }
 
 const API_BASE = 'https://api.weixin.qq.com/cgi-bin';
+
+const axiosConfig: AxiosRequestConfig = {};
+if (WXOA_PROXY) {
+  const proxyUrl = new URL(WXOA_PROXY);
+  axiosConfig.proxy = {
+    protocol: proxyUrl.protocol.replace(':', ''),
+    host: proxyUrl.hostname,
+    port: Number(proxyUrl.port),
+    auth:
+      WXOA_PROXY_USERNAME && WXOA_PROXY_PASSWORD
+        ? {
+            username: WXOA_PROXY_USERNAME,
+            password: WXOA_PROXY_PASSWORD,
+          }
+        : undefined,
+  };
+}
+
+const apiClient = axios.create(axiosConfig);
 
 interface AccessToken {
   access_token: string;
@@ -21,7 +46,7 @@ export async function getAccessToken(): Promise<string> {
     return accessToken.access_token;
   }
 
-  const { data } = await axios.get(`${API_BASE}/token`, {
+  const { data } = await apiClient.get(`${API_BASE}/token`, {
     params: {
       grant_type: 'client_credential',
       appid: APP_ID,
@@ -55,7 +80,7 @@ export async function getDrafts(): Promise<Draft[]> {
   const count = 20;
 
   while (true) {
-    const { data } = await axios.post(
+    const { data } = await apiClient.post(
       `${API_BASE}/draft/batchget?access_token=${token}`,
       {
         offset,
@@ -92,7 +117,7 @@ export async function createDraft(article: any): Promise<void> {
     thumb_media_id,
   };
 
-  const { data } = await axios.post(
+  const { data } = await apiClient.post(
     `${API_BASE}/draft/add?access_token=${token}`,
     {
       articles: [payload],
@@ -113,7 +138,7 @@ export async function updateDraft(mediaId: string, article: any): Promise<void> 
     content_source_url,
     thumb_media_id,
   };
-  const { data } = await axios.post(
+  const { data } = await apiClient.post(
     `${API_BASE}/draft/update?access_token=${token}`,
     {
       media_id: mediaId,
@@ -135,7 +160,7 @@ export async function uploadContentImage(
   const form = new FormData();
   form.append('media', new Blob([new Uint8Array(imageBuffer)]), fileName);
 
-  const { data } = await axios.post(
+  const { data } = await apiClient.post(
     `${API_BASE}/media/uploadimg?access_token=${token}`,
     form
   );
@@ -155,7 +180,7 @@ export async function uploadThumbImage(
   const form = new FormData();
   form.append('media', new Blob([new Uint8Array(imageBuffer)]), fileName);
 
-  const { data } = await axios.post(
+  const { data } = await apiClient.post(
     `${API_BASE}/material/add_material?access_token=${token}&type=thumb`,
     form
   );
