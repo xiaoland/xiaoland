@@ -1,4 +1,5 @@
 import axios from 'axios';
+import FormData from 'form-data';
 
 const { APP_ID, APP_SECRET } = process.env;
 
@@ -132,7 +133,6 @@ export async function uploadContentImage(
   fileName: string
 ): Promise<string> {
   const token = await getAccessToken();
-  const FormData = (await import('form-data')).default;
   const form = new FormData();
   form.append('media', imageBuffer, { filename: fileName });
 
@@ -156,7 +156,6 @@ export async function uploadThumbImage(
   fileName: string
 ): Promise<string> {
   const token = await getAccessToken();
-  const FormData = (await import('form-data')).default;
   const form = new FormData();
   form.append('media', imageBuffer, { filename: fileName });
 
