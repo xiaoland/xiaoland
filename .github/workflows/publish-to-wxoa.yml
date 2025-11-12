@@ -29,7 +29,7 @@ jobs:
           APP_ID: ${{ secrets.APP_ID }}
           APP_SECRET: ${{ secrets.APP_SECRET }}
           SITE_URL: ${{ vars.SITE_URL }}
-          WXOA_PROXY: ${{ vars.WXOA_PROXY }}
+          WXOA_PROXY: ${{ secrets.WXOA_PROXY }}
           WXOA_PROXY_USERNAME: ${{ secrets.WXOA_PROXY_USERNAME }}
           WXOA_PROXY_PASSWORD: ${{ secrets.WXOA_PROXY_PASSWORD }}
         run: node scripts/dist/publish.js

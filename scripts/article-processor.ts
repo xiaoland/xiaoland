@@ -22,10 +22,26 @@ export interface Article {
 }
 
 async function getArticleFiles(): Promise<string[]> {
+  const allFiles: string[] = [];
   const entries = await fs.readdir(ARTICLES_DIR, { withFileTypes: true });
-  return entries
-    .filter(entry => entry.isFile() && (entry.name.endsWith('.md') || entry.name.endsWith('.mdx')))
-    .map(entry => path.join(ARTICLES_DIR, entry.name));
+
+  for (const entry of entries) {
+    const fullPath = path.join(ARTICLES_DIR, entry.name);
+    if (entry.isDirectory()) {
+      const subEntries = await fs.readdir(fullPath, { withFileTypes: true });
+      for (const subEntry of subEntries) {
+        if (
+          subEntry.isFile() &&
+          (subEntry.name.endsWith('.md') || subEntry.name.endsWith('.mdx'))
+        ) {
+          allFiles.push(path.join(fullPath, subEntry.name));
+        }
+      }
+    } else if (entry.isFile() && (entry.name.endsWith('.md') || entry.name.endsWith('.mdx'))) {
+      allFiles.push(fullPath);
+    }
+  }
+  return allFiles;
 }
 
 export async function processArticles(): Promise<{
@@ -39,7 +55,7 @@ export async function processArticles(): Promise<{
       const { data, content } = matter(fileContent);
 
       if (data.publishTo && data.publishTo.includes('wxoa')) {
-        const slug = path.basename(file, path.extname(file));
+        const slug = path.basename(path.dirname(file));
         return {
           ...data,
           slug,
