@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, type MockedFunction } from 'vitest';
 import * as articleProcessor from './article-processor.js';
 import * as imageHandler from './image-handler.js';
 import * as wxoaApi from './wxoa-api.js';
@@ -15,6 +15,12 @@ vi.mock('./wxoa-api.js', () => ({
   updateDraft: vi.fn(),
 }));
 
+const mockedProcessArticles = articleProcessor.processArticles as MockedFunction<typeof articleProcessor.processArticles>;
+const mockedUploadCoverImage = imageHandler.uploadCoverImage as MockedFunction<typeof imageHandler.uploadCoverImage>;
+const mockedProcessImagesInArticle = imageHandler.processImagesInArticle as MockedFunction<typeof imageHandler.processImagesInArticle>;
+const mockedCreateDraft = wxoaApi.createDraft as MockedFunction<typeof wxoaApi.createDraft>;
+const mockedUpdateDraft = wxoaApi.updateDraft as MockedFunction<typeof wxoaApi.updateDraft>;
+
 describe('publish script', () => {
   beforeEach(() => {
     vi.resetModules();
@@ -22,46 +28,52 @@ describe('publish script', () => {
   });
 
   const mockToAddArticle = {
+    slug: 'new-article',
     title: 'New Article',
+    content: 'Article content',
+    content_source_url: 'https://example.com/article/new-article',
     coverImage: 'cover.jpg',
     filePath: '/path/to/new-article/index.mdx',
   };
   const mockToUpdateArticle = {
+    slug: 'updated-article',
     title: 'Updated Article',
+    content: 'Article content',
+    content_source_url: 'https://example.com/article/updated-article',
     coverImage: 'cover.jpg',
     filePath: '/path/to/updated-article/index.mdx',
     media_id: 'existing_media_id',
   };
 
   it('should process and create drafts for new articles', async () => {
-    (articleProcessor.processArticles).mockResolvedValue({
+    mockedProcessArticles.mockResolvedValue({
       toAddArticles: [mockToAddArticle],
       toUpdateArticles: [],
     });
-    (imageHandler.uploadCoverImage).mockResolvedValue('new_thumb_id');
-    (imageHandler.processImagesInArticle).mockResolvedValue({ ...mockToAddArticle, thumb_media_id: 'new_thumb_id' });
+    mockedUploadCoverImage.mockResolvedValue('new_thumb_id');
+    mockedProcessImagesInArticle.mockResolvedValue({ ...mockToAddArticle, thumb_media_id: 'new_thumb_id' });
 
     await import('./publish.js');
 
-    expect(articleProcessor.processArticles).toHaveBeenCalled();
-    expect(imageHandler.uploadCoverImage).toHaveBeenCalledWith('cover.jpg', mockToAddArticle.filePath);
-    expect(imageHandler.processImagesInArticle).toHaveBeenCalled();
-    expect(wxoaApi.createDraft).toHaveBeenCalledWith(expect.objectContaining({ title: 'New Article' }));
+    expect(mockedProcessArticles).toHaveBeenCalled();
+    expect(mockedUploadCoverImage).toHaveBeenCalledWith('cover.jpg', mockToAddArticle.filePath);
+    expect(mockedProcessImagesInArticle).toHaveBeenCalled();
+    expect(mockedCreateDraft).toHaveBeenCalledWith(expect.objectContaining({ title: 'New Article' }));
   });
 
   it('should process and update drafts for existing articles', async () => {
-    (articleProcessor.processArticles).mockResolvedValue({
+    mockedProcessArticles.mockResolvedValue({
       toAddArticles: [],
       toUpdateArticles: [mockToUpdateArticle],
     });
-    (imageHandler.uploadCoverImage).mockResolvedValue('updated_thumb_id');
-    (imageHandler.processImagesInArticle).mockResolvedValue({ ...mockToUpdateArticle, thumb_media_id: 'updated_thumb_id' });
+    mockedUploadCoverImage.mockResolvedValue('updated_thumb_id');
+    mockedProcessImagesInArticle.mockResolvedValue({ ...mockToUpdateArticle, thumb_media_id: 'updated_thumb_id' });
 
     await import('./publish.js');
 
-    expect(articleProcessor.processArticles).toHaveBeenCalled();
-    expect(imageHandler.uploadCoverImage).toHaveBeenCalledWith('cover.jpg', mockToUpdateArticle.filePath);
-    expect(imageHandler.processImagesInArticle).toHaveBeenCalled();
-    expect(wxoaApi.updateDraft).toHaveBeenCalledWith('existing_media_id', expect.objectContaining({ title: 'Updated Article' }));
+    expect(mockedProcessArticles).toHaveBeenCalled();
+    expect(mockedUploadCoverImage).toHaveBeenCalledWith('cover.jpg', mockToUpdateArticle.filePath);
+    expect(mockedProcessImagesInArticle).toHaveBeenCalled();
+    expect(mockedUpdateDraft).toHaveBeenCalledWith('existing_media_id', expect.objectContaining({ title: 'Updated Article' }));
   });
 });

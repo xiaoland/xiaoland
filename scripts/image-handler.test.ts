@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, type MockedFunction } from 'vitest';
 import { processImagesInArticle, uploadCoverImage } from './image-handler.js';
 import fs from 'fs/promises';
 import axios from 'axios';
@@ -11,6 +11,10 @@ vi.mock('./wxoa-api.js', () => ({
   uploadContentImage: vi.fn(),
   uploadThumbImage: vi.fn(),
 }));
+
+const mockedUploadContentImage = wxoaApi.uploadContentImage as MockedFunction<typeof wxoaApi.uploadContentImage>;
+const mockedUploadThumbImage = wxoaApi.uploadThumbImage as MockedFunction<typeof wxoaApi.uploadThumbImage>;
+const mockedAxiosGet = axios.get as MockedFunction<typeof axios.get>;
 
 describe('image-handler', () => {
   const mockArticle: Article = {
@@ -25,24 +29,24 @@ describe('image-handler', () => {
   it('should process images in article content', async () => {
     const mockImageBuffer = Buffer.from('mock image data');
     vi.spyOn(fs, 'readFile').mockResolvedValue(mockImageBuffer);
-    (wxoaApi.uploadContentImage).mockResolvedValue('mock_new_image_url');
+    mockedUploadContentImage.mockResolvedValue('mock_new_image_url');
 
     const processedArticle = await processImagesInArticle(mockArticle);
 
     expect(fs.readFile).toHaveBeenCalledWith(expect.stringContaining('test-image.jpg'));
-    expect(wxoaApi.uploadContentImage).toHaveBeenCalledWith(mockImageBuffer, 'test-image.jpg');
+    expect(mockedUploadContentImage).toHaveBeenCalledWith(mockImageBuffer, 'test-image.jpg');
     expect(processedArticle.content).toBe('<img src="mock_new_image_url">');
   });
 
   it('should upload cover image', async () => {
     const mockImageBuffer = Buffer.from('mock image data');
     vi.spyOn(fs, 'readFile').mockResolvedValue(mockImageBuffer);
-    (wxoaApi.uploadThumbImage).mockResolvedValue('mock_thumb_media_id');
+    mockedUploadThumbImage.mockResolvedValue('mock_thumb_media_id');
 
-    const thumbMediaId = await uploadCoverImage(mockArticle.coverImage, mockArticle.filePath);
+    const thumbMediaId = await uploadCoverImage(mockArticle.coverImage!, mockArticle.filePath);
 
     expect(fs.readFile).toHaveBeenCalledWith(expect.stringContaining('cover-image.jpg'));
-    expect(wxoaApi.uploadThumbImage).toHaveBeenCalledWith(mockImageBuffer, 'cover-image.jpg');
+    expect(mockedUploadThumbImage).toHaveBeenCalledWith(mockImageBuffer, 'cover-image.jpg');
     expect(thumbMediaId).toBe('mock_thumb_media_id');
   });
 
@@ -52,13 +56,13 @@ describe('image-handler', () => {
       content: '<img src="https://example.com/remote-image.jpg">',
     };
     const mockImageBuffer = Buffer.from('mock remote image data');
-    (axios.get).mockResolvedValue({ data: mockImageBuffer });
-    (wxoaApi.uploadContentImage).mockResolvedValue('mock_new_remote_image_url');
+    mockedAxiosGet.mockResolvedValue({ data: mockImageBuffer } as any);
+    mockedUploadContentImage.mockResolvedValue('mock_new_remote_image_url');
 
     const processedArticle = await processImagesInArticle(mockArticleWithRemoteImage);
 
-    expect(axios.get).toHaveBeenCalledWith('https://example.com/remote-image.jpg', { responseType: 'arraybuffer' });
-    expect(wxoaApi.uploadContentImage).toHaveBeenCalledWith(mockImageBuffer, 'remote-image.jpg');
+    expect(mockedAxiosGet).toHaveBeenCalledWith('https://example.com/remote-image.jpg', { responseType: 'arraybuffer' });
+    expect(mockedUploadContentImage).toHaveBeenCalledWith(mockImageBuffer, 'remote-image.jpg');
     expect(processedArticle.content).toBe('<img src="mock_new_remote_image_url">');
   });
 });

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, type MockedFunction } from 'vitest';
 import fs from 'fs/promises';
 import path from 'path';
 import * as wxoaApi from './wxoa-api.js';
@@ -9,6 +9,8 @@ vi.mock('fs/promises');
 vi.mock('./wxoa-api.js', () => ({
   getDrafts: vi.fn(),
 }));
+
+const mockedGetDrafts = wxoaApi.getDrafts as MockedFunction<typeof wxoaApi.getDrafts>;
 
 describe('processArticles', () => {
   beforeEach(() => {
@@ -22,11 +24,11 @@ describe('processArticles', () => {
     // Mock readdir to return our mock articles
     vi.spyOn(fs, 'readdir')
       .mockResolvedValueOnce([
-        { name: 'article-1', isDirectory: () => true, isFile: () => false },
-        { name: 'article-2', isDirectory: () => true, isFile: () => false },
+        { name: 'article-1' as any, isDirectory: () => true, isFile: () => false } as any,
+        { name: 'article-2' as any, isDirectory: () => true, isFile: () => false } as any,
       ])
-      .mockResolvedValueOnce([{ name: 'index.mdx', isFile: () => true, isDirectory: () => false }])
-      .mockResolvedValueOnce([{ name: 'index.mdx', isFile: () => true, isDirectory: () => false }]);
+      .mockResolvedValueOnce([{ name: 'index.mdx' as any, isFile: () => true, isDirectory: () => false } as any])
+      .mockResolvedValueOnce([{ name: 'index.mdx' as any, isFile: () => true, isDirectory: () => false } as any]);
 
     // Mock readFile for each article
     const article1Content = `---
@@ -47,7 +49,7 @@ This is the content of test article 2.`;
       .mockResolvedValueOnce(article2Content);
 
     // Mock getDrafts to simulate one existing draft
-    (wxoaApi.getDrafts).mockResolvedValue([
+    mockedGetDrafts.mockResolvedValue([
       {
         media_id: 'mock_media_id_2',
         content: {
