@@ -33,24 +33,27 @@ export async function processArticles(): Promise<{
   toUpdateArticles: (Article & { media_id: string })[];
 }> {
   const files = await getArticleFiles();
-  const articles: Article[] = [];
+  const articles = await Promise.all(
+    files.map(async file => {
+      const fileContent = await fs.readFile(file, 'utf-8');
+      const { data, content } = matter(fileContent);
 
-  for (const file of files) {
-    const fileContent = await fs.readFile(file, 'utf-8');
-    const { data, content } = matter(fileContent);
+      if (data.publishTo && data.publishTo.includes('wxoa')) {
+        const slug = path.basename(file, path.extname(file));
+        return {
+          ...data,
+          slug,
+          title: data.title,
+          content: await marked(content),
+          content_source_url: `${SITE_URL}/article/${slug}`,
+          filePath: file,
+        };
+      }
+      return null;
+    })
+  );
 
-    if (data.publishTo && data.publishTo.includes('wxoa')) {
-      const slug = path.basename(file, path.extname(file));
-      articles.push({
-        ...data,
-        slug,
-        title: data.title,
-        content: marked(content),
-        content_source_url: `${SITE_URL}/article/${slug}`,
-        filePath: file,
-      });
-    }
-  }
+  const validArticles = articles.filter((article): article is Article => article !== null);
 
   const drafts = await getDrafts();
   const draftSlugs = new Map(
@@ -64,7 +67,7 @@ export async function processArticles(): Promise<{
   const toAddArticles: Article[] = [];
   const toUpdateArticles: (Article & { media_id: string })[] = [];
 
-  for (const article of articles) {
+  for (const article of validArticles) {
     if (draftSlugs.has(article.slug)) {
       toUpdateArticles.push({
         ...article,

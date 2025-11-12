@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/copy-assets.js",
+    "build:scripts": "tsc -p scripts/tsconfig.json",
     "preview": "pnpm run build && vite preview",
     "deploy": "pnpm run build && wrangler deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
@@ -15,7 +16,6 @@
     "axios": "^1.7.2",
     "drizzle-kit": "^0.31.5",
     "drizzle-orm": "^0.44.7",
-    "form-data": "^4.0.0",
     "gray-matter": "^4.0.3",
     "hono": "^4.10.2",
     "marked": "^13.0.2",
@@ -29,7 +29,6 @@
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.2.3",
     "@cloudflare/workers-types": "^4.20251014.0",
-    "@types/marked": "^6.0.0",
     "@types/node": "^24.10.0",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",

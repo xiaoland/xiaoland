@@ -1,5 +1,4 @@
 import axios from 'axios';
-import FormData from 'form-data';
 
 const { APP_ID, APP_SECRET } = process.env;
 
@@ -134,14 +133,11 @@ export async function uploadContentImage(
 ): Promise<string> {
   const token = await getAccessToken();
   const form = new FormData();
-  form.append('media', imageBuffer, { filename: fileName });
+  form.append('media', new Blob([new Uint8Array(imageBuffer)]), fileName);
 
   const { data } = await axios.post(
     `${API_BASE}/media/uploadimg?access_token=${token}`,
-    form,
-    {
-      headers: form.getHeaders(),
-    }
+    form
   );
 
   if (data.errcode) {
@@ -157,14 +153,11 @@ export async function uploadThumbImage(
 ): Promise<string> {
   const token = await getAccessToken();
   const form = new FormData();
-  form.append('media', imageBuffer, { filename: fileName });
+  form.append('media', new Blob([new Uint8Array(imageBuffer)]), fileName);
 
   const { data } = await axios.post(
     `${API_BASE}/material/add_material?access_token=${token}&type=thumb`,
-    form,
-    {
-      headers: form.getHeaders(),
-    }
+    form
   );
 
   if (data.errcode) {
