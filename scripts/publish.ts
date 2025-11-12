@@ -1,6 +1,6 @@
-import { processArticles, Article } from './article-processor';
-import { processImagesInArticle, uploadCoverImage } from './image-handler';
-import { createDraft, updateDraft } from './wxoa-api';
+import { processArticles, Article } from './article-processor.js';
+import { processImagesInArticle, uploadCoverImage } from './image-handler.js';
+import { createDraft, updateDraft } from './wxoa-api.js';
 
 async function main() {
   try {

@@ -1,8 +1,8 @@
 import path from 'path';
 import fs from 'fs/promises';
 import axios from 'axios';
-import { uploadContentImage, uploadThumbImage } from './wxoa-api';
-import { Article } from './article-processor';
+import { uploadContentImage, uploadThumbImage } from './wxoa-api.js';
+import { Article } from './article-processor.js';
 
 async function getImageBuffer(imageUrl: string, articleFilePath: string): Promise<Buffer | null> {
   try {

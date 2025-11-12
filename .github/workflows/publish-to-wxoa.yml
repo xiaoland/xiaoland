@@ -26,4 +26,4 @@ jobs:
           APP_ID: ${{ secrets.APP_ID }}
           APP_SECRET: ${{ secrets.APP_SECRET }}
           SITE_URL: ${{ vars.SITE_URL }}
-        run: npx ts-node scripts/publish.ts
+        run: node --loader ts-node/esm scripts/publish.ts

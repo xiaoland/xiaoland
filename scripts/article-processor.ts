@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
-import { getDrafts, Draft } from './wxoa-api';
+import { getDrafts, Draft } from './wxoa-api.js';
 
 const ARTICLES_DIR = path.join(process.cwd(), 'articles');
 const SITE_URL = process.env.SITE_URL;
