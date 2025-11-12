@@ -8,7 +8,8 @@
     "build:scripts": "tsc -p scripts/tsconfig.json",
     "preview": "pnpm run build && vite preview",
     "deploy": "pnpm run build && wrangler deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "test": "vitest"
   },
   "dependencies": {
     "@mdx-js/react": "^3.1.1",
@@ -43,6 +44,7 @@
     "unocss": "^66.5.5",
     "vite": "^6.3.5",
     "vite-ssr-components": "^0.5.1",
+    "vitest": "^4.0.8",
     "wrangler": "^4.17.0"
   }
 }
