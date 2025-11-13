@@ -26,15 +26,23 @@ async function main() {
     };
 
     for (const article of toAddArticles) {
-      const processedArticle = await processArticle(article);
-      await createDraft(processedArticle as unknown as WxoaArticle);
-      console.log(`Successfully created draft for: ${article.title}`);
+      try {
+        const processedArticle = await processArticle(article);
+        await createDraft(processedArticle as unknown as WxoaArticle);
+        console.log(`Successfully created draft for: ${article.title}`);
+      } catch (error) {
+        console.error(`Failed to create draft for "${article.title}":`, error);
+      }
     }
 
     for (const article of toUpdateArticles) {
-      const processedArticle = await processArticle(article);
-      await updateDraft(article.media_id, processedArticle as unknown as WxoaArticle);
-      console.log(`Successfully updated draft for: ${article.title}`);
+      try {
+        const processedArticle = await processArticle(article);
+        await updateDraft(article.media_id, processedArticle as unknown as WxoaArticle);
+        console.log(`Successfully updated draft for: ${article.title}`);
+      } catch (error) {
+        console.error(`Failed to update draft for "${article.title}":`, error);
+      }
     }
 
     console.log('All articles have been processed.');
