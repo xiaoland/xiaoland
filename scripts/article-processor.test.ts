@@ -24,11 +24,11 @@ describe('processArticles', () => {
     // Mock readdir to return our mock articles
     vi.spyOn(fs, 'readdir')
       .mockResolvedValueOnce([
-        { name: 'article-1' as any, isDirectory: () => true, isFile: () => false } as any,
-        { name: 'article-2' as any, isDirectory: () => true, isFile: () => false } as any,
+        { name: 'article-1', isDirectory: () => true, isFile: () => false } as any,
+        { name: 'article-2', isDirectory: () => true, isFile: () => false } as any,
       ])
-      .mockResolvedValueOnce([{ name: 'index.mdx' as any, isFile: () => true, isDirectory: () => false } as any])
-      .mockResolvedValueOnce([{ name: 'index.mdx' as any, isFile: () => true, isDirectory: () => false } as any]);
+      .mockResolvedValueOnce([{ name: 'index.mdx', isFile: () => true, isDirectory: () => false } as any])
+      .mockResolvedValueOnce([{ name: 'index.mdx', isFile: () => true, isDirectory: () => false } as any]);
 
     // Mock readFile for each article
     const article1Content = `---

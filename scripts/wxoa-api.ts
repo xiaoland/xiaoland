@@ -24,9 +24,9 @@ if (WXOA_PROXY) {
     auth:
       WXOA_PROXY_USERNAME && WXOA_PROXY_PASSWORD
         ? {
-            username: WXOA_PROXY_USERNAME,
-            password: WXOA_PROXY_PASSWORD,
-          }
+          username: WXOA_PROXY_USERNAME,
+          password: WXOA_PROXY_PASSWORD,
+        }
         : undefined,
   };
 }
@@ -73,6 +73,18 @@ export interface Draft {
   };
 }
 
+export interface WxoaArticle {
+  title: string;
+  content: string;
+  content_source_url: string;
+  thumb_media_id: string;
+  image_info: {
+    image_list: Array<{
+      image_media_id: string;
+    }>;
+  };
+}
+
 export async function getDrafts(): Promise<Draft[]> {
   const token = await getAccessToken();
   const allDrafts: Draft[] = [];
@@ -107,14 +119,15 @@ export async function getDrafts(): Promise<Draft[]> {
   return allDrafts;
 }
 
-export async function createDraft(article: any): Promise<void> {
+export async function createDraft(article: WxoaArticle): Promise<void> {
   const token = await getAccessToken();
-  const { title, content, content_source_url, thumb_media_id } = article;
+  const { title, content, content_source_url, thumb_media_id, image_info } = article;
   const payload = {
     title,
     content,
     content_source_url,
     thumb_media_id,
+    image_info,
   };
 
   const { data } = await apiClient.post(
@@ -129,14 +142,15 @@ export async function createDraft(article: any): Promise<void> {
   }
 }
 
-export async function updateDraft(mediaId: string, article: any): Promise<void> {
+export async function updateDraft(mediaId: string, article: WxoaArticle): Promise<void> {
   const token = await getAccessToken();
-  const { title, content, content_source_url, thumb_media_id } = article;
+  const { title, content, content_source_url, thumb_media_id, image_info } = article;
   const payload = {
     title,
     content,
     content_source_url,
     thumb_media_id,
+    image_info,
   };
   const { data } = await apiClient.post(
     `${API_BASE}/draft/update?access_token=${token}`,

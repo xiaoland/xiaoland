@@ -18,7 +18,7 @@ export interface Article {
   content_source_url: string;
   filePath: string;
   coverImage?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 async function getArticleFiles(): Promise<string[]> {

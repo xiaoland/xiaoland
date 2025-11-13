@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, type MockedFunction } from 'vitest';
 import { processImagesInArticle, uploadCoverImage } from './image-handler.js';
 import fs from 'fs/promises';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import * as wxoaApi from './wxoa-api.js';
 import { Article } from './article-processor.js';
 
@@ -56,7 +56,7 @@ describe('image-handler', () => {
       content: '<img src="https://example.com/remote-image.jpg">',
     };
     const mockImageBuffer = Buffer.from('mock remote image data');
-    mockedAxiosGet.mockResolvedValue({ data: mockImageBuffer } as any);
+    mockedAxiosGet.mockResolvedValue({ data: mockImageBuffer } as AxiosResponse<Buffer>);
     mockedUploadContentImage.mockResolvedValue('mock_new_remote_image_url');
 
     const processedArticle = await processImagesInArticle(mockArticleWithRemoteImage);
