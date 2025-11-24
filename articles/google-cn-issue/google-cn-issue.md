@@ -4,6 +4,7 @@ description: '记录通过代理被“送中”导致 google.com 重定向到 go
 publishTo: 
   - wxoa
 coverImage: './PixPin_2025-10-18_21-04-54.png'
+createdAt: 2025-11-12T21:23:35
 ---
 
 不知道怎么回事，突然某天开始通过 Osaka 的代理就无法访问 Google Gemini, Google Jules 等服务了，访问 `google.com` 就会被重定向到 `google.cn`。

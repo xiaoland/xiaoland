@@ -28,7 +28,7 @@ export function Home() {
       </div>
 
       {/* Content Area */}
-      <div className="p-3 box-border flex flex-col items-center gap-[1.5rem] overflow-scroll flex-1">
+      <div className="p-3 box-border flex flex-col items-center gap-[1.5rem] flex-1 min-h-0">
         <ArticleList articles={articleList} />
       </div>
     </div>
