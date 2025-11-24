@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { Script } from "vite-ssr-components/hono";
-import { HonoContextT } from "../types";
+import { HonoContextT } from "@/types";
 
 // Import articles dynamically
 const articles = import.meta.glob("../../articles/**/*.{md,mdx}", {
@@ -36,7 +36,7 @@ articleApp.get("/:slug", async (c) => {
           <p>加载中...</p>
         </div>
       </div>
-      <Script src="@/comment/article-comments-client.tsx" type="module" />
+      <Script src="/src/comment/article-comments-client.tsx" type="module" />
     </>
   );
 });

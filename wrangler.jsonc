@@ -2,8 +2,10 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "lanzhijiang",
   "compatibility_date": "2025-08-03",
-  "compatibility_flags": ["nodejs_compat"],
   "main": "./src/index.tsx",
+  "observability": {
+    "enabled": true
+  },
   "d1_databases": [
     {
       "binding": "DB",

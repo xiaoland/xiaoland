@@ -6,6 +6,7 @@ import rehypeMdxImportMedia from 'rehype-mdx-import-media'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 import UnoCSS from 'unocss/vite'
+import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
   plugins: [
@@ -20,8 +21,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': './src',
-      '~': './'
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '~': fileURLToPath(new URL('.', import.meta.url))
     }
   },
   build: {

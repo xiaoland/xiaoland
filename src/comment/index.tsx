@@ -1,6 +1,6 @@
 import { Hono } from "hono";
-import { createDb } from "../db";
-import { comments } from "../db/schema";
+import { createDb } from "@/db";
+import { comments } from "@/db/schema";
 import type { D1Database } from "@cloudflare/workers-types";
 
 const commentApp = new Hono<{ Bindings: { DB: D1Database } }>();
