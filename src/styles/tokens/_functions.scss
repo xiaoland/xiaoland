@@ -12,25 +12,6 @@
   }
 }
 
-// Get a token value from component tokens
-// This resolves the reference chain: component -> system -> reference
-@function get-component-token($component-tokens, $system-tokens, $token-name) {
-  $component-value: map.get($component-tokens, $token-name);
-  
-  @if $component-value {
-    // Check if it's a reference to a system token
-    @if meta.type-of($component-value) == 'string' {
-      $system-value: map.get($system-tokens, $component-value);
-      @if $system-value {
-        @return $system-value;
-      }
-    }
-    @return $component-value;
-  }
-  
-  @return null;
-}
-
 // Helper to use CSS variable with fallback
 @function use-token($token-name) {
   @return var(--#{$token-name});

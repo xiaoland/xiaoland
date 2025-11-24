@@ -15,7 +15,7 @@ $system-dark: (
   'text-primary': map.get(ref.$ref-colors, 'white'),
   'text-secondary': map.get(ref.$ref-colors, 'gray-300'),
   'text-tertiary': map.get(ref.$ref-colors, 'gray-400'),
-  'text-brand': map.get(ref.$ref-colors, 'blue-700'),
+  'text-brand': map.get(ref.$ref-colors, 'blue-500'),  // Changed to blue-500 for better contrast
   'text-heading': map.get(ref.$ref-colors, 'blue-50'),
   
   // Border colors
@@ -30,8 +30,8 @@ $system-dark: (
   'interactive-disabled': map.get(ref.$ref-colors, 'gray-600'),
   
   // Semantic colors
-  'error-bg': rgba(211, 47, 47, 0.2),
-  'error-text': #ff6b6b,
+  'error-bg': map.get(ref.$ref-colors, 'error-dark-bg'),
+  'error-text': map.get(ref.$ref-colors, 'error-600'),
   
   // Surface colors
   'surface-overlay': rgba(255, 255, 255, 0.1),
