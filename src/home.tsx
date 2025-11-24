@@ -7,16 +7,26 @@ const articles = import.meta.glob("../articles/**/*.{md,mdx}", {
 });
 
 export function Home() {
-  const articleList = Object.keys(articles).map((path) => {
-    const articleModule = articles[path] as any;
-    const slug = path.split("/").slice(-2, -1)[0]; // Extract slug from path
-    return {
-      slug,
-      title: articleModule.frontmatter?.title,
-      description: articleModule.frontmatter?.description,
-      lastUpdateDate: articleModule.frontmatter?.date,
-    };
-  });
+  const articleList = Object.keys(articles)
+    .filter((path) => {
+      // Exclude README files and files directly in the articles folder
+      const pathParts = path.split("/");
+      const fileName = pathParts[pathParts.length - 1];
+      const isReadme = fileName.toLowerCase().startsWith("readme");
+      const isInSubdirectory = pathParts.length > 3; // ../articles/{slug}/{file}
+      
+      return !isReadme && isInSubdirectory;
+    })
+    .map((path) => {
+      const articleModule = articles[path] as any;
+      const slug = path.split("/").slice(-2, -1)[0]; // Extract slug from path
+      return {
+        slug,
+        title: articleModule.frontmatter?.title,
+        description: articleModule.frontmatter?.description,
+        lastUpdateDate: articleModule.frontmatter?.date,
+      };
+    });
 
   return (
     <div className="bg-[#eaeffa] relative h-screen box-border pl-[3rem] pr-[2rem] py-[3rem] flex flex-row gap-[4rem]">
