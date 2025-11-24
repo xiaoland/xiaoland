@@ -1,0 +1,41 @@
+// System Tokens - Dark Mode
+// Semantic tokens that map to reference colors for dark theme
+
+@use './reference' as ref;
+@use 'sass:map';
+
+$system-dark: (
+  // Background colors
+  'bg-primary': map.get(ref.$ref-colors, 'gray-900'),
+  'bg-secondary': map.get(ref.$ref-colors, 'gray-800'),
+  'bg-tertiary': map.get(ref.$ref-colors, 'gray-700'),
+  'bg-elevated': map.get(ref.$ref-colors, 'gray-800'),
+  
+  // Text colors
+  'text-primary': map.get(ref.$ref-colors, 'white'),
+  'text-secondary': map.get(ref.$ref-colors, 'gray-300'),
+  'text-tertiary': map.get(ref.$ref-colors, 'gray-400'),
+  'text-brand': map.get(ref.$ref-colors, 'blue-700'),
+  'text-heading': map.get(ref.$ref-colors, 'blue-50'),
+  
+  // Border colors
+  'border-default': map.get(ref.$ref-colors, 'gray-700'),
+  'border-subtle': map.get(ref.$ref-colors, 'gray-800'),
+  'border-strong': map.get(ref.$ref-colors, 'gray-500'),
+  
+  // Interactive colors
+  'interactive-primary': map.get(ref.$ref-colors, 'blue-700'),
+  'interactive-primary-hover': map.get(ref.$ref-colors, 'blue-500'),
+  'interactive-focus': map.get(ref.$ref-colors, 'blue-700'),
+  'interactive-disabled': map.get(ref.$ref-colors, 'gray-600'),
+  
+  // Semantic colors
+  'error-bg': rgba(211, 47, 47, 0.2),
+  'error-text': #ff6b6b,
+  
+  // Surface colors
+  'surface-overlay': rgba(255, 255, 255, 0.1),
+  
+  // Pure colors
+  'white': map.get(ref.$ref-colors, 'white'),
+);

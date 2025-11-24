@@ -1,0 +1,46 @@
+// Component Tokens
+// Component-specific semantic tokens that use system tokens
+
+$component-tokens: (
+  // Home page
+  'home-bg': 'bg-primary',
+  'home-title': 'text-brand',
+  'home-text': 'text-primary',
+  'home-tags': 'text-primary',
+  
+  // Article list
+  'article-list-title': 'text-heading',
+  'article-list-empty': 'text-tertiary',
+  
+  // Article entry
+  'article-entry-bg': 'bg-elevated',
+  'article-entry-border': 'border-strong',
+  'article-entry-title': 'text-primary',
+  'article-entry-description': 'text-secondary',
+  'article-entry-date': 'text-tertiary',
+  'article-entry-shadow': 'surface-overlay',
+  
+  // Comments
+  'comments-bg': 'bg-tertiary',
+  'comments-title': 'text-primary',
+  'comments-heading': 'text-secondary',
+  'comments-form-bg': 'bg-tertiary',
+  'comments-form-border': 'border-default',
+  'comments-input-border': 'border-default',
+  'comments-input-focus': 'interactive-focus',
+  'comments-label': 'text-primary',
+  'comments-button-bg': 'interactive-primary',
+  'comments-button-hover': 'interactive-primary-hover',
+  'comments-button-disabled': 'interactive-disabled',
+  'comments-button-text': 'white',
+  'comments-error-bg': 'error-bg',
+  'comments-error-text': 'error-text',
+  'comments-item-bg': 'bg-elevated',
+  'comments-item-border': 'border-default',
+  'comments-item-shadow': 'surface-overlay',
+  'comments-border-subtle': 'border-subtle',
+  'comments-author': 'text-primary',
+  'comments-date': 'text-tertiary',
+  'comments-content': 'text-secondary',
+  'comments-empty': 'text-tertiary',
+);

@@ -1,0 +1,30 @@
+// Main tokens file that generates CSS variables
+// This file is imported at build time to generate CSS custom properties
+
+@use './reference' as ref;
+@use './system-light' as light;
+@use './system-dark' as dark;
+@use './component' as comp;
+@use './functions' as fn;
+
+// Generate CSS variables for light mode (default)
+:root {
+  // System tokens for light mode
+  @include fn.generate-css-vars(light.$system-light, '');
+  
+  // Component tokens for light mode
+  @each $name, $value in comp.$component-tokens {
+    --#{$name}: var(--#{$value});
+  }
+}
+
+// Generate CSS variables for dark mode
+@media (prefers-color-scheme: dark) {
+  :root {
+    // System tokens for dark mode
+    @include fn.generate-css-vars(dark.$system-dark, '');
+    
+    // Component tokens remain the same (they reference system tokens)
+    // No need to redefine them as they will automatically use the dark system tokens
+  }
+}

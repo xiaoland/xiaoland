@@ -1,0 +1,41 @@
+// System Tokens - Light Mode
+// Semantic tokens that map to reference colors for light theme
+
+@use './reference' as ref;
+@use 'sass:map';
+
+$system-light: (
+  // Background colors
+  'bg-primary': map.get(ref.$ref-colors, 'blue-50'),
+  'bg-secondary': map.get(ref.$ref-colors, 'white'),
+  'bg-tertiary': map.get(ref.$ref-colors, 'gray-50'),
+  'bg-elevated': map.get(ref.$ref-colors, 'white'),
+  
+  // Text colors
+  'text-primary': map.get(ref.$ref-colors, 'black'),
+  'text-secondary': map.get(ref.$ref-colors, 'gray-600'),
+  'text-tertiary': map.get(ref.$ref-colors, 'gray-500'),
+  'text-brand': map.get(ref.$ref-colors, 'blue-500'),
+  'text-heading': map.get(ref.$ref-colors, 'blue-900'),
+  
+  // Border colors
+  'border-default': map.get(ref.$ref-colors, 'gray-200'),
+  'border-subtle': map.get(ref.$ref-colors, 'gray-100'),
+  'border-strong': map.get(ref.$ref-colors, 'gray-600'),
+  
+  // Interactive colors
+  'interactive-primary': map.get(ref.$ref-colors, 'blue-700'),
+  'interactive-primary-hover': map.get(ref.$ref-colors, 'blue-600'),
+  'interactive-focus': map.get(ref.$ref-colors, 'blue-700'),
+  'interactive-disabled': map.get(ref.$ref-colors, 'gray-400'),
+  
+  // Semantic colors
+  'error-bg': map.get(ref.$ref-colors, 'error-50'),
+  'error-text': map.get(ref.$ref-colors, 'error-500'),
+  
+  // Surface colors
+  'surface-overlay': rgba(0, 0, 0, 0.1),
+  
+  // Pure colors
+  'white': map.get(ref.$ref-colors, 'white'),
+);

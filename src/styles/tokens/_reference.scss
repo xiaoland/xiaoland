@@ -1,0 +1,31 @@
+// Reference Tokens - Base color palette
+// These are the foundation colors that don't change between themes
+
+$ref-colors: (
+  // Primary brand colors
+  'blue-50': #eaeffa,
+  'blue-500': #2f65f7,
+  'blue-600': #357abd,
+  'blue-700': #4a90e2,
+  'blue-900': #02113b,
+  
+  // Neutral colors
+  'gray-50': #f9f9f9,
+  'gray-100': #f0f0f0,
+  'gray-200': #e0e0e0,
+  'gray-300': #ddd,
+  'gray-400': #bbb,
+  'gray-500': #999,
+  'gray-600': #555,
+  'gray-700': #444,
+  'gray-800': #333,
+  'gray-900': #505050,
+  
+  // Semantic colors
+  'error-50': #ffebee,
+  'error-500': #d32f2f,
+  
+  // Pure colors
+  'white': #ffffff,
+  'black': #000000,
+);

@@ -10,12 +10,12 @@ export function ArticleList({
 }) {
   return (
     <div className="flex flex-col h-full">
-      <span className="text-[2.5rem] text-[#02113b] mb-[1.5rem] flex-shrink-0">
+      <span className="text-[2.5rem] text-article-list-title mb-[1.5rem] flex-shrink-0">
         {listTitle || "文章列表"}
       </span>
       <div className="flex flex-col gap-[1.5rem] overflow-y-auto flex-1">
         {articles.length === 0 ? (
-          <p className="text-gray-600 text-base">暂无文章</p>
+          <p className="text-article-list-empty text-base">暂无文章</p>
         ) : (
           articles.map((article) => (
             <a
