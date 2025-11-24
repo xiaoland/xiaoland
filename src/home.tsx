@@ -1,36 +1,12 @@
 import { ArticleList } from "./ArticleList";
-import handleCnOutlinedSvg from "./assets/handle-cn-outlined.svg";
-
-// Import articles to get metadata
-const articles = import.meta.glob("../articles/**/*.{md,mdx}", {
-  eager: true,
-});
+import { getAllArticles } from "@/logic";
 
 export function Home() {
-  const articleList = Object.keys(articles)
-    .filter((path) => {
-      // Exclude README files and files directly in the articles folder
-      const pathParts = path.split("/");
-      const fileName = pathParts[pathParts.length - 1];
-      const isReadme = fileName.toLowerCase().startsWith("readme");
-      const isInSubdirectory = pathParts.length > 3; // ../articles/{slug}/{file}
-      
-      return !isReadme && isInSubdirectory;
-    })
-    .map((path) => {
-      const articleModule = articles[path] as any;
-      const slug = path.split("/").slice(-2, -1)[0]; // Extract slug from path
-      return {
-        slug,
-        title: articleModule.frontmatter?.title,
-        description: articleModule.frontmatter?.description,
-        lastUpdateDate: articleModule.frontmatter?.date,
-      };
-    });
+  const articleList = getAllArticles();
 
   return (
     <div className="bg-[#eaeffa] relative h-screen box-border pl-[3rem] pr-[2rem] py-[3rem] flex flex-row gap-[4rem]">
-      <div className="flex flex-col justify-between">
+      <div className="flex flex-shrink-0 flex-col justify-between">
         {/* Intro */}
         <div className="flex flex-col">
           <span className=" text-black font-size-[1.5rem]">你好👋，我是</span>
@@ -52,7 +28,7 @@ export function Home() {
       </div>
 
       {/* Content Area */}
-      <div className="p-3 box-border flex flex-col gap-[1.5rem] overflow-scroll">
+      <div className="p-3 box-border flex flex-col items-center gap-[1.5rem] overflow-scroll flex-1">
         <ArticleList articles={articleList} />
       </div>
     </div>

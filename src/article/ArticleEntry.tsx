@@ -1,13 +1,25 @@
-import { ArticleMetadata } from "@/ArticleList";
+interface ArticleEntryProps {
+  slug: string;
+  title: string;
+  description?: string;
+  createdAt?: string;
+}
+
+function formatDateToMMDD(isoDateString: string): string {
+  const date = new Date(isoDateString);
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${month}.${day}`;
+}
 
 export default function ArticleEntry({
   description = "Description text",
   title = "Article Title",
-  lastUpdateDate = "mm:DD",
-}: ArticleMetadata) {
+  createdAt = new Date().toISOString(),
+}: ArticleEntryProps) {
   return (
     <div
-      className="flex gap-3 justify-end w-[555px]"
+      className="flex gap-3 justify-end max-w-[555px]"
       data-name="ArticleEntry"
       data-node-id="201:78"
     >
@@ -27,7 +39,7 @@ export default function ArticleEntry({
         data-node-id="201:122"
       >
         <span data-node-id="201:131">At</span>
-        <span data-node-id="201:113">{lastUpdateDate}</span>
+        <span data-node-id="201:113">{formatDateToMMDD(createdAt)}</span>
       </div>
     </div>
   );

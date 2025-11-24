@@ -9,8 +9,8 @@ Each article should be in its own directory following this pattern:
 ```
 articles/
   └── {slug}/
-      ├── {slug}.mdx
-      └── [images and other assets]
+      ├── {slug}.{md,mdx}
+      └── [assets referenced by this article]
 ```
 
 ## Creating a New Article
@@ -22,20 +22,12 @@ articles/
 ```mdx
 ---
 title: Your Article Title
+description: Your article preface, conclusion or etc.
+publishTo: array of "wxoa", ...
+createdAt: ISO8601 format datetime string
 ---
 
 Your article content here...
 ```
 
 4. The article will be automatically available at `/article/{slug}`
-
-## Example
-
-See `google-cn-issue/` for a complete example.
-
-## Features
-
-- ✅ Server-side rendering (SSR) for SEO
-- ✅ Frontmatter support for metadata
-- ✅ Images and assets support
-- ✅ Full MDX support (JSX in Markdown)

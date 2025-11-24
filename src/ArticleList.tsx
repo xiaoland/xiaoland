@@ -1,11 +1,5 @@
 import ArticleEntry from "./article/ArticleEntry";
-
-export interface ArticleMetadata {
-  slug: string;
-  title: string;
-  description?: string;
-  lastUpdateDate?: string;
-}
+import { ArticleMetadata } from "@/logic";
 
 export function ArticleList({
   articles,
@@ -32,7 +26,7 @@ export function ArticleList({
               slug={article.slug}
               title={article.title}
               description={article.description}
-              lastUpdateDate={article.lastUpdateDate}
+              createdAt={article.createdAt}
             />
           </a>
         ))
