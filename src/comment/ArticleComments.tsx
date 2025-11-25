@@ -93,7 +93,7 @@ export function ArticleComments({ slug }: ArticleCommentsProps) {
 
   return (
     <div className={styles.articleComments}>
-      <span className={styles.sectionTitle}>发表评论</span>
+      <h2 className={styles.sectionTitle}>发表评论</h2>
 
       {/* Comment Form */}
       <form onSubmit={handleSubmit} className={styles.commentForm}>
@@ -136,12 +136,12 @@ export function ArticleComments({ slug }: ArticleCommentsProps) {
 
       {/* Comments List */}
       <div className={styles.commentsList}>
-        <span className={styles.listHeader}>
+        <h3 className={styles.listHeader}>
           {comments.length > 0 ? `${comments.length} 条评论` : "评论"}
-        </span>
+        </h3>
 
         {isLoading ? (
-          <span className={styles.loadingText}>加载中...</span>
+          <span className={styles.loadingText} role="status" aria-live="polite">加载中...</span>
         ) : comments.length === 0 ? (
           <span className={styles.noComments}>还没有评论，来说点什么吧</span>
         ) : (
