@@ -9,10 +9,10 @@ export function Home() {
       <div className="flex flex-shrink-0 flex-col justify-between">
         {/* Intro */}
         <div className="flex flex-col">
-          <span className="text-comp-home-text font-size-[1.5rem]">你好👋，我是</span>
+          <span className="color-comp-home-text font-size-[1.5rem]">你好👋，我是</span>
           {/* Handle */}
           <div className="relative font-bold font-size-[5.5rem]">
-            <span className="text-comp-home-title">蓝汁酱</span>
+            <span className="color-comp-home-title">蓝汁酱</span>
             {/* <span className="w-max text-transparent text-stroke-[1px] text-stroke-[#505050] absolute left-[0.6rem] top-[0.6rem] hover:left-0 hover:top-0 transition-all duration-300">
               蓝汁酱
             </span> */}
@@ -20,7 +20,7 @@ export function Home() {
         </div>
 
         {/* Tags */}
-        <div className="flex flex-col text-[2rem] text-comp-home-tags font-mono">
+        <div className="flex flex-col text-[2rem] color-comp-home-tags font-mono">
           <span>Pythonist</span>
           <span>Vuer</span>
           <span>Homelaber</span>

@@ -23,6 +23,15 @@ $color: (
     heading: fn.map-deep-get(ref.$color, blue, 50),
   ),
   
+  // Alias of 'text' for backward compatibility
+  on: (
+    primary: fn.map-deep-get(ref.$color, white),
+    secondary: fn.map-deep-get(ref.$color, gray, 300),
+    tertiary: fn.map-deep-get(ref.$color, gray, 400),
+    brand: fn.map-deep-get(ref.$color, blue, 500),
+    heading: fn.map-deep-get(ref.$color, blue, 50),
+  ),
+  
   border: (
     default: fn.map-deep-get(ref.$color, gray, 700),
     subtle: fn.map-deep-get(ref.$color, gray, 800),

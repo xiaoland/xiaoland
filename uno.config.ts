@@ -3,32 +3,37 @@ import { presetWind3 } from 'unocss'
 import type { Rule } from '@unocss/core'
 
 // Dynamic rules to use design token CSS variables
-// This allows any token to be used without explicit declaration
+// Pattern: <type>-<sys|comp>-<*keys>
+// Type refers to CTI's type: bg, color, border, shadow, font
 const tokenRules: Rule[] = [
-  // Background colors using system tokens: bg-sys-color-bg-primary
-  [/^bg-sys-color-(.+)$/, ([, token]) => ({ 'background-color': `var(--sys-color-${token})` })],
-  // Background colors using component tokens: bg-comp-home-bg
+  // Background: bg-sys-* or bg-comp-*
+  // e.g., bg-sys-bg-primary, bg-comp-home-bg
+  [/^bg-sys-(.+)$/, ([, token]) => ({ 'background-color': `var(--sys-color-${token})` })],
   [/^bg-comp-(.+)$/, ([, token]) => ({ 'background-color': `var(--comp-${token})` })],
   
-  // Text colors using system tokens: text-sys-color-text-primary
-  [/^text-sys-color-(.+)$/, ([, token]) => ({ color: `var(--sys-color-${token})` })],
-  // Text colors using component tokens: text-comp-home-title
-  [/^text-comp-(.+)$/, ([, token]) => ({ color: `var(--comp-${token})` })],
+  // Text color: color-sys-* or color-comp-*
+  // e.g., color-sys-text-primary, color-comp-home-title
+  [/^color-sys-(.+)$/, ([, token]) => ({ color: `var(--sys-color-${token})` })],
+  [/^color-comp-(.+)$/, ([, token]) => ({ color: `var(--comp-${token})` })],
   
-  // Border colors using system tokens: border-sys-color-border-default
-  [/^border-sys-color-(.+)$/, ([, token]) => ({ 'border-color': `var(--sys-color-${token})` })],
-  // Border colors using component tokens
+  // Border: border-sys-* or border-comp-*
+  // e.g., border-sys-border-default, border-comp-article-entry-border
+  [/^border-sys-(.+)$/, ([, token]) => ({ 'border-color': `var(--sys-color-${token})` })],
   [/^border-comp-(.+)$/, ([, token]) => ({ 'border-color': `var(--comp-${token})` })],
   
-  // Font family using system tokens: font-sys-font-body-family
-  [/^font-sys-font-(.+)-family$/, ([, token]) => ({ 'font-family': `var(--sys-font-${token}-family)` })],
-  // Font size using system tokens: text-sys-font-body-size
-  [/^text-sys-font-(.+)-size$/, ([, token]) => ({ 'font-size': `var(--sys-font-${token}-size)` })],
-  // Font weight using system tokens: font-sys-font-body-weight
-  [/^font-sys-font-(.+)-weight$/, ([, token]) => ({ 'font-weight': `var(--sys-font-${token}-weight)` })],
+  // Shadow: shadow-sys-*
+  // e.g., shadow-sys-sm, shadow-sys-md, shadow-sys-lg
+  [/^shadow-sys-(.+)$/, ([, token]) => ({ 'box-shadow': `var(--sys-elevation-${token})` })],
   
-  // Elevation/shadow using system tokens: shadow-sys-elevation-md
-  [/^shadow-sys-elevation-(.+)$/, ([, token]) => ({ 'box-shadow': `var(--sys-elevation-${token})` })],
+  // Font (composite token): font-sys-*
+  // Sets font-family, font-size, font-weight, line-height all at once
+  // e.g., font-sys-body, font-sys-heading, font-sys-mono
+  [/^font-sys-(.+)$/, ([, token]) => ({
+    'font-family': `var(--sys-font-${token}-family)`,
+    'font-size': `var(--sys-font-${token}-size)`,
+    'font-weight': `var(--sys-font-${token}-weight)`,
+    'line-height': `var(--sys-font-${token}-line-height)`,
+  })],
 ]
 
 export default defineConfig({

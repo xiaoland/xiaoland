@@ -24,18 +24,18 @@ export default function ArticleEntry({
       data-node-id="201:78"
     >
       <div
-        className="basis-0 border-2 border-comp-article-entry-border border-solid box-border flex flex-col gap-3 grow h-full pb-6 pl-3 pr-6 pt-3 text-comp-article-entry-title"
+        className="basis-0 border-2 border-comp-article-entry-border border-solid box-border flex flex-col gap-3 grow h-full pb-6 pl-3 pr-6 pt-3 color-comp-article-entry-title"
         data-node-id="201:90"
       >
         <span className="relative shrink-0 text-3xl" data-node-id="201:77">
           {title}
         </span>
-        <span className="min-w-full relative text-lg text-comp-article-entry-description" data-node-id="201:141">
+        <span className="min-w-full relative text-lg color-comp-article-entry-description" data-node-id="201:141">
           {description}
         </span>
       </div>
       <div
-        className="flex flex-col font-mono items-end relative text-comp-article-entry-date text-lg"
+        className="flex flex-col font-mono items-end relative color-comp-article-entry-date text-lg"
         data-node-id="201:122"
       >
         <span data-node-id="201:131">At</span>
