@@ -9,7 +9,9 @@ import { HonoContextT } from "./types";
 const app = new Hono<HonoContextT>();
 
 app.use(
-  jsxRenderer(({ children }) => {
+  jsxRenderer(({ children }, c) => {
+    const pageTitle = c.get("title");
+    const title = pageTitle ? `${pageTitle} - lanzhijiang` : "lanzhijiang";
     return (
       <html lang="en">
         <head>
@@ -18,7 +20,7 @@ app.use(
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
-          <title>lanzhijiang</title>
+          <title>{title}</title>
           <Link rel="stylesheet" href="/dist/uno.css" />
           <Link rel="stylesheet" href="/src/style.css" />
           <ViteClient />

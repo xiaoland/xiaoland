@@ -24,6 +24,9 @@ articleApp.get("/:slug", async (c) => {
 
   const { default: ArticleComponent } = articleModule;
 
+  // Set the page title to the article title
+  c.set("title", articleMetadata.title);
+
   return c.render(
     <div className="min-h-screen bg-comp-article-page-bg">
       <div className="max-w-[720px] mx-auto px-6 py-12">
