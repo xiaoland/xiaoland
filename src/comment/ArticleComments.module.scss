@@ -1,3 +1,5 @@
+@use '../styles/tokens/functions' as fn;
+
 .articleComments {
   max-width: 800px;
   margin: 3rem auto;
@@ -6,22 +8,22 @@
   h2 {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
-    color: #333;
+    color: fn.use-comp(comment, title);
   }
 
   h3 {
     font-size: 1.3rem;
     margin-bottom: 1rem;
-    color: #555;
+    color: fn.use-comp(comment, heading);
   }
 }
 
 .commentForm {
-  background: #f9f9f9;
+  background: fn.use-comp(comment, form, bg);
   padding: 1.5rem;
   border-radius: 8px;
   margin-bottom: 2rem;
-  border: 1px solid #e0e0e0;
+  border: 1px solid fn.use-comp(comment, form, border);
 }
 
 .formGroup {
@@ -31,22 +33,24 @@
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
-    color: #444;
+    color: fn.use-comp(comment, label);
   }
 
   input,
   textarea {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
+    border: 1px solid fn.use-comp(comment, input, border);
     border-radius: 4px;
     font-size: 1rem;
     font-family: inherit;
     transition: border-color 0.3s;
+    background: fn.use-sys(color, bg, elevated);
+    color: fn.use-sys(color, text, primary);
 
     &:focus {
       outline: none;
-      border-color: #4a90e2;
+      border-color: fn.use-comp(comment, input, focus);
     }
   }
 
@@ -57,8 +61,8 @@
 }
 
 .errorMessage {
-  color: #d32f2f;
-  background: #ffebee;
+  color: fn.use-comp(comment, error, text);
+  background: fn.use-comp(comment, error, bg);
   padding: 0.75rem;
   border-radius: 4px;
   margin-bottom: 1rem;
@@ -66,8 +70,8 @@
 }
 
 .submitButton {
-  background: #4a90e2;
-  color: white;
+  background: fn.use-comp(comment, button, bg);
+  color: fn.use-comp(comment, button, text);
   border: none;
   padding: 0.75rem 2rem;
   border-radius: 4px;
@@ -77,11 +81,11 @@
   transition: background 0.3s;
 
   &:hover:not(:disabled) {
-    background: #357abd;
+    background: fn.use-comp(comment, button, hover);
   }
 
   &:disabled {
-    background: #bbb;
+    background: fn.use-comp(comment, button, disabled);
     cursor: not-allowed;
   }
 }
@@ -91,22 +95,22 @@
 }
 
 .noComments {
-  color: #999;
+  color: fn.use-comp(comment, empty);
   font-style: italic;
   text-align: center;
   padding: 2rem;
 }
 
 .commentItem {
-  background: white;
+  background: fn.use-comp(comment, item, bg);
   padding: 1.25rem;
   border-radius: 8px;
   margin-bottom: 1rem;
-  border: 1px solid #e0e0e0;
+  border: 1px solid fn.use-comp(comment, item, border);
   transition: box-shadow 0.3s;
 
   &:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px fn.use-comp(comment, item, shadow);
   }
 }
 
@@ -116,22 +120,22 @@
   align-items: center;
   margin-bottom: 0.75rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid fn.use-comp(comment, border-subtle);
 }
 
 .commentAuthor {
   font-weight: 600;
-  color: #333;
+  color: fn.use-comp(comment, author);
   font-size: 1rem;
 }
 
 .commentDate {
-  color: #999;
+  color: fn.use-comp(comment, date);
   font-size: 0.85rem;
 }
 
 .commentContent {
-  color: #555;
+  color: fn.use-comp(comment, content);
   line-height: 1.6;
   white-space: pre-wrap;
   word-wrap: break-word;

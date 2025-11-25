@@ -1,0 +1,86 @@
+// System Tokens - Light Mode
+// Semantic tokens that map to reference colors for light theme
+// Organized following CTI (Category-Type-Item) structure
+
+@use './reference' as ref;
+@use './functions' as fn;
+@use 'sass:map';
+
+// System tokens for light mode (nested structure)
+$color: (
+  bg: (
+    primary: fn.map-deep-get(ref.$color, blue, 50),
+    secondary: fn.map-deep-get(ref.$color, white),
+    tertiary: fn.map-deep-get(ref.$color, gray, 50),
+    elevated: fn.map-deep-get(ref.$color, white),
+  ),
+  
+  text: (
+    primary: fn.map-deep-get(ref.$color, black),
+    secondary: fn.map-deep-get(ref.$color, gray, 600),
+    tertiary: fn.map-deep-get(ref.$color, gray, 500),
+    brand: fn.map-deep-get(ref.$color, blue, 500),
+    heading: fn.map-deep-get(ref.$color, blue, 900),
+  ),
+  
+  // Alias of 'text' for backward compatibility
+  on: (
+    primary: fn.map-deep-get(ref.$color, black),
+    secondary: fn.map-deep-get(ref.$color, gray, 600),
+    tertiary: fn.map-deep-get(ref.$color, gray, 500),
+    brand: fn.map-deep-get(ref.$color, blue, 500),
+    heading: fn.map-deep-get(ref.$color, blue, 900),
+  ),
+  
+  border: (
+    default: fn.map-deep-get(ref.$color, gray, 200),
+    subtle: fn.map-deep-get(ref.$color, gray, 100),
+    strong: fn.map-deep-get(ref.$color, gray, 600),
+  ),
+  
+  interactive: (
+    primary: fn.map-deep-get(ref.$color, blue, 700),
+    primary-hover: fn.map-deep-get(ref.$color, blue, 600),
+    focus: fn.map-deep-get(ref.$color, blue, 700),
+    disabled: fn.map-deep-get(ref.$color, gray, 400),
+  ),
+  
+  error: (
+    bg: fn.map-deep-get(ref.$color, error, 50),
+    text: fn.map-deep-get(ref.$color, error, 500),
+  ),
+  
+  surface: (
+    overlay: rgba(0, 0, 0, 0.1),
+  ),
+  
+  white: fn.map-deep-get(ref.$color, white),
+);
+
+// Font system tokens
+$font: (
+  body: (
+    family: fn.map-deep-get(ref.$font, family, sans),
+    size: fn.map-deep-get(ref.$font, size, base),
+    weight: fn.map-deep-get(ref.$font, weight, normal),
+    line-height: fn.map-deep-get(ref.$font, line-height, normal),
+  ),
+  heading: (
+    family: fn.map-deep-get(ref.$font, family, sans),
+    weight: fn.map-deep-get(ref.$font, weight, bold),
+    line-height: fn.map-deep-get(ref.$font, line-height, tight),
+  ),
+  mono: (
+    family: fn.map-deep-get(ref.$font, family, mono),
+    size: fn.map-deep-get(ref.$font, size, sm),
+    weight: fn.map-deep-get(ref.$font, weight, normal),
+  ),
+);
+
+// Elevation system tokens
+$elevation: (
+  none: fn.map-deep-get(ref.$elevation, none),
+  sm: fn.map-deep-get(ref.$elevation, sm),
+  md: fn.map-deep-get(ref.$elevation, md),
+  lg: fn.map-deep-get(ref.$elevation, lg),
+);

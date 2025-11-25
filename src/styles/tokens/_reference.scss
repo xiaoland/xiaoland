@@ -1,0 +1,114 @@
+// Reference Tokens - Base design primitives
+// These are foundation values that don't change between themes
+// Organized following CTI (Category-Type-Item) structure
+
+// Color tokens
+$color: (
+  // Primary brand colors
+  blue: (
+    50: #eaeffa,
+    500: #2f65f7,
+    600: #357abd,
+    700: #4a90e2,
+    900: #02113b,
+  ),
+  
+  // Neutral colors
+  gray: (
+    50: #f9f9f9,
+    100: #f0f0f0,
+    200: #e0e0e0,
+    300: #ddd,
+    400: #bbb,
+    500: #999,
+    600: #555,
+    700: #444,
+    800: #333,
+    900: #505050,
+  ),
+  
+  // Semantic colors
+  error: (
+    50: #ffebee,
+    500: #d32f2f,
+    600: #ff6b6b,
+    dark-bg: rgba(211, 47, 47, 0.2),
+  ),
+  
+  // Pure colors
+  white: #ffffff,
+  black: #000000,
+);
+
+// Font tokens
+$font: (
+  family: (
+    sans: (ui-sans-serif, system-ui, sans-serif),
+    mono: (ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace),
+  ),
+  size: (
+    xs: 0.75rem,
+    sm: 0.875rem,
+    base: 1rem,
+    lg: 1.125rem,
+    xl: 1.25rem,
+    2xl: 1.5rem,
+    3xl: 1.875rem,
+    4xl: 2.25rem,
+    5xl: 3rem,
+  ),
+  weight: (
+    normal: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
+  ),
+  line-height: (
+    tight: 1.25,
+    normal: 1.5,
+    relaxed: 1.75,
+  ),
+);
+
+// Elevation tokens (shadows)
+$elevation: (
+  none: none,
+  sm: (0 1px 2px rgba(0, 0, 0, 0.05)),
+  md: (0 2px 8px rgba(0, 0, 0, 0.1)),
+  lg: (0 4px 16px rgba(0, 0, 0, 0.15)),
+);
+
+// Opacity tokens
+$opacity: (
+  0: 0,
+  10: 0.1,
+  20: 0.2,
+  50: 0.5,
+  75: 0.75,
+  100: 1,
+);
+
+// Spacing tokens
+$spacing: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  8: 2rem,
+  10: 2.5rem,
+  12: 3rem,
+  16: 4rem,
+);
+
+// Border radius tokens
+$radius: (
+  none: 0,
+  sm: 0.125rem,
+  md: 0.25rem,
+  lg: 0.5rem,
+  xl: 0.75rem,
+  full: 9999px,
+);

@@ -1,0 +1,57 @@
+// Main tokens file that generates CSS variables
+// This file is imported at build time to generate CSS custom properties
+
+@use './reference' as ref;
+@use './system-light' as light;
+@use './system-dark' as dark;
+@use './component' as comp;
+@use './functions' as fn;
+@use 'sass:meta';
+@use 'sass:map';
+@use 'sass:list';
+
+// Mixin to emit component tokens as CSS variables that reference system tokens
+@mixin emit-component-variables($token-map, $namespace: "comp", $path: ()) {
+  @each $key, $value in $token-map {
+    $next-path: list.append($path, $key);
+    @if meta.type-of($value) == "map" {
+      @include emit-component-variables($value, $namespace, $next-path);
+    } @else if meta.type-of($value) == "list" and list.length($value) == 0 {
+      // Skip empty lists
+    } @else {
+      // Component tokens reference system tokens
+      #{fn.token-name($namespace, $next-path)}: var(--#{$value});
+    }
+  }
+}
+
+// Generate CSS variables for light mode (default)
+:root {
+  // Reference tokens (static, don't change between themes)
+  @include fn.emit-css-variables(ref.$color, "ref-color");
+  @include fn.emit-css-variables(ref.$font, "ref-font");
+  @include fn.emit-css-variables(ref.$elevation, "ref-elevation");
+  @include fn.emit-css-variables(ref.$opacity, "ref-opacity");
+  @include fn.emit-css-variables(ref.$spacing, "ref-spacing");
+  @include fn.emit-css-variables(ref.$radius, "ref-radius");
+  
+  // System tokens for light mode
+  @include fn.emit-css-variables(light.$color, "sys-color");
+  @include fn.emit-css-variables(light.$font, "sys-font");
+  @include fn.emit-css-variables(light.$elevation, "sys-elevation");
+  
+  // Component tokens (reference system tokens)
+  @include emit-component-variables(comp.$home, "comp-home");
+  @include emit-component-variables(comp.$article-list, "comp-article-list");
+  @include emit-component-variables(comp.$article-entry, "comp-article-entry");
+  @include emit-component-variables(comp.$comment, "comp-comment");
+}
+
+// Generate CSS variables for dark mode
+@media (prefers-color-scheme: dark) {
+  :root {
+    // Only system color tokens change for dark mode
+    @include fn.emit-css-variables(dark.$color, "sys-color");
+    // Font and elevation remain the same (no need to override)
+  }
+}
