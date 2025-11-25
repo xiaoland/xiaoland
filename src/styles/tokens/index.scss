@@ -4,26 +4,10 @@
 @use './reference' as ref;
 @use './system-light' as light;
 @use './system-dark' as dark;
-@use './component' as comp;
 @use './functions' as fn;
 @use 'sass:meta';
 @use 'sass:map';
 @use 'sass:list';
-
-// Mixin to emit component tokens as CSS variables that reference system tokens
-@mixin emit-component-variables($token-map, $namespace: "comp", $path: ()) {
-  @each $key, $value in $token-map {
-    $next-path: list.append($path, $key);
-    @if meta.type-of($value) == "map" {
-      @include emit-component-variables($value, $namespace, $next-path);
-    } @else if meta.type-of($value) == "list" and list.length($value) == 0 {
-      // Skip empty lists
-    } @else {
-      // Component tokens reference system tokens
-      #{fn.token-name($namespace, $next-path)}: var(--#{$value});
-    }
-  }
-}
 
 // Generate CSS variables for light mode (default)
 :root {
@@ -39,13 +23,6 @@
   @include fn.emit-css-variables(light.$color, "sys-color");
   @include fn.emit-css-variables(light.$font, "sys-font");
   @include fn.emit-css-variables(light.$elevation, "sys-elevation");
-  
-  // Component tokens (reference system tokens)
-  @include emit-component-variables(comp.$home, "comp-home");
-  @include emit-component-variables(comp.$article-list, "comp-article-list");
-  @include emit-component-variables(comp.$article-entry, "comp-article-entry");
-  @include emit-component-variables(comp.$article-page, "comp-article-page");
-  @include emit-component-variables(comp.$comment, "comp-comment");
 }
 
 // Generate CSS variables for dark mode

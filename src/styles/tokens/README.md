@@ -1,6 +1,6 @@
 # Design Tokens System
 
-This project uses a three-layer design token system following the CTI (Category-Type-Item) pattern with Sass maps and integrates with UnoCSS.
+This project uses a two-layer design token system following the CTI (Category-Type-Item) pattern with Sass maps and integrates with UnoCSS.
 
 ## Architecture
 
@@ -21,36 +21,14 @@ Semantic tokens that map to reference colors for each theme:
 - **$font**: body, heading, mono
 - **$elevation**: none, sm, md, lg
 
-### 3. Component Tokens (`_component.scss`)
-Component-specific tokens organized at module level:
-
-```scss
-$home: (
-  bg: sys-color-bg-primary,
-  title: sys-color-text-brand,
-  ...
-)
-
-$comment: (
-  bg: ...,
-  form: (
-    border: ...,
-    bg: ...
-  )
-)
-```
-
 ## Usage
 
 ### In TSX Files (with UnoCSS)
 Use dynamic utility classes with the token naming convention:
 
 ```tsx
-// Component tokens
-<div className="bg-comp-home-bg text-comp-home-title">
-
 // System tokens
-<div className="bg-sys-color-bg-primary text-sys-color-text-brand">
+<div className="bg-sys-bg-primary color-sys-text-brand">
 ```
 
 ### In SCSS Files
@@ -60,9 +38,6 @@ Use the helper functions:
 @use '../styles/tokens/functions' as fn;
 
 .my-component {
-  // Use component token
-  background: fn.use-comp(comment, form, bg);
-  
   // Use system token
   color: fn.use-sys(color, text, primary);
   
@@ -93,7 +68,6 @@ Follows CTI+namespace pattern:
 
 - **Reference**: `--ref-{category}-{type}-{item}` (e.g., `--ref-color-blue-500`)
 - **System**: `--sys-{category}-{type}-{item}` (e.g., `--sys-color-bg-primary`)
-- **Component**: `--comp-{component}-{property}` (e.g., `--comp-home-bg`)
 
 ## How It Works
 
@@ -106,8 +80,7 @@ Follows CTI+namespace pattern:
 
 1. Add reference values to appropriate category in `_reference.scss`
 2. Map them in both `_system-light.scss` and `_system-dark.scss`
-3. Create component tokens in `_component.scss` at module level
-4. UnoCSS will automatically pick up new tokens via dynamic rules
+3. UnoCSS will automatically pick up new tokens via dynamic rules
 
 ## Benefits
 

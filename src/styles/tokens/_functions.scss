@@ -60,15 +60,6 @@
   @return var(#{$name});
 }
 
-// Helper to use component token CSS variable
-@function use-comp($keys...) {
-  $name: "--comp";
-  @each $key in $keys {
-    $name: "#{$name}-#{$key}";
-  }
-  @return var(#{$name});
-}
-
 // Mixin to apply font composite token
 @mixin apply-font($font-map) {
   @if map.has-key($font-map, family) {
