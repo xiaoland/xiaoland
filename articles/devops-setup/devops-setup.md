@@ -1,6 +1,8 @@
 ---
-title: "DevOps 初尝试"
-description: 在国内服务器上安装K3S，配置基于FluxCD的GitOps，并部署Postgres,Redis和两个Python应用。
+title: DevOps 初尝试
+description: '在国内服务器上安装K3S，配置基于FluxCD的GitOps，并部署Postgres,Redis和两个Python应用。'
+publishTo: []
+createdAt: '2025-11-25T12:03:53.549Z'
 ---
 
 ## 前置知识

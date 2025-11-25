@@ -1,6 +1,10 @@
 ---
-title: "样式工程"
-description: "本文介绍一个工作流，将 Figma 设计稿作为 SSoT，自动生成多平台（Web、Flutter、UniApp）的 Design Tokens 从而实现跨端视觉一致、多尺寸、布局、模式适配。"
+title: 样式工程
+description: >-
+  本文介绍一个工作流，将 Figma 设计稿作为 SSoT，自动生成多平台（Web、Flutter、UniApp）的 Design Tokens
+  从而实现跨端视觉一致、多尺寸、布局、模式适配。
+publishTo: []
+createdAt: '2025-11-25T12:03:53.562Z'
 ---
 
 ## TL;DR

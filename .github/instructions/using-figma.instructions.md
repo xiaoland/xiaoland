@@ -1,6 +1,6 @@
 ---
 applyTo: "**/*.tsx"
-description: "Apply when using Figma MCP"
+description: "Only when using Figma MCP"
 ---
 
 - use `span` for text, not `p`

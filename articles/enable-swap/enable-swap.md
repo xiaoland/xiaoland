@@ -1,6 +1,8 @@
 ---
-title: "为什么你的 swap 不生效？"
-description: "如何在 Debian / RHEL 系统中开启 Swap 并确保其生效"
+title: 为什么你的 swap 不生效？
+description: 如何在 Debian / RHEL 系统中开启 Swap 并确保其生效
+publishTo: []
+createdAt: '2025-11-25T12:03:53.558Z'
 ---
 
 ## 启用 Swap
