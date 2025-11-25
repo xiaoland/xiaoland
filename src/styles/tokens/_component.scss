@@ -26,6 +26,24 @@ $article-entry: (
   shadow: 'sys-color-surface-overlay',
 );
 
+// Article page component tokens
+$article-page: (
+  bg: 'sys-color-bg-secondary',
+  title: 'sys-color-text-heading',
+  meta: 'sys-color-text-tertiary',
+  content: (
+    text: 'sys-color-text-primary',
+    heading: 'sys-color-text-heading',
+    link: 'sys-color-interactive-primary',
+    link-hover: 'sys-color-interactive-primary-hover',
+    code-bg: 'sys-color-bg-tertiary',
+    code-text: 'sys-color-text-primary',
+    blockquote-border: 'sys-color-border-strong',
+    blockquote-text: 'sys-color-text-secondary',
+    hr: 'sys-color-border-default',
+  ),
+);
+
 // Comments component tokens
 $comment: (
   bg: 'sys-color-bg-tertiary',
