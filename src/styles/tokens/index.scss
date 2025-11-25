@@ -44,6 +44,7 @@
   @include emit-component-variables(comp.$home, "comp-home");
   @include emit-component-variables(comp.$article-list, "comp-article-list");
   @include emit-component-variables(comp.$article-entry, "comp-article-entry");
+  @include emit-component-variables(comp.$article-page, "comp-article-page");
   @include emit-component-variables(comp.$comment, "comp-comment");
 }
 
