@@ -1,41 +1,77 @@
 // System Tokens - Dark Mode
 // Semantic tokens that map to reference colors for dark theme
+// Organized following CTI (Category-Type-Item) structure
 
 @use './reference' as ref;
+@use './functions' as fn;
 @use 'sass:map';
 
-$system-dark: (
-  // Background colors
-  'bg-primary': map.get(ref.$ref-colors, 'gray-900'),
-  'bg-secondary': map.get(ref.$ref-colors, 'gray-800'),
-  'bg-tertiary': map.get(ref.$ref-colors, 'gray-700'),
-  'bg-elevated': map.get(ref.$ref-colors, 'gray-800'),
+// System tokens for dark mode (nested structure)
+$color: (
+  bg: (
+    primary: fn.map-deep-get(ref.$color, gray, 900),
+    secondary: fn.map-deep-get(ref.$color, gray, 800),
+    tertiary: fn.map-deep-get(ref.$color, gray, 700),
+    elevated: fn.map-deep-get(ref.$color, gray, 800),
+  ),
   
-  // Text colors
-  'text-primary': map.get(ref.$ref-colors, 'white'),
-  'text-secondary': map.get(ref.$ref-colors, 'gray-300'),
-  'text-tertiary': map.get(ref.$ref-colors, 'gray-400'),
-  'text-brand': map.get(ref.$ref-colors, 'blue-500'),  // Changed to blue-500 for better contrast
-  'text-heading': map.get(ref.$ref-colors, 'blue-50'),
+  text: (
+    primary: fn.map-deep-get(ref.$color, white),
+    secondary: fn.map-deep-get(ref.$color, gray, 300),
+    tertiary: fn.map-deep-get(ref.$color, gray, 400),
+    brand: fn.map-deep-get(ref.$color, blue, 500),
+    heading: fn.map-deep-get(ref.$color, blue, 50),
+  ),
   
-  // Border colors
-  'border-default': map.get(ref.$ref-colors, 'gray-700'),
-  'border-subtle': map.get(ref.$ref-colors, 'gray-800'),
-  'border-strong': map.get(ref.$ref-colors, 'gray-500'),
+  border: (
+    default: fn.map-deep-get(ref.$color, gray, 700),
+    subtle: fn.map-deep-get(ref.$color, gray, 800),
+    strong: fn.map-deep-get(ref.$color, gray, 500),
+  ),
   
-  // Interactive colors
-  'interactive-primary': map.get(ref.$ref-colors, 'blue-700'),
-  'interactive-primary-hover': map.get(ref.$ref-colors, 'blue-500'),
-  'interactive-focus': map.get(ref.$ref-colors, 'blue-700'),
-  'interactive-disabled': map.get(ref.$ref-colors, 'gray-600'),
+  interactive: (
+    primary: fn.map-deep-get(ref.$color, blue, 700),
+    primary-hover: fn.map-deep-get(ref.$color, blue, 500),
+    focus: fn.map-deep-get(ref.$color, blue, 700),
+    disabled: fn.map-deep-get(ref.$color, gray, 600),
+  ),
   
-  // Semantic colors
-  'error-bg': map.get(ref.$ref-colors, 'error-dark-bg'),
-  'error-text': map.get(ref.$ref-colors, 'error-600'),
+  error: (
+    bg: fn.map-deep-get(ref.$color, error, dark-bg),
+    text: fn.map-deep-get(ref.$color, error, 600),
+  ),
   
-  // Surface colors
-  'surface-overlay': rgba(255, 255, 255, 0.1),
+  surface: (
+    overlay: rgba(255, 255, 255, 0.1),
+  ),
   
-  // Pure colors
-  'white': map.get(ref.$ref-colors, 'white'),
+  white: fn.map-deep-get(ref.$color, white),
+);
+
+// Font system tokens (same as light, no changes for dark mode)
+$font: (
+  body: (
+    family: fn.map-deep-get(ref.$font, family, sans),
+    size: fn.map-deep-get(ref.$font, size, base),
+    weight: fn.map-deep-get(ref.$font, weight, normal),
+    line-height: fn.map-deep-get(ref.$font, line-height, normal),
+  ),
+  heading: (
+    family: fn.map-deep-get(ref.$font, family, sans),
+    weight: fn.map-deep-get(ref.$font, weight, bold),
+    line-height: fn.map-deep-get(ref.$font, line-height, tight),
+  ),
+  mono: (
+    family: fn.map-deep-get(ref.$font, family, mono),
+    size: fn.map-deep-get(ref.$font, size, sm),
+    weight: fn.map-deep-get(ref.$font, weight, normal),
+  ),
+);
+
+// Elevation system tokens
+$elevation: (
+  none: fn.map-deep-get(ref.$elevation, none),
+  sm: fn.map-deep-get(ref.$elevation, sm),
+  md: fn.map-deep-get(ref.$elevation, md),
+  lg: fn.map-deep-get(ref.$elevation, lg),
 );

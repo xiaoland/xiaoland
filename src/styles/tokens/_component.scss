@@ -1,46 +1,63 @@
 // Component Tokens
-// Component-specific semantic tokens that use system tokens
+// Component-specific semantic tokens that reference system tokens
+// Organized at module level with nested structure
 
-$component-tokens: (
-  // Home page
-  'home-bg': 'bg-primary',
-  'home-title': 'text-brand',
-  'home-text': 'text-primary',
-  'home-tags': 'text-primary',
-  
-  // Article list
-  'article-list-title': 'text-heading',
-  'article-list-empty': 'text-tertiary',
-  
-  // Article entry
-  'article-entry-bg': 'bg-elevated',
-  'article-entry-border': 'border-strong',
-  'article-entry-title': 'text-primary',
-  'article-entry-description': 'text-secondary',
-  'article-entry-date': 'text-tertiary',
-  'article-entry-shadow': 'surface-overlay',
-  
-  // Comments
-  'comments-bg': 'bg-tertiary',
-  'comments-title': 'text-primary',
-  'comments-heading': 'text-secondary',
-  'comments-form-bg': 'bg-tertiary',
-  'comments-form-border': 'border-default',
-  'comments-input-border': 'border-default',
-  'comments-input-focus': 'interactive-focus',
-  'comments-label': 'text-primary',
-  'comments-button-bg': 'interactive-primary',
-  'comments-button-hover': 'interactive-primary-hover',
-  'comments-button-disabled': 'interactive-disabled',
-  'comments-button-text': 'white',
-  'comments-error-bg': 'error-bg',
-  'comments-error-text': 'error-text',
-  'comments-item-bg': 'bg-elevated',
-  'comments-item-border': 'border-default',
-  'comments-item-shadow': 'surface-overlay',
-  'comments-border-subtle': 'border-subtle',
-  'comments-author': 'text-primary',
-  'comments-date': 'text-tertiary',
-  'comments-content': 'text-secondary',
-  'comments-empty': 'text-tertiary',
+// Home page component tokens
+$home: (
+  bg: 'sys-color-bg-primary',
+  title: 'sys-color-text-brand',
+  text: 'sys-color-text-primary',
+  tags: 'sys-color-text-primary',
+);
+
+// Article list component tokens
+$article-list: (
+  title: 'sys-color-text-heading',
+  empty: 'sys-color-text-tertiary',
+);
+
+// Article entry component tokens
+$article-entry: (
+  bg: 'sys-color-bg-elevated',
+  border: 'sys-color-border-strong',
+  title: 'sys-color-text-primary',
+  description: 'sys-color-text-secondary',
+  date: 'sys-color-text-tertiary',
+  shadow: 'sys-color-surface-overlay',
+);
+
+// Comments component tokens
+$comment: (
+  bg: 'sys-color-bg-tertiary',
+  title: 'sys-color-text-primary',
+  heading: 'sys-color-text-secondary',
+  form: (
+    bg: 'sys-color-bg-tertiary',
+    border: 'sys-color-border-default',
+  ),
+  input: (
+    border: 'sys-color-border-default',
+    focus: 'sys-color-interactive-focus',
+  ),
+  label: 'sys-color-text-primary',
+  button: (
+    bg: 'sys-color-interactive-primary',
+    hover: 'sys-color-interactive-primary-hover',
+    disabled: 'sys-color-interactive-disabled',
+    text: 'sys-color-white',
+  ),
+  error: (
+    bg: 'sys-color-error-bg',
+    text: 'sys-color-error-text',
+  ),
+  item: (
+    bg: 'sys-color-bg-elevated',
+    border: 'sys-color-border-default',
+    shadow: 'sys-color-surface-overlay',
+  ),
+  border-subtle: 'sys-color-border-subtle',
+  author: 'sys-color-text-primary',
+  date: 'sys-color-text-tertiary',
+  content: 'sys-color-text-secondary',
+  empty: 'sys-color-text-tertiary',
 );

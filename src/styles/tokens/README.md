@@ -1,72 +1,119 @@
 # Design Tokens System
 
-This project uses a three-layer design token system to manage colors and styles consistently across the application with support for both light and dark modes.
+This project uses a three-layer design token system following the CTI (Category-Type-Item) pattern with Sass maps and integrates with UnoCSS.
 
 ## Architecture
 
 ### 1. Reference Tokens (`_reference.scss`)
-Base color palette - foundation colors that don't change between themes.
+Base design primitives organized by category (following CTI structure):
 
-Example:
-- `blue-50`: #eaeffa
-- `blue-500`: #2f65f7
-- `gray-600`: #555
+- **$color**: Blue, gray, error, white, black
+- **$font**: Family, size, weight, line-height
+- **$elevation**: Shadow values (none, sm, md, lg)
+- **$opacity**: Opacity values
+- **$spacing**: Spacing scale
+- **$radius**: Border radius values
 
 ### 2. System Tokens (`_system-light.scss`, `_system-dark.scss`)
-Semantic tokens that map to reference colors for each theme.
+Semantic tokens that map to reference colors for each theme:
 
-Example:
-- `bg-primary`: blue-50 (light) / gray-900 (dark)
-- `text-brand`: blue-500 (light) / blue-700 (dark)
+- **$color**: bg, text, border, interactive, error, surface
+- **$font**: body, heading, mono
+- **$elevation**: none, sm, md, lg
 
 ### 3. Component Tokens (`_component.scss`)
-Component-specific semantic tokens that reference system tokens.
+Component-specific tokens organized at module level:
 
-Example:
-- `home-bg`: bg-primary
-- `article-entry-border`: border-strong
+```scss
+$home: (
+  bg: sys-color-bg-primary,
+  title: sys-color-text-brand,
+  ...
+)
+
+$comment: (
+  bg: ...,
+  form: (
+    border: ...,
+    bg: ...
+  )
+)
+```
 
 ## Usage
 
 ### In TSX Files (with UnoCSS)
-Use the token names directly as utility classes:
+Use dynamic utility classes with the token naming convention:
 
 ```tsx
-<div className="bg-home-bg text-home-title">
-  Content
-</div>
+// Component tokens
+<div className="bg-comp-home-bg text-comp-home-title">
+
+// System tokens
+<div className="bg-sys-color-bg-primary text-sys-color-text-brand">
 ```
 
 ### In SCSS Files
-Use the `use-token` function:
+Use the helper functions:
 
 ```scss
 @use '../styles/tokens/functions' as fn;
 
 .my-component {
-  background: fn.use-token('comments-form-bg');
-  color: fn.use-token('text-primary');
+  // Use component token
+  background: fn.use-comp(comment, form, bg);
+  
+  // Use system token
+  color: fn.use-sys(color, text, primary);
+  
+  // Use reference token
+  border-color: fn.use-ref(color, gray, 200);
 }
 ```
 
+### Composite Font Tokens
+Use the `apply-font` mixin:
+
+```scss
+@use '../styles/tokens/functions' as fn;
+
+.heading {
+  @include fn.apply-font((
+    family: var(--sys-font-heading-family),
+    size: var(--sys-font-size-2xl),
+    weight: var(--sys-font-heading-weight),
+    line-height: var(--sys-font-heading-line-height),
+  ));
+}
+```
+
+## CSS Variable Naming Convention
+
+Follows CTI+namespace pattern:
+
+- **Reference**: `--ref-{category}-{type}-{item}` (e.g., `--ref-color-blue-500`)
+- **System**: `--sys-{category}-{type}-{item}` (e.g., `--sys-color-bg-primary`)
+- **Component**: `--comp-{component}-{property}` (e.g., `--comp-home-bg`)
+
 ## How It Works
 
-1. **Build Time**: Sass compiles the token files and generates CSS custom properties (CSS variables)
-2. **Light Mode**: CSS variables are set with light mode values by default in `:root`
-3. **Dark Mode**: A media query `@media (prefers-color-scheme: dark)` overrides the CSS variables with dark mode values
-4. **UnoCSS Integration**: The `uno.config.ts` references these CSS variables in the theme configuration
+1. **Build Time**: Sass compiles token files and generates CSS custom properties
+2. **Light Mode**: CSS variables set with light mode values in `:root`
+3. **Dark Mode**: Media query `@media (prefers-color-scheme: dark)` overrides system tokens
+4. **UnoCSS Integration**: Dynamic rules match token patterns to generate utility classes
 
 ## Adding New Tokens
 
-1. Add reference colors to `_reference.scss` if needed
+1. Add reference values to appropriate category in `_reference.scss`
 2. Map them in both `_system-light.scss` and `_system-dark.scss`
-3. Create component tokens in `_component.scss`
-4. Add to UnoCSS theme in `uno.config.ts` if you need utility classes
+3. Create component tokens in `_component.scss` at module level
+4. UnoCSS will automatically pick up new tokens via dynamic rules
 
 ## Benefits
 
-- **Consistency**: Single source of truth for design values
-- **Maintainability**: Easy to update colors across the entire app
-- **Dark Mode**: Automatic theme switching based on user preferences
-- **Type Safety**: Token names are validated at build time
+- **CTI Structure**: Industry-standard token organization
+- **Nested Maps**: Clean, maintainable Sass structure
+- **Automatic Dark Mode**: Based on user preferences
+- **Type Safety**: Token names validated at build time
 - **Performance**: CSS variables are fast and efficient
+- **Composite Tokens**: Support for complex token types like typography

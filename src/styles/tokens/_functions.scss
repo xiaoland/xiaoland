@@ -1,18 +1,89 @@
 // Functions to generate CSS variables from token maps
+// Following CTI (Category-Type-Item) pattern
 
 @use 'sass:map';
 @use 'sass:meta';
+@use 'sass:list';
+@use 'sass:string';
 
-// Generate CSS custom properties from a token map
-@mixin generate-css-vars($tokens, $prefix: '') {
-  @each $name, $value in $tokens {
-    @if meta.type-of($value) == 'color' or meta.type-of($value) == 'string' or meta.type-of($value) == 'number' {
-      --#{$prefix}#{$name}: #{$value};
+// Deep get function for nested maps
+@function map-deep-get($map, $keys...) {
+  $value: $map;
+  @each $key in $keys {
+    @if meta.type-of($value) == "map" and map.has-key($value, $key) {
+      $value: map.get($value, $key);
+    } @else {
+      @return null;
+    }
+  }
+  @return $value;
+}
+
+// Generate token name from namespace and path
+@function token-name($namespace, $path) {
+  $name: "--#{$namespace}";
+  @each $segment in $path {
+    $name: "#{$name}-#{$segment}";
+  }
+  @return $name;
+}
+
+// Emit CSS custom properties for the given token map using CTI+S path
+@mixin emit-css-variables($token-map, $namespace: "sys", $path: ()) {
+  @each $key, $value in $token-map {
+    $next-path: list.append($path, $key);
+    @if meta.type-of($value) == "map" {
+      @include emit-css-variables($value, $namespace, $next-path);
+    } @else if meta.type-of($value) == "list" and list.length($value) == 0 {
+      // Skip empty lists (which is how SCSS represents empty maps)
+    } @else {
+      #{token-name($namespace, $next-path)}: #{$value};
     }
   }
 }
 
-// Helper to use CSS variable with fallback
-@function use-token($token-name) {
-  @return var(--#{$token-name});
+// Helper to use system token CSS variable
+@function use-sys($keys...) {
+  $name: "--sys";
+  @each $key in $keys {
+    $name: "#{$name}-#{$key}";
+  }
+  @return var(#{$name});
+}
+
+// Helper to use reference token CSS variable
+@function use-ref($keys...) {
+  $name: "--ref";
+  @each $key in $keys {
+    $name: "#{$name}-#{$key}";
+  }
+  @return var(#{$name});
+}
+
+// Helper to use component token CSS variable
+@function use-comp($keys...) {
+  $name: "--comp";
+  @each $key in $keys {
+    $name: "#{$name}-#{$key}";
+  }
+  @return var(#{$name});
+}
+
+// Mixin to apply font composite token
+@mixin apply-font($font-map) {
+  @if map.has-key($font-map, family) {
+    font-family: map.get($font-map, family);
+  }
+  @if map.has-key($font-map, size) {
+    font-size: map.get($font-map, size);
+  }
+  @if map.has-key($font-map, weight) {
+    font-weight: map.get($font-map, weight);
+  }
+  @if map.has-key($font-map, line-height) {
+    line-height: map.get($font-map, line-height);
+  }
+  @if map.has-key($font-map, letter-spacing) {
+    letter-spacing: map.get($font-map, letter-spacing);
+  }
 }

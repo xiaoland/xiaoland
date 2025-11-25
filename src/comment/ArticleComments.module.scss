@@ -8,22 +8,22 @@
   h2 {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
-    color: fn.use-token('comments-title');
+    color: fn.use-comp(comment, title);
   }
 
   h3 {
     font-size: 1.3rem;
     margin-bottom: 1rem;
-    color: fn.use-token('comments-heading');
+    color: fn.use-comp(comment, heading);
   }
 }
 
 .commentForm {
-  background: fn.use-token('comments-form-bg');
+  background: fn.use-comp(comment, form, bg);
   padding: 1.5rem;
   border-radius: 8px;
   margin-bottom: 2rem;
-  border: 1px solid fn.use-token('comments-form-border');
+  border: 1px solid fn.use-comp(comment, form, border);
 }
 
 .formGroup {
@@ -33,24 +33,24 @@
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
-    color: fn.use-token('comments-label');
+    color: fn.use-comp(comment, label);
   }
 
   input,
   textarea {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid fn.use-token('comments-input-border');
+    border: 1px solid fn.use-comp(comment, input, border);
     border-radius: 4px;
     font-size: 1rem;
     font-family: inherit;
     transition: border-color 0.3s;
-    background: fn.use-token('bg-elevated');
-    color: fn.use-token('text-primary');
+    background: fn.use-sys(color, bg, elevated);
+    color: fn.use-sys(color, text, primary);
 
     &:focus {
       outline: none;
-      border-color: fn.use-token('comments-input-focus');
+      border-color: fn.use-comp(comment, input, focus);
     }
   }
 
@@ -61,8 +61,8 @@
 }
 
 .errorMessage {
-  color: fn.use-token('comments-error-text');
-  background: fn.use-token('comments-error-bg');
+  color: fn.use-comp(comment, error, text);
+  background: fn.use-comp(comment, error, bg);
   padding: 0.75rem;
   border-radius: 4px;
   margin-bottom: 1rem;
@@ -70,8 +70,8 @@
 }
 
 .submitButton {
-  background: fn.use-token('comments-button-bg');
-  color: fn.use-token('comments-button-text');
+  background: fn.use-comp(comment, button, bg);
+  color: fn.use-comp(comment, button, text);
   border: none;
   padding: 0.75rem 2rem;
   border-radius: 4px;
@@ -81,11 +81,11 @@
   transition: background 0.3s;
 
   &:hover:not(:disabled) {
-    background: fn.use-token('comments-button-hover');
+    background: fn.use-comp(comment, button, hover);
   }
 
   &:disabled {
-    background: fn.use-token('comments-button-disabled');
+    background: fn.use-comp(comment, button, disabled);
     cursor: not-allowed;
   }
 }
@@ -95,22 +95,22 @@
 }
 
 .noComments {
-  color: fn.use-token('comments-empty');
+  color: fn.use-comp(comment, empty);
   font-style: italic;
   text-align: center;
   padding: 2rem;
 }
 
 .commentItem {
-  background: fn.use-token('comments-item-bg');
+  background: fn.use-comp(comment, item, bg);
   padding: 1.25rem;
   border-radius: 8px;
   margin-bottom: 1rem;
-  border: 1px solid fn.use-token('comments-item-border');
+  border: 1px solid fn.use-comp(comment, item, border);
   transition: box-shadow 0.3s;
 
   &:hover {
-    box-shadow: 0 2px 8px fn.use-token('comments-item-shadow');
+    box-shadow: 0 2px 8px fn.use-comp(comment, item, shadow);
   }
 }
 
@@ -120,22 +120,22 @@
   align-items: center;
   margin-bottom: 0.75rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid fn.use-token('comments-border-subtle');
+  border-bottom: 1px solid fn.use-comp(comment, border-subtle);
 }
 
 .commentAuthor {
   font-weight: 600;
-  color: fn.use-token('comments-author');
+  color: fn.use-comp(comment, author);
   font-size: 1rem;
 }
 
 .commentDate {
-  color: fn.use-token('comments-date');
+  color: fn.use-comp(comment, date);
   font-size: 0.85rem;
 }
 
 .commentContent {
-  color: fn.use-token('comments-content');
+  color: fn.use-comp(comment, content);
   line-height: 1.6;
   white-space: pre-wrap;
   word-wrap: break-word;
