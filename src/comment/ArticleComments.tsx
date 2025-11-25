@@ -93,30 +93,30 @@ export function ArticleComments({ slug }: ArticleCommentsProps) {
 
   return (
     <div className={styles.articleComments}>
-      <h2>评论</h2>
+      <span className={styles.sectionTitle}>发表评论</span>
 
       {/* Comment Form */}
       <form onSubmit={handleSubmit} className={styles.commentForm}>
         <div className={styles.formGroup}>
-          <label htmlFor="author">名字</label>
+          <label htmlFor="author">昵称</label>
           <input
             type="text"
             id="author"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
-            placeholder="请输入您的名字"
+            placeholder="你的名字"
             disabled={isSubmitting}
             required
           />
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="content">评论内容</label>
+          <label htmlFor="content">内容</label>
           <textarea
             id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="请输入评论内容"
+            placeholder="写下你的想法..."
             rows={4}
             disabled={isSubmitting}
             required
@@ -130,18 +130,20 @@ export function ArticleComments({ slug }: ArticleCommentsProps) {
           disabled={isSubmitting}
           className={styles.submitButton}
         >
-          {isSubmitting ? "提交中..." : "发表评论"}
+          {isSubmitting ? "提交中..." : "发表"}
         </button>
       </form>
 
       {/* Comments List */}
       <div className={styles.commentsList}>
-        <h3>全部评论 ({comments.length})</h3>
+        <span className={styles.listHeader}>
+          {comments.length > 0 ? `${comments.length} 条评论` : "评论"}
+        </span>
 
         {isLoading ? (
-          <p>加载中...</p>
+          <span className={styles.loadingText}>加载中...</span>
         ) : comments.length === 0 ? (
-          <p className={styles.noComments}>暂无评论，快来发表第一条评论吧！</p>
+          <span className={styles.noComments}>还没有评论，来说点什么吧</span>
         ) : (
           comments.map((comment) => (
             <div key={comment.id} className={styles.commentItem}>
@@ -151,7 +153,7 @@ export function ArticleComments({ slug }: ArticleCommentsProps) {
                   {formatDate(comment.createdAt)}
                 </span>
               </div>
-              <div className={styles.commentContent}>{comment.content}</div>
+              <span className={styles.commentContent}>{comment.content}</span>
             </div>
           ))
         )}
