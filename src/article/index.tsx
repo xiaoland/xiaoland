@@ -28,11 +28,11 @@ articleApp.get("/:slug", async (c) => {
   c.set("title", articleMetadata.title);
 
   return c.render(
-    <div className="min-h-screen bg-comp-article-page-bg">
+    <div className="min-h-screen bg-sys-bg-secondary">
       <div className="max-w-[720px] mx-auto px-6 py-12">
         {/* Article Header */}
         <header className="mb-10">
-          <h1 className="text-4xl font-bold color-comp-article-page-title leading-tight mb-4">
+          <h1 className="text-4xl font-bold color-sys-text-heading leading-tight mb-4">
             {articleMetadata.title}
           </h1>
           {articleMetadata.description && (
@@ -40,13 +40,13 @@ articleApp.get("/:slug", async (c) => {
               {articleMetadata.description}
             </span>
           )}
-          <span className="text-sm font-mono color-comp-article-page-meta">
+          <span className="text-sm font-mono color-sys-text-tertiary">
             {formatDate(articleMetadata.createdAt)}
           </span>
         </header>
 
         {/* Article Content */}
-        <article className="article-content color-comp-article-page-content-text">
+        <article className="article-content color-sys-text-primary">
           <ArticleComponent />
         </article>
 
