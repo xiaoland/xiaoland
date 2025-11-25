@@ -6,7 +6,7 @@ import type { D1Database } from "@cloudflare/workers-types";
 const commentApp = new Hono<{ Bindings: { DB: D1Database } }>();
 
 // API routes for comments
-commentApp.get("/comments/:slug", async (c) => {
+commentApp.get("/:slug", async (c) => {
   const slug = c.req.param("slug");
   const db = createDb(c.env.DB);
 
@@ -18,7 +18,7 @@ commentApp.get("/comments/:slug", async (c) => {
   return c.json(comments);
 });
 
-commentApp.post("/comments", async (c) => {
+commentApp.post("/", async (c) => {
   const { articleSlug, author, content } = await c.req.json();
 
   if (!articleSlug || !author || !content) {
