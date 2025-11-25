@@ -30,7 +30,7 @@ export function ArticleComments({ slug }: ArticleCommentsProps) {
   const fetchComments = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`/api/comments/${slug}`);
+      const response = await fetch(`/api/comment/${slug}`);
       const data = (await response.json()) as Comment[];
       setComments(data);
     } catch (err) {
@@ -52,7 +52,7 @@ export function ArticleComments({ slug }: ArticleCommentsProps) {
 
     try {
       setIsSubmitting(true);
-      const response = await fetch("/api/comments", {
+      const response = await fetch("/api/comment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -141,7 +141,9 @@ export function ArticleComments({ slug }: ArticleCommentsProps) {
         </h3>
 
         {isLoading ? (
-          <span className={styles.loadingText} role="status" aria-live="polite">加载中...</span>
+          <span className={styles.loadingText} role="status" aria-live="polite">
+            加载中...
+          </span>
         ) : comments.length === 0 ? (
           <span className={styles.noComments}>还没有评论，来说点什么吧</span>
         ) : (

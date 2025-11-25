@@ -38,6 +38,6 @@ app.get("/", (c) => {
 });
 
 app.route("/article", articleApp);
-app.route("/comment", commentApp);
+app.route("/api/comment", commentApp);
 
 export default app;
