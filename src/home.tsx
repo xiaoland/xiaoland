@@ -9,7 +9,9 @@ export function Home() {
       <div className="flex flex-shrink-0 flex-col justify-between">
         {/* Intro */}
         <div className="flex flex-col">
-          <span className="color-sys-text-primary font-size-[1.25rem] md:font-size-[1.5rem]">你好👋，我是</span>
+          <span className="color-sys-text-primary font-size-[1.25rem] md:font-size-[1.5rem]">
+            你好👋，我是
+          </span>
           {/* Handle */}
           <div className="relative font-bold font-size-[3.5rem] md:font-size-[5.5rem]">
             <span className="color-sys-text-brand">蓝汁酱</span>
@@ -28,7 +30,7 @@ export function Home() {
       </div>
 
       {/* Content Area */}
-      <div className="p-3 box-border flex flex-col items-center gap-[1.5rem] flex-1 min-h-0">
+      <div className="p-3 box-border flex flex-col items-center gap-[1.5rem] flex-1 max-h-[90vh] overflow-auto">
         <ArticleList articles={articleList} />
       </div>
     </div>
