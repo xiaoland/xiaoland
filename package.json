@@ -9,7 +9,7 @@
     "build": "unocss && vite build && node scripts/copy-assets.js",
     "build:scripts": "tsc -p scripts/tsconfig.json",
     "preview": "pnpm run build && vite preview",
-    "deploy": "pnpm run build && wrangler deploy",
+    "deploy": "pnpm run build && wrangler deploy && wrangler d1 migrations apply lanzhijiang --remote",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "test": "vitest"
   },
