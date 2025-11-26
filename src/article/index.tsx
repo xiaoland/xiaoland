@@ -28,7 +28,10 @@ articleApp.get("/:slug", async (c) => {
   c.set("title", articleMetadata.title);
   c.set("description", articleMetadata.description || articleMetadata.title);
   c.set("canonicalUrl", `https://lanzhijiang.com/article/${slug}`);
-  c.set("ogImage", `https://lanzhijiang.com/og-image-${slug}.png`);
+  // Only set OG image if there's a description (indicating complete metadata)
+  if (articleMetadata.description) {
+    c.set("ogImage", `https://lanzhijiang.com/og-image-${slug}.png`);
+  }
 
   return c.render(
     <div className="min-h-screen bg-sys-bg-secondary">

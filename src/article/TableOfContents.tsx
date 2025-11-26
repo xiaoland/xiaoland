@@ -27,6 +27,8 @@ export function TableOfContents() {
       const text = heading.textContent || "";
       
       // Use existing id or generate a unique one with toc- prefix
+      // Note: Generated IDs are not assigned to the DOM to avoid SSR/hydration issues
+      // Navigation still works via stored element references
       const id = heading.id || `toc-heading-${index}`;
 
       headingsData.push({ id, text, level, element: heading });
