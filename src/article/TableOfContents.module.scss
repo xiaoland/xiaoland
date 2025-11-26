@@ -1,0 +1,60 @@
+.toc {
+  position: fixed;
+  right: max(2rem, calc((100vw - 1200px) / 2));
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  pointer-events: none;
+
+  @media (max-width: 1400px) {
+    display: none;
+  }
+}
+
+.tocContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+  pointer-events: auto;
+}
+
+.tocItem {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  
+  &:hover .tocLine {
+    background-color: var(--sys-color-text-primary);
+    opacity: 1;
+  }
+}
+
+.tocLine {
+  height: 2px;
+  background-color: var(--sys-color-text-tertiary);
+  opacity: 0.4;
+  transition: all 0.2s ease;
+}
+
+.level2 .tocLine {
+  width: 48px;
+}
+
+.level3 .tocLine {
+  width: 32px;
+}
+
+.level4 .tocLine {
+  width: 20px;
+}
+
+.active .tocLine {
+  background-color: var(--sys-color-text-secondary);
+  opacity: 1;
+}
