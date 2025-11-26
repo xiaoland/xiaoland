@@ -14,7 +14,8 @@ app.use(
     const title = pageTitle ? `${pageTitle} - lanzhijiang` : "lanzhijiang";
     const description = c.get("description") || "lanzhijiang's blog";
     const canonicalUrl = c.get("canonicalUrl") || `https://lanzhijiang.com${c.req.path}`;
-    const ogImage = c.get("ogImage") || "https://lanzhijiang.com/default-og-image.png";
+    // Use a fallback to empty string - Open Graph will work without an image
+    const ogImage = c.get("ogImage") || "";
     
     return (
       <html lang="en">
@@ -33,13 +34,13 @@ app.use(
           <meta property="og:description" content={description} />
           <meta property="og:url" content={canonicalUrl} />
           <meta property="og:type" content="website" />
-          <meta property="og:image" content={ogImage} />
+          {ogImage && <meta property="og:image" content={ogImage} />}
           
           {/* Twitter Card */}
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={description} />
-          <meta name="twitter:image" content={ogImage} />
+          {ogImage && <meta name="twitter:image" content={ogImage} />}
           
           <Link rel="stylesheet" href="/dist/uno.css" />
           <Link rel="stylesheet" href="/src/style.css" />

@@ -26,8 +26,8 @@ export function TableOfContents() {
       const level = parseInt(heading.tagName.charAt(1));
       const text = heading.textContent || "";
       
-      // Use existing id or generate from index
-      const id = heading.id || `heading-${index}`;
+      // Use existing id or generate a unique one with toc- prefix
+      const id = heading.id || `toc-heading-${index}`;
 
       headingsData.push({ id, text, level, element: heading });
     });
@@ -51,16 +51,13 @@ export function TableOfContents() {
         }
       });
       
-      // Set the first intersecting heading as active
+      // Set the first intersecting heading as active using headingsData
       if (intersectingHeadings.size > 0) {
-        const firstIntersecting = Array.from(headingElements).find(
-          (h) => intersectingHeadings.has(h)
+        const firstIntersecting = headingsData.find(
+          (h) => intersectingHeadings.has(h.element)
         );
         if (firstIntersecting) {
-          const headingData = headingsData.find(h => h.element === firstIntersecting);
-          if (headingData) {
-            setActiveId(headingData.id);
-          }
+          setActiveId(firstIntersecting.id);
         }
       }
     }, observerOptions);
