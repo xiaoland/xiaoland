@@ -25,12 +25,8 @@ export function TableOfContents() {
       const level = parseInt(heading.tagName.charAt(1));
       const text = heading.textContent || "";
       
-      // Ensure heading has an id for anchor links
-      let id = heading.id;
-      if (!id) {
-        id = `heading-${index}`;
-        heading.id = id;
-      }
+      // Use existing id or generate from index (don't modify DOM)
+      const id = heading.id || `heading-${index}`;
 
       headingsData.push({ id, text, level });
     });
@@ -43,12 +39,26 @@ export function TableOfContents() {
       threshold: 0,
     };
 
+    const intersectingHeadings = new Set<string>();
+
     observerRef.current = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setActiveId(entry.target.id);
+          intersectingHeadings.add(entry.target.id);
+        } else {
+          intersectingHeadings.delete(entry.target.id);
         }
       });
+      
+      // Set the first intersecting heading as active
+      if (intersectingHeadings.size > 0) {
+        const firstIntersecting = Array.from(headingElements).find(
+          (h) => intersectingHeadings.has(h.id)
+        );
+        if (firstIntersecting) {
+          setActiveId(firstIntersecting.id);
+        }
+      }
     }, observerOptions);
 
     headingElements.forEach((heading) => {
