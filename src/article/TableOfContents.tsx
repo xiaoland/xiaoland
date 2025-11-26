@@ -6,6 +6,7 @@ interface Heading {
   id: string;
   text: string;
   level: number;
+  element: Element;
 }
 
 export function TableOfContents() {
@@ -25,10 +26,10 @@ export function TableOfContents() {
       const level = parseInt(heading.tagName.charAt(1));
       const text = heading.textContent || "";
       
-      // Use existing id or generate from index (don't modify DOM)
+      // Use existing id or generate from index
       const id = heading.id || `heading-${index}`;
 
-      headingsData.push({ id, text, level });
+      headingsData.push({ id, text, level, element: heading });
     });
 
     setHeadings(headingsData);
@@ -39,24 +40,27 @@ export function TableOfContents() {
       threshold: 0,
     };
 
-    const intersectingHeadings = new Set<string>();
+    const intersectingHeadings = new Set<Element>();
 
     observerRef.current = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          intersectingHeadings.add(entry.target.id);
+          intersectingHeadings.add(entry.target);
         } else {
-          intersectingHeadings.delete(entry.target.id);
+          intersectingHeadings.delete(entry.target);
         }
       });
       
       // Set the first intersecting heading as active
       if (intersectingHeadings.size > 0) {
         const firstIntersecting = Array.from(headingElements).find(
-          (h) => intersectingHeadings.has(h.id)
+          (h) => intersectingHeadings.has(h)
         );
         if (firstIntersecting) {
-          setActiveId(firstIntersecting.id);
+          const headingData = headingsData.find(h => h.element === firstIntersecting);
+          if (headingData) {
+            setActiveId(headingData.id);
+          }
         }
       }
     }, observerOptions);
@@ -70,11 +74,8 @@ export function TableOfContents() {
     };
   }, []);
 
-  const handleClick = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  const handleClick = (heading: Heading) => {
+    heading.element.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   if (headings.length === 0) {
@@ -87,7 +88,7 @@ export function TableOfContents() {
         {headings.map((heading) => (
           <button
             key={heading.id}
-            onClick={() => handleClick(heading.id)}
+            onClick={() => handleClick(heading)}
             className={`${styles.tocItem} ${styles[`level${heading.level}`]} ${
               activeId === heading.id ? styles.active : ""
             }`}
