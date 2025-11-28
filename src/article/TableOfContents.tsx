@@ -9,7 +9,13 @@ interface Heading {
   element: Element;
 }
 
-export function TableOfContents() {
+interface TableOfContentsProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+  isMobilePopup?: boolean;
+}
+
+export function TableOfContents({ isOpen = true, onClose, isMobilePopup = false }: TableOfContentsProps) {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>("");
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -75,10 +81,52 @@ export function TableOfContents() {
 
   const handleClick = (heading: Heading) => {
     heading.element.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (isMobilePopup && onClose) {
+      onClose();
+    }
   };
 
   if (headings.length === 0) {
     return null;
+  }
+
+  if (isMobilePopup) {
+    if (!isOpen) return null;
+    
+    return (
+      <div className={styles.mobileOverlay} onClick={onClose}>
+        <nav 
+          className={styles.mobilePopup} 
+          aria-label="Table of contents"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className={styles.mobileHeader}>
+            <span className={styles.mobileTitle}>目录</span>
+            <button 
+              className={styles.closeButton} 
+              onClick={onClose}
+              aria-label="Close table of contents"
+            >
+              ×
+            </button>
+          </div>
+          <div className={styles.mobileContent}>
+            {headings.map((heading) => (
+              <button
+                key={heading.id}
+                onClick={() => handleClick(heading)}
+                className={`${styles.mobileItem} ${styles[`mobileLevel${heading.level}`]} ${
+                  activeId === heading.id ? styles.mobileActive : ""
+                }`}
+                aria-current={activeId === heading.id ? "location" : undefined}
+              >
+                {heading.text}
+              </button>
+            ))}
+          </div>
+        </nav>
+      </div>
+    );
   }
 
   return (
