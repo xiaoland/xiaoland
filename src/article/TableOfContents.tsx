@@ -94,6 +94,7 @@ export function TableOfContents() {
             aria-current={activeId === heading.id ? "location" : undefined}
           >
             <span className={styles.tocLine}></span>
+            <span className={styles.tocText}>{heading.text}</span>
           </button>
         ))}
       </div>

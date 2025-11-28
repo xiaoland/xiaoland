@@ -1,3 +1,6 @@
+@use '../styles/tokens/reference' as ref;
+@use 'sass:map';
+
 .toc {
   position: fixed;
   right: max(2rem, calc((100vw - 1200px) / 2));
@@ -6,7 +9,7 @@
   z-index: 10;
   pointer-events: none;
 
-  @media (max-width: 1400px) {
+  @media (max-width: map.get(ref.$breakpoint, tablet)) {
     display: none;
   }
 }
@@ -30,7 +33,10 @@
   justify-content: flex-end;
   
   &:hover .tocLine {
-    background-color: var(--sys-color-text-primary);
+    display: none;
+  }
+  
+  &:hover .tocText {
     opacity: 1;
   }
 }
@@ -40,6 +46,17 @@
   background-color: var(--sys-color-text-tertiary);
   opacity: 0.4;
   transition: all 0.2s ease;
+}
+
+.tocText {
+  opacity: 0;
+  font-size: 0.875rem;
+  color: var(--sys-color-text-primary);
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .level2 .tocLine {
@@ -57,4 +74,8 @@
 .active .tocLine {
   background-color: var(--sys-color-text-secondary);
   opacity: 1;
+}
+
+.active .tocText {
+  color: var(--sys-color-text-secondary);
 }
