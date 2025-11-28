@@ -20,6 +20,15 @@
   gap: 0.5rem;
   align-items: flex-end;
   pointer-events: auto;
+  
+  // When hovering the entire container, show text for all items
+  &:hover .tocLine {
+    display: none;
+  }
+  
+  &:hover .tocText {
+    opacity: 1;
+  }
 }
 
 .tocItem {
@@ -31,14 +40,6 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  
-  &:hover .tocLine {
-    display: none;
-  }
-  
-  &:hover .tocText {
-    opacity: 1;
-  }
 }
 
 .tocLine {
