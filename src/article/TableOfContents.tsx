@@ -141,8 +141,7 @@ export function TableOfContents({ isOpen = true, onClose, isMobilePopup = false 
             }`}
             aria-current={activeId === heading.id ? "location" : undefined}
           >
-            <span className={styles.tocLine}></span>
-            <span className={styles.tocText}>{heading.text}</span>
+            <span className={styles.tocIndicator}>{heading.text}</span>
           </button>
         ))}
       </div>

@@ -21,13 +21,21 @@
   align-items: flex-end;
   pointer-events: auto;
   
-  // When hovering the entire container, show text for all items
-  &:hover .tocLine {
-    display: none;
+  // When hovering the entire container, switch to text mode
+  &:hover .tocIndicator {
+    // Show text
+    color: var(--sys-color-text-primary);
+    font-size: 0.875rem;
+    height: auto;
+    width: auto;
+    max-width: 200px;
+    background-color: transparent;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
-  &:hover .tocText {
-    opacity: 1;
+  &:hover .active .tocIndicator {
+    color: var(--sys-color-text-secondary);
   }
 }
 
@@ -42,43 +50,33 @@
   justify-content: flex-end;
 }
 
-.tocLine {
+// Single unified indicator element - displays as line by default, text on hover
+.tocIndicator {
+  // Default: line mode (hide text, show as line)
+  color: transparent;
+  font-size: 0;
   height: 2px;
   background-color: var(--sys-color-text-tertiary);
   opacity: 0.4;
   transition: all 0.2s ease;
-}
-
-.tocText {
-  opacity: 0;
-  font-size: 0.875rem;
-  color: var(--sys-color-text-primary);
   white-space: nowrap;
-  transition: opacity 0.2s ease;
-  max-width: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-.level2 .tocLine {
+.level2 .tocIndicator {
   width: 48px;
 }
 
-.level3 .tocLine {
+.level3 .tocIndicator {
   width: 32px;
 }
 
-.level4 .tocLine {
+.level4 .tocIndicator {
   width: 20px;
 }
 
-.active .tocLine {
+.active .tocIndicator {
   background-color: var(--sys-color-text-secondary);
   opacity: 1;
-}
-
-.active .tocText {
-  color: var(--sys-color-text-secondary);
 }
 
 // Mobile popup styles
