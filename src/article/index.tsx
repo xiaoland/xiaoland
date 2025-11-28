@@ -24,8 +24,14 @@ articleApp.get("/:slug", async (c) => {
 
   const { default: ArticleComponent } = articleModule;
 
-  // Set the page title to the article title
+  // Set the page title and meta tags
   c.set("title", articleMetadata.title);
+  c.set("description", articleMetadata.description || articleMetadata.title);
+  c.set("canonicalUrl", `https://lanzhijiang.com/article/${slug}`);
+  // Only set OG image if there's a description (indicating complete metadata)
+  if (articleMetadata.description) {
+    c.set("ogImage", `https://lanzhijiang.com/og-image-${slug}.png`);
+  }
 
   return c.render(
     <div className="min-h-screen bg-sys-bg-secondary">
@@ -58,6 +64,11 @@ articleApp.get("/:slug", async (c) => {
           </div>
         </div>
       </div>
+      
+      {/* Table of Contents */}
+      <div id="article-toc"></div>
+      
+      <Script src="/src/article/article-toc-client.tsx" type="module" />
       <Script src="/src/comment/article-comments-client.tsx" type="module" />
     </div>
   );

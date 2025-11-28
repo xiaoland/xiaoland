@@ -112,3 +112,10 @@ $radius: (
   xl: 0.75rem,
   full: 9999px,
 );
+
+// Breakpoint tokens
+$breakpoint: (
+  mobile: 768px,
+  tablet: 1024px,
+  desktop: 1280px,
+);
