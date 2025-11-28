@@ -36,6 +36,16 @@ articleApp.get("/:slug", async (c) => {
   return c.render(
     <div className="min-h-screen bg-sys-bg-secondary">
       <div className="max-w-[720px] mx-auto px-6 py-12">
+        {/* Back to Home */}
+        <a
+          href="/"
+          className="inline-flex items-center gap-2 color-sys-text-tertiary hover:color-sys-text-primary transition-colors mb-6"
+          aria-label="Navigate back to home page"
+        >
+          <span className="text-lg" aria-hidden="true">←</span>
+          <span className="text-sm font-mono">Home</span>
+        </a>
+
         {/* Article Header */}
         <header className="mb-10">
           <h1 className="text-4xl font-bold color-sys-text-heading leading-tight mb-4">
