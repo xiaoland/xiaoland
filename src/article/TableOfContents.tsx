@@ -15,10 +15,22 @@ interface TableOfContentsProps {
   isMobilePopup?: boolean;
 }
 
+// Generate a URL-friendly slug from text
+function generateSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[\s]+/g, "-")
+    .replace(/[^\w\u4e00-\u9fa5-]/g, "") // Keep Chinese characters, alphanumeric, and hyphens
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 export function TableOfContents({ isOpen = true, onClose, isMobilePopup = false }: TableOfContentsProps) {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>("");
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const isScrollingRef = useRef(false);
 
   useEffect(() => {
     // Extract headings from article content
@@ -27,20 +39,46 @@ export function TableOfContents({ isOpen = true, onClose, isMobilePopup = false 
 
     const headingElements = articleContent.querySelectorAll("h2, h3, h4");
     const headingsData: Heading[] = [];
+    const usedIds = new Set<string>();
 
-    headingElements.forEach((heading, index) => {
+    headingElements.forEach((heading) => {
       const level = parseInt(heading.tagName.charAt(1));
       const text = heading.textContent || "";
       
-      // Use existing id or generate a unique one with toc- prefix
-      // Note: Generated IDs are not assigned to the DOM to avoid SSR/hydration issues
-      // Navigation still works via stored element references
-      const id = heading.id || `toc-heading-${index}`;
+      // Generate a unique slug-based ID
+      let baseId = heading.id || generateSlug(text);
+      let id = baseId;
+      let counter = 1;
+      
+      // Ensure unique ID
+      while (usedIds.has(id)) {
+        id = `${baseId}-${counter}`;
+        counter++;
+      }
+      usedIds.add(id);
+      
+      // Assign ID to the heading element in DOM for fragment navigation
+      if (!heading.id) {
+        heading.id = id;
+      }
 
       headingsData.push({ id, text, level, element: heading });
     });
 
     setHeadings(headingsData);
+
+    // Handle initial hash on page load
+    const initialHash = window.location.hash.slice(1);
+    if (initialHash) {
+      const targetHeading = headingsData.find(h => h.id === initialHash);
+      if (targetHeading) {
+        // Small delay to ensure DOM is ready
+        setTimeout(() => {
+          targetHeading.element.scrollIntoView({ behavior: "smooth", block: "start" });
+          setActiveId(initialHash);
+        }, 100);
+      }
+    }
 
     // Set up intersection observer for active heading detection
     const observerOptions = {
@@ -66,6 +104,11 @@ export function TableOfContents({ isOpen = true, onClose, isMobilePopup = false 
         );
         if (firstIntersecting) {
           setActiveId(firstIntersecting.id);
+          // Update URL hash without triggering scroll (only if not programmatically scrolling)
+          if (!isScrollingRef.current) {
+            const newUrl = `${window.location.pathname}#${firstIntersecting.id}`;
+            window.history.replaceState(null, "", newUrl);
+          }
         }
       }
     }, observerOptions);
@@ -80,7 +123,22 @@ export function TableOfContents({ isOpen = true, onClose, isMobilePopup = false 
   }, []);
 
   const handleClick = (heading: Heading) => {
+    // Mark that we're programmatically scrolling
+    isScrollingRef.current = true;
+    
+    // Update URL hash
+    const newUrl = `${window.location.pathname}#${heading.id}`;
+    window.history.pushState(null, "", newUrl);
+    
+    // Scroll to heading
     heading.element.scrollIntoView({ behavior: "smooth", block: "start" });
+    setActiveId(heading.id);
+    
+    // Reset scrolling flag after animation completes
+    setTimeout(() => {
+      isScrollingRef.current = false;
+    }, 1000);
+    
     if (isMobilePopup && onClose) {
       onClose();
     }
