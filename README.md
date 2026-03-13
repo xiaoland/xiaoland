@@ -16,6 +16,10 @@
 ### Github Status 👓
 ![xiaoland's github stats](https://github-readme-stats.vercel.app/api?username=xiaoland&theme=tokyonight&show_icons=true)
 
+### Links
+
+- New Blog: <https://lanzhijiang.dev> (The new one is still WIP, check [Old One](https://blog.hadream.ltd) also)
+
 ### Trivias
 
 - Nickname in Chinese: 蓝汁酱
