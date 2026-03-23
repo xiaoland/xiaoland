@@ -1,0 +1,207 @@
+import axios, { AxiosRequestConfig } from 'axios';
+
+const {
+  APP_ID,
+  APP_SECRET,
+  WXOA_PROXY,
+  WXOA_PROXY_USERNAME,
+  WXOA_PROXY_PASSWORD,
+} = process.env;
+
+if (!APP_ID || !APP_SECRET) {
+  throw new Error('Missing APP_ID or APP_SECRET environment variables');
+}
+
+const API_BASE = 'https://api.weixin.qq.com/cgi-bin';
+
+const axiosConfig: AxiosRequestConfig = {};
+if (WXOA_PROXY) {
+  const proxyUrl = new URL(WXOA_PROXY);
+  axiosConfig.proxy = {
+    protocol: proxyUrl.protocol.replace(':', ''),
+    host: proxyUrl.hostname,
+    port: Number(proxyUrl.port),
+    auth:
+      WXOA_PROXY_USERNAME && WXOA_PROXY_PASSWORD
+        ? {
+          username: WXOA_PROXY_USERNAME,
+          password: WXOA_PROXY_PASSWORD,
+        }
+        : undefined,
+  };
+}
+
+const apiClient = axios.create(axiosConfig);
+
+interface AccessToken {
+  access_token: string;
+  expires_in: number;
+}
+
+let accessToken: AccessToken | null = null;
+let tokenExpiresAt = 0;
+
+export async function getAccessToken(): Promise<string> {
+  if (accessToken && Date.now() < tokenExpiresAt) {
+    return accessToken.access_token;
+  }
+
+  const { data } = await apiClient.get(`${API_BASE}/token`, {
+    params: {
+      grant_type: 'client_credential',
+      appid: APP_ID,
+      secret: APP_SECRET,
+    },
+  });
+
+  if (data.errcode) {
+    throw new Error(`Failed to get access token: ${data.errmsg}`);
+  }
+
+  accessToken = data;
+  tokenExpiresAt = Date.now() + (accessToken!.expires_in - 120) * 1000; // 2-minute buffer
+
+  return accessToken!.access_token;
+}
+
+export interface Draft {
+  media_id: string;
+  content: {
+    news_item: {
+      content_source_url: string;
+    }[];
+  };
+}
+
+export interface WxoaArticle {
+  title: string;
+  content: string;
+  content_source_url: string;
+  thumb_media_id: string;
+  image_info: {
+    image_list: Array<{
+      image_media_id: string;
+    }>;
+  };
+}
+
+export async function getDrafts(): Promise<Draft[]> {
+  const token = await getAccessToken();
+  const allDrafts: Draft[] = [];
+  let offset = 0;
+  const count = 20;
+
+  while (true) {
+    const { data } = await apiClient.post(
+      `${API_BASE}/draft/batchget?access_token=${token}`,
+      {
+        offset,
+        count,
+        no_content: 1,
+      }
+    );
+
+    if (data.errcode) {
+      throw new Error(`Failed to get drafts: ${data.errmsg}`);
+    }
+
+    if (data.item && data.item.length > 0) {
+      allDrafts.push(...data.item);
+    }
+
+    if (allDrafts.length >= data.total_count || data.item_count < count) {
+      break;
+    }
+
+    offset += data.item_count;
+  }
+
+  return allDrafts;
+}
+
+export async function createDraft(article: WxoaArticle): Promise<void> {
+  const token = await getAccessToken();
+  const { title, content, content_source_url, thumb_media_id, image_info } = article;
+  const payload = {
+    title,
+    content,
+    content_source_url,
+    thumb_media_id,
+    image_info,
+  };
+
+  const { data } = await apiClient.post(
+    `${API_BASE}/draft/add?access_token=${token}`,
+    {
+      articles: [payload],
+    }
+  );
+
+  if (data.errcode) {
+    throw new Error(`Failed to create draft: ${data.errmsg}`);
+  }
+}
+
+export async function updateDraft(mediaId: string, article: WxoaArticle): Promise<void> {
+  const token = await getAccessToken();
+  const { title, content, content_source_url, thumb_media_id, image_info } = article;
+  const payload = {
+    title,
+    content,
+    content_source_url,
+    thumb_media_id,
+    image_info,
+  };
+  const { data } = await apiClient.post(
+    `${API_BASE}/draft/update?access_token=${token}`,
+    {
+      media_id: mediaId,
+      index: 0,
+      articles: payload,
+    }
+  );
+
+  if (data.errcode) {
+    throw new Error(`Failed to update draft: ${data.errmsg}`);
+  }
+}
+
+export async function uploadContentImage(
+  imageBuffer: Buffer,
+  fileName: string
+): Promise<string> {
+  const token = await getAccessToken();
+  const form = new FormData();
+  form.append('media', new Blob([new Uint8Array(imageBuffer)]), fileName);
+
+  const { data } = await apiClient.post(
+    `${API_BASE}/media/uploadimg?access_token=${token}`,
+    form
+  );
+
+  if (data.errcode) {
+    throw new Error(`Failed to upload content image: ${data.errmsg}`);
+  }
+
+  return data.url;
+}
+
+export async function uploadThumbImage(
+  imageBuffer: Buffer,
+  fileName: string
+): Promise<string> {
+  const token = await getAccessToken();
+  const form = new FormData();
+  form.append('media', new Blob([new Uint8Array(imageBuffer)]), fileName);
+
+  const { data } = await apiClient.post(
+    `${API_BASE}/material/add_material?access_token=${token}&type=thumb`,
+    form
+  );
+
+  if (data.errcode) {
+    throw new Error(`Failed to upload thumb image: ${data.errmsg}`);
+  }
+
+  return data.media_id;
+}
