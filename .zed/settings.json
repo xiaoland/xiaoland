@@ -1,0 +1,24 @@
+{
+  "languages": {
+    "TypeScript": {
+      "format_on_save": "on",
+      "language_servers": ["vtsls"],
+    },
+    "Markdown": {
+      "format_on_save": "off",
+      "word_wrap": "on",
+    },
+  },
+  "lsp": {
+    "vtsls": {
+      "settings": {
+        "typescript": {
+          "inlayHints": {
+            "parameterNames": { "enabled": "all" },
+            "parameterTypes": { "enabled": true },
+          },
+        },
+      },
+    },
+  },
+}

@@ -1,7 +1,6 @@
 ---
 title: DevOps 初尝试
 description: '在国内服务器上安装K3S，配置基于FluxCD的GitOps，并部署Postgres,Redis和两个Python应用。'
-publishTo: []
 createdAt: '2025-11-25T12:03:53.549Z'
 ---
 
@@ -91,7 +90,7 @@ Flux 会通过 SSH 的方式访问 Git 仓库，运行该指令来添加一个�
 ```bash
 flux create source git flux-system \
   --url=ssh://git@your.githost.com/yourname/cluster-config.git \
-  --branch=maind \
+  --branch=main \
   --interval=1m
 ```
 
@@ -154,7 +153,7 @@ spec:
 ### 常用指令
 
 ```bash
-kubectl get pods -n kube-system | grep ... 
+kubectl get pods -n kube-system | grep ...
 kubectl get svc -n kube-system <service-name>
 ```
 
@@ -177,9 +176,9 @@ mirrors:
 添加 `/var/lib/rancher/k3s/server/manifests/traefik-config.yaml` 配置一个 HelmChartConfig。
 
 ```bash
-kubectl get svc -n kube-system traefik -o yaml | grep -A 5 ports:  // 1024 端口问题
-ss -tulnp | grep traefik 
-kubectl get helmchartconfig traefik -n kube-system -o yaml // 查看 helm 加载的内容
+kubectl get svc -n kube-system traefik -o yaml | grep -A 5 ports:
+ss -tulnp | grep traefik
+kubectl get helmchartconfig traefik -n kube-system -o yaml
 ```
 
 重新部署
@@ -191,7 +190,7 @@ kubectl -n kube-system scale deploy traefik --replicas 1
 
 ### ACME
 
-```yml
+```yaml
 additionalArguments:
   - "--certificatesresolvers.letsencrypt.acme.email=lanzhijiang@foxmail.com"
   - "--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json"

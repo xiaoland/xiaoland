@@ -10,6 +10,7 @@ build/
 .output/
 .nuxt/
 .vite/
+public/uno.css
 
 # Environment variables
 .env

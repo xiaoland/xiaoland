@@ -1,0 +1,15 @@
+[
+  {
+    "label": "Start Dev Server",
+    "command": "pnpm",
+    "args": ["dev"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+  },
+  {
+    "label": "Deploy",
+    "command": "pnpm",
+    "args": ["deploy"],
+    "use_new_terminal": true,
+  },
+]

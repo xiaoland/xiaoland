@@ -1,0 +1,26 @@
+export interface LayoutProps {
+  title: string;
+  body: string;
+}
+
+export function layout({ title, body }: LayoutProps): string {
+  return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${title}</title>
+  <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="/uno.css" />
+</head>
+<body hx-boost="true">
+  <nav>
+    <a href="/">Xiaoland</a>
+  </nav>
+  <main id="main-content">
+    ${body}
+  </main>
+</body>
+</html>`;
+}
