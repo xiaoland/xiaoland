@@ -5,10 +5,10 @@ export interface ArticlePageProps {
 }
 
 export function articlePage({ article }: ArticlePageProps): string {
-  return `<article>
+  return `<article class="article-page">
   <header>
-    <a href="/">
-      <span class="i-mdi-account-box"></span>
+    <a href="/" class="back">
+      <span class="i-mdi-arrow-left"></span>
       Back
     </a>
     <h1>${article.title}</h1>
@@ -17,8 +17,8 @@ export function articlePage({ article }: ArticlePageProps): string {
       ${new Date(article.createdAt).toLocaleDateString("zh-CN")}
     </time>
   </header>
-  <div class="article-content">
+  <main class="article-content">
     ${article.html}
-  </div>
+  </main>
 </article>`;
 }

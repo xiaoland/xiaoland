@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"pnpm run dev:uno\" \"vite\"",
-    "dev:uno": "unocss \"src/**/*.ts\" -c uno.config.ts -o \"./public/uno.css\" --watch",
-    "build": "unocss \"src/**/*.ts\" -c uno.config.ts && vite build",
+    "dev:uno": "watchexec --watch src --exts ts --restart -- unocss \"src/**/*.ts\" -c uno.config.ts -o \"./public/uno.css\"",
+    "build": "unocss \"src/**/*.ts\" -o \"./public/uno.css\" -c uno.config.ts && vite build",
     "deploy": "pnpm run build && wrangler deploy"
   },
   "dependencies": {

@@ -1,0 +1,27 @@
+.article-page {
+    a.back {
+        text-decoration: none;
+        color: var(--sys-color-text-muted);
+        display: flex;
+        align-items: center;
+        gap: var(--sys-spacing-text-compact);
+    }
+
+    header {
+        margin-bottom: 2rem;
+
+        h1 {
+            margin: 0.2rem 0;
+        }
+        p {
+            margin: 0.2rem 0;
+        }
+        time {
+            color: var(--sys-color-text-muted);
+        }
+    }
+
+    .article-content {
+        text-indent: 2em;
+    }
+}

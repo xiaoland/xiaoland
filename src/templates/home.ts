@@ -1,4 +1,4 @@
-import type { ArticleMeta } from '../utils/markdown';
+import type { ArticleMeta } from "../utils/markdown";
 
 export interface HomePageProps {
   articles: ArticleMeta[];
@@ -12,20 +12,22 @@ export function homePage({ articles }: HomePageProps): string {
     <article>
       <a href="/article/${a.slug}">
         <h2>${a.title}</h2>
-        <p>${a.description}</p>
+        <p style="display: ${a.description ? "auto" : "none"}">${a.description}</p>
         <time datetime="${a.createdAt}">
-          ${new Date(a.createdAt).toLocaleDateString('zh-CN')}
+          ${new Date(a.createdAt).toLocaleDateString("zh-CN")}
         </time>
       </a>
-    </article>`
+    </article>`,
         )
-        .join('\n')
-    : '<p>No articles yet.</p>';
+        .join("\n")
+    : "<p>No articles yet.</p>";
 
   return `<header>
   <h1>Hi, I'm Lanzhijiang 👋</h1>
 </header>
 <section id="articles">
   ${articleList}
+</section>
+<section id="links">
 </section>`;
 }

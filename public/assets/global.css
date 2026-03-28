@@ -1,0 +1,16 @@
+:root {
+    font-size: 16px;
+    color: var(--sys-color-text-base);
+}
+
+@media (max-width: 768px) {
+    :root {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 374px) {
+    :root {
+        font-size: 18px;
+    }
+}

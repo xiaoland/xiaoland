@@ -1,0 +1,29 @@
+/* Token System */
+
+:root {
+    --sys-color-primary: #2f65f7;
+    --sys-color-text-base: #18181a;
+    --sys-color-text-muted: #6c717f;
+
+    /* Spacing Token */
+    --sys-spacing-text-compact: 0.5em;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --sys-color-text-base: #fbfcff;
+        --sys-color-text-muted: #d7dbe4;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --sys-spacing-text-compact: 0.4em;
+    }
+}
+
+@media (max-width: 374px) {
+    :root {
+        --sys-spacing-text-compact: 0.3em;
+    }
+}

@@ -1,0 +1,22 @@
+section#articles {
+    article {
+        margin: 1em;
+        a {
+            text-decoration: none;
+            color: var(--sys-color-text-base);
+
+            h2 {
+                margin: 0.3rem 0;
+            }
+            p {
+                margin: 0;
+            }
+        }
+        a:visited {
+            color: var(--sys-color-text-muted);
+        }
+        a:hover {
+            color: var(--sys-color-primary);
+        }
+    }
+}
