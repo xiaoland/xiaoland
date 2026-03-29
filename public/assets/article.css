@@ -4,7 +4,7 @@
         color: var(--sys-color-text-muted);
         display: flex;
         align-items: center;
-        gap: var(--sys-spacing-text-compact);
+        gap: var(--sys-spacing-sm);
     }
 
     header {
@@ -21,7 +21,10 @@
         }
     }
 
-    .article-content {
-        text-indent: 2em;
+    main {
+        p img {
+            margin-top: 0.3rem;
+            width: 100%;
+        }
     }
 }

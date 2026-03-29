@@ -1,12 +1,15 @@
 /* Token System */
 
 :root {
-    --sys-color-primary: #2f65f7;
+    --sys-color-primary: var(--sys-color-primary-base);
+    --sys-color-primary-base: #2f65f7;
+    --sys-color-primary-darker: #2a4ec6;
+    --sys-color-text: var(--sys-color-text-base);
     --sys-color-text-base: #18181a;
     --sys-color-text-muted: #6c717f;
 
     /* Spacing Token */
-    --sys-spacing-text-compact: 0.5em;
+    --sys-spacing-sm: 0.5em;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,12 +21,12 @@
 
 @media (max-width: 768px) {
     :root {
-        --sys-spacing-text-compact: 0.4em;
+        --sys-spacing-sm: 0.4em;
     }
 }
 
 @media (max-width: 374px) {
     :root {
-        --sys-spacing-text-compact: 0.3em;
+        --sys-spacing-sm: 0.3em;
     }
 }

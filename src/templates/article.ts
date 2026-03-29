@@ -9,7 +9,7 @@ export function articlePage({ article }: ArticlePageProps): string {
   <header>
     <a href="/" class="back">
       <span class="i-mdi-arrow-left"></span>
-      Back
+      Home
     </a>
     <h1>${article.title}</h1>
     <p>${article.description}</p>
