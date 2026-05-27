@@ -1,0 +1,9 @@
+.article-comment {
+    header {
+        time {
+            margin-left: auto;
+            font-size: 0.8em;
+            color: var(sys-color-text-muted);
+        }
+    }
+}

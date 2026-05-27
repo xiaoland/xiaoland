@@ -1,6 +1,5 @@
 # Dependencies
 node_modules/
-pnpm-lock.yaml
 yarn.lock
 package-lock.json
 
@@ -32,6 +31,7 @@ public/uno.css
 wrangler.toml.local
 worker/dist
 .wrangler/
+.worker-build/
 wrangler_build/
 
 # Logs
