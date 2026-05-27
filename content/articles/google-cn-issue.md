@@ -9,12 +9,12 @@ createdAt: '2025-11-12T21:23:35.000Z'
 
 解决这个问题最简单的方法就是换一个 IP，于是我向客服 （服务器是 Evoxt 家的）申请更换一个 IPv4 地址。然而在我更换之后，运行脚本 `bash <(curl -L -s https://git.io/JRw8R)`，结果如下图：
 
-![IPv4各服务解锁情况](/images/articles/google-cn-issue/PixPin_2025-10-18_21-04-54.png)
+![IPv4各服务解锁情况](https://oss.lanzhijiang.dev/xiaoland/images/articles/google-cn-issue/PixPin_2025-10-18_21-04-54.png)
 
 仍然没有解锁，看来是这一段 IP 都被标记了，这也就说通了为什么我们没有给谷歌打开任何的定位权限，还是被送中了——有一些人犯蠢了，害得整个 IP 段都没得用。
 然而还好我顺带和客服申请了一个 IPv6 地址，测试结果如图：
 
-![IPv6各服务解锁情况](/images/articles/google-cn-issue/PixPin_2025-10-18_21-07-01.png)
+![IPv6各服务解锁情况](https://oss.lanzhijiang.dev/xiaoland/images/articles/google-cn-issue/PixPin_2025-10-18_21-07-01.png)
 
 太好啦！这意味着我只要让代理用它的 IPv6 网卡出站 Google 流量就可以了！
 于是我马上开始配置 Sing-Box :

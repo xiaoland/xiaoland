@@ -12,6 +12,6 @@ Pipeline:
 
 Add-on for app: database, oberservability
 Dyno: Compute node for app
-![alt text](/images/articles/use-heroku/image.png)
+![alt text](https://oss.lanzhijiang.dev/xiaoland/images/articles/use-heroku/image.png)
 
 Review Apps 会自动按照 staging / production app 的 add-ons 配置副本

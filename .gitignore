@@ -54,6 +54,8 @@ coverage/
 *.tmp
 *.temp
 .cache/
+tmp/
+temp/
 
 # Local development
 .turbo/
