@@ -13,12 +13,15 @@ import { renderSitemap } from "../site/sitemap";
 const app = new Hono();
 
 const baseStyles = ["/uno.css", "/assets/variables.css", "/assets/global.css"];
+const siteDescription = "Lanzhijiang 的个人网站，记录技术、生活、学习与长期思考。";
 
 app.get("/", (c) => {
   const articles = getArticles();
   return c.html(
     layout({
       title: siteConfig.title,
+      description: siteDescription,
+      canonicalUrl: absoluteUrl("/"),
       body: renderHomePage({ articles }),
       assets: {
         styles: [...baseStyles, "/assets/home.css"],
@@ -31,6 +34,8 @@ app.get("/about", (c) => {
   return c.html(
     layout({
       title: `About - ${siteConfig.title}`,
+      description: `关于 Lanzhijiang。${siteDescription}`,
+      canonicalUrl: absoluteUrl("/about"),
       body: renderAboutPage(),
       assets: {
         styles: [...baseStyles, "/assets/article.css"],
@@ -51,6 +56,8 @@ app.get(
     return c.html(
       layout({
         title: `${article.title} - ${siteConfig.title}`,
+        description: article.description || `${article.title} - ${siteConfig.title}`,
+        canonicalUrl: absoluteUrl(`/article/${article.slug}`),
         body: renderArticlePage({ article, apiOrigin: siteConfig.apiOrigin }),
         assets: {
           styles: [...baseStyles, "/assets/article.css", "/assets/article-comment.css"],
@@ -101,3 +108,7 @@ app.notFound((c) => {
 });
 
 export default app;
+
+function absoluteUrl(path: string): string {
+  return new URL(path, siteConfig.origin).toString();
+}
