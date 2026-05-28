@@ -132,11 +132,11 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version-file: .node-version
+          node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm run check
@@ -186,11 +186,25 @@ Optional GitHub environment variable:
 
 - `CLOUDFLARE_WORKERS_SUBDOMAIN`; defaults to `lanzhijiang` when unset
 
-The token should have the minimum Cloudflare permissions needed for:
+Create the token from the user profile API token page. Scope account-level permissions to the Cloudflare account and zone-level permissions to `lanzhijiang.dev`.
 
-- Pages deploy
-- Worker deploy
-- D1 access if migrations are later automated
+Account permissions:
+
+- `Account Settings: Read`
+- `Workers Scripts: Read`
+- `Workers Scripts: Write`
+- `Cloudflare Pages: Read`
+- `Cloudflare Pages: Write`
+- `D1: Read`
+- `D1: Write`
+
+Zone permissions:
+
+- `Zone: Read`
+- `Workers Routes: Read`
+- `Workers Routes: Write`
+
+`Workers Scripts` is account-scoped because Wrangler deploy calls account APIs such as `/accounts/<account_id>/workers/services/<name>`. `Workers Routes` is zone-scoped because route management happens under `lanzhijiang.dev`.
 
 Production environment can require manual approval if desired.
 
