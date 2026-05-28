@@ -6,7 +6,6 @@ Implemented on the target site only.
 
 ## Completed
 
-- Added `public/ads.txt`.
 - Added `public/google0082311ca71e0e82.html`.
 - Added `public/robots.txt`.
 - Added `description` and `canonicalUrl` support to `src/templates/layout.ts`.
@@ -15,11 +14,11 @@ Implemented on the target site only.
   - `/about`
   - `/article/:slug`
 
-## Intentionally Not Added
+## AdSense Migration Reverted
 
-- AdSense runtime script.
+`public/ads.txt` was removed after deciding to set up AdSense fresh instead of migrating the old `ads.txt` authorization.
 
-Reason: `ads.txt` is enough for the minimum authorization surface. Runtime ads should be added after `lanzhijiang.dev` is added to AdSense and the desired placement is confirmed.
+No AdSense runtime script is currently emitted by the new site. The `google-adsense-account` meta is retained for fresh AdSense site verification.
 
 ## Verification
 
@@ -33,9 +32,7 @@ pnpm run verify:dist
 
 Checked generated files:
 
-- `dist/ads.txt`
 - `dist/google0082311ca71e0e82.html`
 - `dist/robots.txt`
 - `dist/index.html`
 - `dist/article/key-based-ssh-auth.html`
-

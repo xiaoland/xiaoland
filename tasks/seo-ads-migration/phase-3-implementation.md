@@ -57,7 +57,6 @@ target_urls_total=83 failed=0
 Additional spot checks:
 
 - `http://127.0.0.1:81/index.php/sub_blog.html` with `Host: blog.hadream.ltd` returns `200 OK`.
-- `http://127.0.0.1:81/ads.txt` with `Host: blog.hadream.ltd` returns `200 OK`.
 
 ## Public HTTPS Reverification
 

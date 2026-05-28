@@ -1,4 +1,4 @@
-# SEO and AdSense Migration Audit
+# SEO Migration Audit
 
 Date: 2026-05-27
 
@@ -6,7 +6,7 @@ Scope:
 
 - Source site: `https://blog.hadream.ltd`
 - Target site: `https://lanzhijiang.dev`
-- Goal: minimal SEO migration plus Google AdSense migration.
+- Goal: minimal SEO migration.
 - Explicitly out of scope for this pass: Open Graph, Twitter Card, and Article JSON-LD.
 
 ## Verified Topology
@@ -36,7 +36,6 @@ flowchart LR
 - Old Typecho search cache contains 81 posts.
 - Old site has no public `/sitemap.xml`.
 - Old site has no public `/robots.txt`.
-- Old site has public `/ads.txt`.
 - Old Google Search Console verification file exists: `google0082311ca71e0e82.html`.
 
 SSH host key fingerprints captured in isolated known hosts:
@@ -45,19 +44,9 @@ SSH host key fingerprints captured in isolated known hosts:
 - ECDSA: `SHA256:ufR4smT3wwPgwQFDK6VGgeKEgjYRjFYtl96Es9Ufbr0`
 - ED25519: `SHA256:0etZa0om9um03CSu7d0OZBy6oyaZxa+vFL8heSj1Afs`
 
-## Old Site Google/Ads Facts
+## Old Site Google Facts
 
 - GA4 measurement id found in theme files: `G-YWCF96M53T`
-- AdSense publisher id found in theme and ads.txt: `pub-2521214392427276`
-- Existing article ad slot found in old Typecho post template:
-  - client: `ca-pub-2521214392427276`
-  - slot: `9572303576`
-  - format: in-article fluid ad
-- `ads.txt` content:
-
-```txt
-google.com, pub-2521214392427276, DIRECT, f08c47fec0942fa0
-```
 
 ## New Site Facts
 
@@ -78,8 +67,6 @@ google.com, pub-2521214392427276, DIRECT, f08c47fec0942fa0
   - canonical URL
   - meta description
   - Google verification meta/file route
-  - AdSense script
-- Target public `/ads.txt` currently returns HTML, not ads.txt.
 - Target public `/google0082311ca71e0e82.html` currently returns the home HTML fallback, not the verification file.
 - Target public `/robots.txt` is affected by Cloudflare Managed Content and then the static fallback HTML; this should be replaced by an explicit static `robots.txt`.
 

@@ -13,12 +13,22 @@ export interface LayoutProps {
   };
 }
 
-export function layout({ title, description, canonicalUrl, body, assets }: LayoutProps): string {
+export function layout({
+  title,
+  description,
+  canonicalUrl,
+  body,
+  assets,
+}: LayoutProps): string {
   const styles = assets?.styles ?? [];
   const scripts = assets?.scripts ?? [];
   const metadata = [
-    description ? `<meta name="description" content="${escapeHtmlAttribute(description)}" />` : "",
-    canonicalUrl ? `<link rel="canonical" href="${escapeHtmlAttribute(canonicalUrl)}" />` : "",
+    description
+      ? `<meta name="description" content="${escapeHtmlAttribute(description)}" />`
+      : "",
+    canonicalUrl
+      ? `<link rel="canonical" href="${escapeHtmlAttribute(canonicalUrl)}" />`
+      : "",
   ].filter(Boolean);
 
   return `<!DOCTYPE html>
@@ -26,6 +36,7 @@ export function layout({ title, description, canonicalUrl, body, assets }: Layou
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-adsense-account" content="ca-pub-2521214392427276">
   <title>${escapeHtmlText(title)}</title>
   ${metadata.join("\n  ")}
   <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous" defer></script>

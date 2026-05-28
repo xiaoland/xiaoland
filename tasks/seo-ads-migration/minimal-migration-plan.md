@@ -14,7 +14,7 @@ sequenceDiagram
   O-->>G: 301 Location: new article URL
   G->>N: crawl new article URL
   N-->>G: 200 HTML with canonical + description
-  G->>N: crawl sitemap.xml / robots.txt / ads.txt
+  G->>N: crawl sitemap.xml / robots.txt
 ```
 
 ## Target Site Minimum Changes
@@ -24,22 +24,16 @@ sequenceDiagram
    - Include `Sitemap: https://lanzhijiang.dev/sitemap.xml`.
    - Avoid appending fallback HTML.
 
-2. Add explicit `public/ads.txt`.
-   - Content: `google.com, pub-2521214392427276, DIRECT, f08c47fec0942fa0`
-
-3. Add Google verification file or meta.
+2. Add Google verification file or meta.
    - Existing old verification file: `google0082311ca71e0e82.html`
    - The fastest low-risk path is adding the same file under `public/`.
 
-4. Add minimal head metadata to layout.
+3. Add minimal head metadata to layout.
    - Per page canonical URL.
    - Per page meta description.
    - Keep this generic and data-driven from existing article frontmatter.
 
-5. Add AdSense script only after the new domain is added in AdSense.
-   - Prefer production-only emission.
-   - Reuse publisher id `ca-pub-2521214392427276`.
-   - Reuse in-article slot `9572303576` only if the content placement remains article-only.
+AdSense runtime and legacy `ads.txt` migration are intentionally out of scope for this migration pass. The new site should be set up fresh in AdSense; the account verification meta can be added independently for that setup.
 
 ## Old Site Minimum Changes
 
@@ -58,7 +52,6 @@ sequenceDiagram
 ```bash
 curl -I https://lanzhijiang.dev/sitemap.xml
 curl -I https://lanzhijiang.dev/robots.txt
-curl -I https://lanzhijiang.dev/ads.txt
 curl -I https://lanzhijiang.dev/google0082311ca71e0e82.html
 curl -I https://blog.hadream.ltd/index.php/archives/451/
 ```
@@ -70,11 +63,8 @@ HTTP/2 301
 location: https://lanzhijiang.dev/article/key-based-ssh-auth
 ```
 
-## Google Console / AdSense Manual Steps
+## Google Console Manual Steps
 
 1. Verify both old and new properties in Google Search Console.
 2. Submit `https://lanzhijiang.dev/sitemap.xml`.
 3. Use Search Console Change of Address after old redirects are live.
-4. Add `lanzhijiang.dev` as a new AdSense site.
-5. Wait for AdSense site review before relying on ad fill.
-
