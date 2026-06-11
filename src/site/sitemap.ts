@@ -10,6 +10,7 @@ export function renderSitemap({
   const urls = [
     "/",
     "/about",
+    "/xenix",
     ...articles.map((article) => `/article/${article.slug}`),
   ];
 

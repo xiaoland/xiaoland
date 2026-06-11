@@ -5,6 +5,7 @@ import { getArticle, getArticles } from "../utils/markdown";
 import { renderArticlePage } from "../pages/article";
 import { renderHomePage } from "../pages/home";
 import { renderAboutPage } from "../pages/about";
+import { renderXenixPage } from "../pages/xenix";
 import { renderRssFeed } from "../site/feed";
 import { renderSearchIndex } from "../site/search";
 import { siteConfig } from "../site/config";
@@ -13,7 +14,8 @@ import { renderSitemap } from "../site/sitemap";
 const app = new Hono();
 
 const baseStyles = ["/uno.css", "/assets/variables.css", "/assets/global.css"];
-const siteDescription = "Lanzhijiang 的个人网站，记录技术、生活、学习与长期思考。";
+const siteDescription =
+  "Lanzhijiang 的个人网站，记录技术、生活、学习与长期思考。";
 
 app.get("/", (c) => {
   const articles = getArticles();
@@ -44,6 +46,20 @@ app.get("/about", (c) => {
   );
 });
 
+app.get("/xenix", (c) => {
+  return c.html(
+    layout({
+      title: `Xenix - ${siteConfig.title}`,
+      description: "Xenix 软件下载页面。提交邮箱或手机号后获取下载地址。",
+      canonicalUrl: absoluteUrl("/xenix"),
+      body: renderXenixPage({ apiOrigin: siteConfig.apiOrigin }),
+      assets: {
+        styles: [...baseStyles, "/assets/xenix.css"],
+      },
+    }),
+  );
+});
+
 app.get(
   "/article/:slug",
   ssgParams(() => getArticles().map((article) => ({ slug: article.slug }))),
@@ -56,11 +72,16 @@ app.get(
     return c.html(
       layout({
         title: `${article.title} - ${siteConfig.title}`,
-        description: article.description || `${article.title} - ${siteConfig.title}`,
+        description:
+          article.description || `${article.title} - ${siteConfig.title}`,
         canonicalUrl: absoluteUrl(`/article/${article.slug}`),
         body: renderArticlePage({ article, apiOrigin: siteConfig.apiOrigin }),
         assets: {
-          styles: [...baseStyles, "/assets/article.css", "/assets/article-comment.css"],
+          styles: [
+            ...baseStyles,
+            "/assets/article.css",
+            "/assets/article-comment.css",
+          ],
         },
       }),
     );

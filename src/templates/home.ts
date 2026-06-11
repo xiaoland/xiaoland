@@ -29,6 +29,7 @@ export function homePage({ articles }: HomePageProps): string {
   ${articleList}
 </section>
 <section id="links">
+  <a href="/xenix">Xenix</a>
   <a href="https://github.com/xiaoland" target="blank">GitHub</a>
   <a href="https://x.com/Lan_zhijiang" target="blank">Tweet</a>
 </section>`;

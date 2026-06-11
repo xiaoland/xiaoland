@@ -1,4 +1,4 @@
-import * as schema from "../db/schema";
+import * as schema from "./schema";
 import { drizzle } from "drizzle-orm/d1";
 import { DrizzleD1Database } from "drizzle-orm/d1";
 

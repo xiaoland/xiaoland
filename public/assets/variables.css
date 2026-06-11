@@ -4,12 +4,18 @@
     --sys-color-primary: var(--sys-color-primary-base);
     --sys-color-primary-base: #2f65f7;
     --sys-color-primary-darker: #2a4ec6;
+    --sys-color-container: #efefef;
+    --sys-color-container-high: #ffffff;
+    --sys-color-red: #ff4d4f;
     --sys-color-text: var(--sys-color-text-base);
     --sys-color-text-base: #18181a;
     --sys-color-text-muted: #6c717f;
+    --sys-color-border-primary: #1f65ff;
+    --sys-color-border-muted: #e0e0e0;
 
     /* Spacing Token */
-    --sys-spacing-sm: 0.5em;
+    --sys-spacing-sm: 0.5rem;
+    --sys-spacing-lg: 2rem;
 }
 
 @media (prefers-color-scheme: dark) {

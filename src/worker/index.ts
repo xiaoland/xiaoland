@@ -3,12 +3,18 @@ import { cors } from "hono/cors";
 import { createDb } from "../db";
 import { getComments } from "../services/comment";
 import { articleComment } from "../templates/sections/article-comment";
+import {
+  xenixDownloadError,
+  xenixDownloadReady,
+} from "../templates/sections/xenix-download";
 
 type Env = {
   DB: D1Database;
 };
 
 const app = new Hono<{ Bindings: Env }>().basePath("/api");
+
+const XENIX_DOWNLOAD_URL = "https://r2.lanzhijiang.dev/xenix-20260611.zip";
 
 function corsOrigin(origin: string): string {
   if (origin === "https://lanzhijiang.dev") {
@@ -17,7 +23,10 @@ function corsOrigin(origin: string): string {
 
   try {
     const hostname = new URL(origin).hostname;
-    if (hostname === "xiaoland.pages.dev" || hostname.endsWith(".xiaoland.pages.dev")) {
+    if (
+      hostname === "xiaoland.pages.dev" ||
+      hostname.endsWith(".xiaoland.pages.dev")
+    ) {
       return origin;
     }
   } catch {
@@ -31,12 +40,30 @@ app.use(
   "*",
   cors({
     origin: corsOrigin,
-    allowMethods: ["GET", "OPTIONS"],
+    allowMethods: ["GET", "POST", "OPTIONS"],
+    allowHeaders: [
+      "Content-Type",
+      "HX-Current-URL",
+      "HX-Request",
+      "HX-Target",
+      "HX-Trigger",
+      "HX-Trigger-Name",
+    ],
   }),
 );
 
 app.get("/health", (c) => c.json({ ok: true }));
 
+app.post("/xenix/download", async (c) => {
+  const form = await c.req.formData().catch(() => null);
+  const contact = form?.get("contact");
+
+  if (typeof contact !== "string" || contact.trim().length === 0) {
+    return c.html(xenixDownloadError("请先填写邮箱或手机号。"));
+  }
+
+  return c.html(xenixDownloadReady(XENIX_DOWNLOAD_URL));
+});
 app.get("/fragments/article-comments/:slug", async (c) => {
   const slug = c.req.param("slug");
   const db = createDb(c.env.DB);
