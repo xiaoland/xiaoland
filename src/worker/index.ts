@@ -14,7 +14,7 @@ type Env = {
 
 const app = new Hono<{ Bindings: Env }>().basePath("/api");
 
-const XENIX_DOWNLOAD_URL = "https://r2.lanzhijiang.dev/xenix-20260611.zip";
+const XENIX_DOWNLOAD_URL = "https://r2.lanzhijiang.dev/xenix-latest.zip";
 
 function corsOrigin(origin: string): string {
   if (origin === "https://lanzhijiang.dev") {
