@@ -46,19 +46,19 @@ app.get("/about", (c) => {
   );
 });
 
-app.get("/xenix", (c) => {
-  return c.html(
-    layout({
-      title: `Xenix - ${siteConfig.title}`,
-      description: "Xenix 软件下载页面。提交邮箱或手机号后获取下载地址。",
-      canonicalUrl: absoluteUrl("/xenix"),
-      body: renderXenixPage({ apiOrigin: siteConfig.apiOrigin }),
-      assets: {
-        styles: [...baseStyles, "/assets/xenix.css"],
-      },
-    }),
-  );
-});
+// app.get("/xenix", (c) => {
+//   return c.html(
+//     layout({
+//       title: `Xenix - ${siteConfig.title}`,
+//       description: "Xenix 软件下载页面。提交邮箱或手机号后获取下载地址。",
+//       canonicalUrl: absoluteUrl("/xenix"),
+//       body: renderXenixPage({ apiOrigin: siteConfig.apiOrigin }),
+//       assets: {
+//         styles: [...baseStyles, "/assets/xenix.css"],
+//       },
+//     }),
+//   );
+// });
 
 app.get(
   "/article/:slug",

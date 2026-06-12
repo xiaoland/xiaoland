@@ -1,0 +1,32 @@
+header {
+    h1 {
+        font-size: 3rem;
+        margin: 1rem 0;
+    }
+}
+
+main {
+    #article-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+
+        .article-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            padding: 0.4rem 0;
+
+            h3 {
+                font-size: 2rem;
+                color: var(--sys-color-text-base);
+                margin: 0;
+            }
+            p {
+                font-size: 1.4rem;
+                color: var(--sys-color-text-subtle);
+                margin: 0;
+            }
+        }
+    }
+}

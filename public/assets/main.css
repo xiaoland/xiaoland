@@ -1,6 +1,10 @@
 :root {
-    font-size: 16px;
-    color: var(--sys-color-text-base);
+    a {
+        text-decoration: none;
+    }
+    a:hover {
+        color: var(--sys-color-primary);
+    }
 }
 
 @media (max-width: 768px) {

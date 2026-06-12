@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>Xenix - Xiaoland</title>
+        <meta
+            name="description"
+            content="Xenix 软件下载页面。提交邮箱或手机号后获取下载地址。"
+        />
+        <link rel="canonical" href="https://lanzhijiang.dev/xenix" />
+        <script
+            src="https://unpkg.com/htmx.org@2.0.4"
+            integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+            crossorigin="anonymous"
+            defer
+        ></script>
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"
+        ></script>
+        <link rel="stylesheet" href="/uno.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/assets/global.css" />
+        <link rel="stylesheet" href="./xenix.css" />
+    </head>
+    <body hx-boost="true">
+        <main id="main-content">
+            <article class="xenix-page">
+                <header>
+                    <h1>Xenix</h1>
+                    <p>Xenix 是面向非技术人员的一款 AI 数据分析软件。</p>
+                </header>
+
+                <section
+                    class="xenix-carousel"
+                    aria-label="Xenix 软件截图"
+                    x-data="{ active: 0, total: 3 }"
+                >
+                    <div class="xenix-carousel-frame">
+                        <div
+                            class="xenix-carousel-track"
+                            :style="'transform: translateX(-' + active * 100 + '%)'"
+                        >
+                            <figure
+                                class="xenix-carousel-slide"
+                                :aria-hidden="active !== 0"
+                                aria-label="Xenix 软件截图 1 / 3"
+                            >
+                                <img
+                                    src="/images/xenix/PixPin_2026-06-11_21-36-46.png"
+                                    alt="Xenix 软件截图 1"
+                                    loading="eager"
+                                    decoding="async"
+                                />
+                            </figure>
+                            <figure
+                                class="xenix-carousel-slide"
+                                :aria-hidden="active !== 1"
+                                aria-label="Xenix 软件截图 2 / 3"
+                            >
+                                <img
+                                    src="/images/xenix/PixPin_2026-06-11_21-37-43.png"
+                                    alt="Xenix 软件截图 2"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </figure>
+                            <figure
+                                class="xenix-carousel-slide"
+                                :aria-hidden="active !== 2"
+                                aria-label="Xenix 软件截图 3 / 3"
+                            >
+                                <img
+                                    src="/images/xenix/PixPin_2026-06-11_21-38-12.png"
+                                    alt="Xenix 软件截图 3"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </figure>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="xenix-carousel-control previous"
+                            aria-label="查看上一张截图"
+                            @click="active = (active + total - 1) % total"
+                        >
+                            <span class="i-mdi-chevron-left" />
+                        </button>
+                        <button
+                            type="button"
+                            class="xenix-carousel-control next"
+                            aria-label="查看下一张截图"
+                            @click="active = (active + 1) % total"
+                        >
+                            <span class="i-mdi-chevron-right" />
+                        </button>
+                    </div>
+
+                    <div class="xenix-carousel-dots" aria-label="截图导航">
+                        <button
+                            type="button"
+                            class="xenix-carousel-dot"
+                            :aria-current="active === 0"
+                            aria-label="查看第 1 张 Xenix 截图"
+                            @click="active = 0"
+                        ></button>
+                        <button
+                            type="button"
+                            class="xenix-carousel-dot"
+                            :aria-current="active === 1"
+                            aria-label="查看第 2 张 Xenix 截图"
+                            @click="active = 1"
+                        ></button>
+                        <button
+                            type="button"
+                            class="xenix-carousel-dot"
+                            :aria-current="active === 2"
+                            aria-label="查看第 3 张 Xenix 截图"
+                            @click="active = 2"
+                        ></button>
+                    </div>
+                </section>
+
+                <section
+                    class="xenix-features"
+                    aria-labelledby="xenix-features-title"
+                >
+                    <div class="xenix-features-header">
+                        <p class="xenix-features-eyebrow">Features</p>
+                        <h2
+                            id="xenix-features-title"
+                            class="xenix-features-title"
+                        >
+                            为快速理解数据而设计
+                        </h2>
+                    </div>
+                    <ul class="xenix-feature-list">
+                        <li class="xenix-feature-item">
+                            <span
+                                class="xenix-feature-icon i-mdi-message-text-outline"
+                                aria-hidden="true"
+                            ></span>
+                            <div>
+                                <h3 class="xenix-feature-title">
+                                    自然语言提问
+                                </h3>
+                                <p class="xenix-feature-description">
+                                    直接用日常语言描述你的分析需求，不需要编写
+                                    SQL 或公式。
+                                </p>
+                            </div>
+                        </li>
+                        <li class="xenix-feature-item">
+                            <span
+                                class="xenix-feature-icon i-mdi-chart-box-outline"
+                                aria-hidden="true"
+                            ></span>
+                            <div>
+                                <h3 class="xenix-feature-title">
+                                    自动生成分析结果
+                                </h3>
+                                <p class="xenix-feature-description">
+                                    从数据中提取关键信息，并辅助生成更容易理解的图表与结论。
+                                </p>
+                            </div>
+                        </li>
+                        <li class="xenix-feature-item">
+                            <span
+                                class="xenix-feature-icon i-mdi-account-group-outline"
+                                aria-hidden="true"
+                            ></span>
+                            <div>
+                                <h3 class="xenix-feature-title">
+                                    面向非技术人员
+                                </h3>
+                                <p class="xenix-feature-description">
+                                    降低数据分析门槛，让业务、运营和管理场景也能快速使用
+                                    AI 分析数据。
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section
+                    class="xenix-card"
+                    aria-labelledby="xenix-download-title"
+                >
+                    <div>
+                        <h2 id="xenix-download-title">获取软件</h2>
+                        <p>
+                            目前仅支持 Windows，下载后解压双击 xenix.exe
+                            即可运行，初次启动较慢，请耐心等待
+                        </p>
+                        <p>填写手机号或邮箱即可开始下载</p>
+                    </div>
+
+                    <form
+                        class="xenix-download-form"
+                        hx-post="/api/xenix/download"
+                        hx-target="#xenix-download-result"
+                        hx-swap="innerHTML"
+                        hx-indicator="#xenix-download-status"
+                    >
+                        <label for="xenix-contact">邮箱或手机号</label>
+                        <input
+                            id="xenix-contact"
+                            name="contact"
+                            type="text"
+                            placeholder="you@example.com / 13800000000"
+                            required
+                        />
+                        <button type="submit">获取</button>
+                        <p id="xenix-download-status" class="htmx-indicator">
+                            正在准备下载...
+                        </p>
+                    </form>
+
+                    <div
+                        id="xenix-download-result"
+                        class="xenix-download-result"
+                        aria-live="polite"
+                        hx-on::after-swap="const link = this.querySelector('[data-xenix-download-link]'); if (link) window.location.assign(link.href);"
+                    ></div>
+                </section>
+            </article>
+        </main>
+    </body>
+</html>
+<script>
+    import("/@vite/client");
+</script>
