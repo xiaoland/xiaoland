@@ -1,20 +1,43 @@
+html {
+    font-family:
+        system-ui,
+        -apple-system,
+        Roboto;
+    font-size: 14px;
+}
+
 :root {
     a {
         text-decoration: none;
+        color: var(--sys-color-text-base);
     }
     a:hover {
-        color: var(--sys-color-primary);
+        --sys-color-text-base: var(--sys-color-primary);
+    }
+
+    .material-symbols {
+        font-variation-settings:
+            "FILL" 0,
+            "wght" 400,
+            "GRAD" 0;
+        font-size: inherit;
+        line-height: 1;
+        vertical-align: middle;
+    }
+    .typo-control {
+        font-size: 1rem;
+        line-height: 1;
     }
 }
 
 @media (max-width: 768px) {
     :root {
-        font-size: 17px;
+        font-size: 16px;
     }
 }
 
 @media (max-width: 374px) {
     :root {
-        font-size: 18px;
+        font-size: 17px;
     }
 }

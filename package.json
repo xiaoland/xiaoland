@@ -18,13 +18,13 @@
     "deploy": "pnpm run deploy:worker && pnpm run deploy:pages",
     "deploy:pages": "wrangler pages deploy dist --project-name xiaoland",
     "deploy:worker": "wrangler deploy --config wrangler.worker.toml",
-    "ci": "pnpm run check && pnpm run build && pnpm run verify:dist"
+    "ci": "pnpm run check && pnpm run build && pnpm run verify:dist",
+    "tool:gen-article": "tsx scripts/article-md-to-html.ts"
   },
   "dependencies": {
     "dotenv": "^17.4.0",
     "drizzle-orm": "^0.45.2",
-    "hono": "^4.12.8",
-    "marked": "^17.0.5"
+    "hono": "^4.12.8"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.29.0",
@@ -34,6 +34,8 @@
     "@unocss/cli": "^66.5.12",
     "concurrently": "^9.2.1",
     "drizzle-kit": "^0.31.10",
+    "gray-matter": "^4.0.3",
+    "marked": "^17.0.5",
     "tsx": "^4.21.0",
     "typescript": "^5.8.3",
     "vite": "^8.0.0",

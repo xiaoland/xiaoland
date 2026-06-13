@@ -1,0 +1,18 @@
+header {
+    h1 {
+        font-size: 2rem;
+        color: var(--sys-color-text-base);
+    }
+}
+
+article {
+    padding: 0 4vw;
+
+    img {
+        display: block;
+        width: 80%;
+        max-height: 40vh;
+        object-fit: contain;
+        margin: 0 auto;
+    }
+}
