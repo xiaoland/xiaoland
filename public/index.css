@@ -82,7 +82,6 @@ main {
                 h3 {
                     font-size: 1.8rem;
                     font-weight: 450;
-                    color: var(--sys-color-text-base);
                     margin: 0;
                 }
                 p {

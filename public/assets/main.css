@@ -8,12 +8,16 @@ html {
 
 body {
     margin: 0;
+    background-color: var(--sys-color-surface);
+    color: var(--sys-color-text-base);
 }
 
 :root {
     a {
-        text-decoration: none;
+        --comp-color-link: var(--sys-color-text-base);
+
         color: var(--comp-color-link);
+        text-decoration: none;
     }
     a:hover {
         --comp-color-link: var(--sys-color-primary);
