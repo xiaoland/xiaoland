@@ -25,7 +25,9 @@ export async function mirrorImagesInHtml({
     return html;
   }
 
-  const imageSources = [...html.matchAll(/<img\b[^>]*\bsrc=(["'])(https:\/\/[^"']+)\1/gi)]
+  const imageSources = [
+    ...html.matchAll(/<img\b[^>]*\bsrc=(["'])(https:\/\/[^"']+)\1/gi),
+  ]
     .map((match) => match[2])
     .filter((value, index, values) => values.indexOf(value) === index);
 
@@ -88,25 +90,34 @@ async function mirrorImage({
     return cached;
   }
 
+  console.log(`Mirroring image: ${sourceUrl}`);
+
   const response = await fetch(sourceUrl, {
     redirect: "follow",
     signal: AbortSignal.timeout(10_000),
   });
   if (!response.ok) {
-    throw new Error(`Failed to download image ${sourceUrl}: ${response.status}`);
+    throw new Error(
+      `Failed to download image ${sourceUrl}: ${response.status}`,
+    );
   }
 
   const finalUrl = new URL(response.url);
   if (finalUrl.protocol !== "https:" || !allowedHosts.has(finalUrl.hostname)) {
-    throw new Error(`Unsafe image redirect from ${sourceUrl} to ${response.url}`);
+    throw new Error(
+      `Unsafe image redirect from ${sourceUrl} to ${response.url}`,
+    );
   }
   if (isBlockedHost(finalUrl.hostname)) {
     throw new Error(`Blocked image host: ${finalUrl.hostname}`);
   }
 
-  const contentType = response.headers.get("Content-Type")?.split(";")[0]?.trim() ?? "";
+  const contentType =
+    response.headers.get("Content-Type")?.split(";")[0]?.trim() ?? "";
   if (!contentType.startsWith("image/") || contentType === "image/svg+xml") {
-    throw new Error(`Unsupported image content type for ${sourceUrl}: ${contentType || "unknown"}`);
+    throw new Error(
+      `Unsupported image content type for ${sourceUrl}: ${contentType || "unknown"}`,
+    );
   }
 
   const contentLength = Number(response.headers.get("Content-Length") ?? "0");
@@ -119,8 +130,14 @@ async function mirrorImage({
     throw new Error(`Image is too large: ${sourceUrl}`);
   }
 
-  const urlHash = createHash("sha256").update(sourceUrl).digest("hex").slice(0, 20);
-  const extension = extensionForContentType(contentType) ?? extensionFromPath(finalUrl.pathname) ?? "bin";
+  const urlHash = createHash("sha256")
+    .update(sourceUrl)
+    .digest("hex")
+    .slice(0, 20);
+  const extension =
+    extensionForContentType(contentType) ??
+    extensionFromPath(finalUrl.pathname) ??
+    "bin";
   const localPath = `/images/mirrored/${urlHash}.${extension}`;
   const outputPath = path.join(distDir, localPath);
 

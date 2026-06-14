@@ -29,11 +29,10 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_WORKERS_SUBDOMAIN: ${{ vars.CLOUDFLARE_WORKERS_SUBDOMAIN }}
 
-      - run: pnpm run build:ssg
+      - run: pnpm run ci
 
-      - run: pnpm run verify:dist
-
-      - run: pnpm exec wrangler pages deploy dist --project-name xiaoland --branch "${{ github.head_ref }}"
+      - run: pnpm run deploy:pages --branch "${{ github.head_ref }}"
+        # 需要进一步校验能不能这样传 branch 参数
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

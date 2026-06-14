@@ -1,6 +1,6 @@
 import { readdir } from "node:fs/promises";
 import path from "node:path";
-import { mirrorHtmlFile } from "./image-mirroring";
+import { mirrorHtmlFile } from "../image-mirroring.js";
 
 const distDir = path.resolve("dist");
 const allowedHosts = new Set(

@@ -7,18 +7,20 @@
     "node": "22.x"
   },
   "scripts": {
-    "dev": "concurrently \"pnpm dev:frontend\" \"pnpm dev:backend\"",
     "dev:frontend": "portless xiaoland vite",
     "dev:backend": "portless api.xiaoland wrangler dev --config wrangler.worker.toml",
-    "build": "wrangler deploy --dry-run --outdir .worker-build --config wrangler.worker.toml",
-    "deploy:worker:preview": "tsx scripts/deploy-preview-worker.ts",
+    "dev": "concurrently \"pnpm dev:frontend\" \"pnpm dev:backend\"",
+    "build:frontend": "pnpm exec vite build",
+    "build:backend": "wrangler deploy --dry-run --outdir .worker-build --config wrangler.worker.toml",
+    "build": "pnpm run build:backend && pnpm run build:frontend",
     "typecheck": "tsc --noEmit",
-    "verify:dist": "tsx src/ssg/verify-dist.ts",
-    "check": "pnpm run typecheck && pnpm run verify:dist && pnpm run build:worker",
+    "verify:dist": "tsx scripts/verify-dist.ts",
+    "check": "pnpm run typecheck",
     "deploy": "pnpm run deploy:worker && pnpm run deploy:pages",
     "deploy:pages": "wrangler pages deploy dist --project-name xiaoland",
     "deploy:worker": "wrangler deploy --config wrangler.worker.toml",
-    "ci": "pnpm run check && pnpm run build && pnpm run verify:dist",
+    "deploy:worker:preview": "tsx scripts/deploy-preview-worker.ts",
+    "ci": "pnpm run check && pnpm run build",
     "tool:gen-article": "tsx scripts/article-md-to-html.ts"
   },
   "dependencies": {
