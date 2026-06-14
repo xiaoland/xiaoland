@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="author" content="蓝汁酱">
+    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
+    <title>2025 年总结</title>
+    <meta
+      name="description"
+      content="回顾2025年的成长与收获，关于过度设计、技术选型与开发心态的反思。"
+    >
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="2025 年总结">
+    <meta property="og:description" content="${data.description}">
+    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+    <meta property="og:site_name" content="蓝汁酱的小站">
+    <meta property="og:locale" content="zh_CN">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="/assets/variables.css">
+    <link rel="stylesheet" href="/articles/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <a
+        id="page-back"
+        class="typo-control flex-row spacing-xs"
+        href="/"
+        onclick="
+                    if (history.length > 1) {
+                        history.back();
+                        return false;
+                    }
+                "
+      >
+        <span class="material-symbols">arrow_back</span>
+        <span>返回</span>
+      </a>
+      <h1>2025 年总结</h1>
+      <time datetime="2025-12-31T00:00:00.000Z">最后更新于 Wed Dec 31 2025</time>
+    </header>
+    <main>
+      <article>
+        <p>
+          注意到自己过去一直在&quot;过度设计&quot;； 包括 3-6 月在开发 BlueFirmament
+          而没有做业务，是因为 FastAPI + pydantic + supabase
+          可维护性很差（虽然很大程度也怪走了条不寻常的路，整个技术栈前所未有的胶水）； 后来7月份
+          AdvX
+          3天黑客松，带来了一些转机，因为这么短的时间就对&quot;过度设计&quot;的容忍度就更低了，并且也发现了
+          FastAPI + SQLAlemchy + Pydantic 真的挺好用；
+          于是在8月份，对搭一把小程序进行了&quot;重写&quot;，确实整个界面、开发速度、可维护性都迎来了质的提升；
+          特别要学到的一点就是&quot;慢就是快&quot;，从一开始选对技术栈（UnoCSS+Iconify），做对架构设计，而且特别是在
+          Vibe Coding 的今天，就更为重要。
+          现在其实就特别警惕过度设计，不仅仅是在产品迭代上，在代码开发上也是，能用尽可能简单地方法去解决问题就尽可能简单（而且
+          AI Coding 让重构、重写的成本变得更低了，确实有更多的底气去&quot;胡乱写&quot;）
+          ，毕竟还有一点，&quot;需求&quot;也是不确定的，你现在认为聪明的决策，可能在真实的需求到来后就变得愚蠢无比了。
+        </p>
+      </article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="author" content="蓝汁酱">
+    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
+    <title>初尝Heroku</title>
+    <meta name="description" content="">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="初尝Heroku">
+    <meta property="og:description" content="${data.description}">
+    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+    <meta property="og:site_name" content="蓝汁酱的小站">
+    <meta property="og:locale" content="zh_CN">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="/assets/variables.css">
+    <link rel="stylesheet" href="/articles/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <a
+        id="page-back"
+        class="typo-control flex-row spacing-xs"
+        href="/"
+        onclick="
+                    if (history.length > 1) {
+                        history.back();
+                        return false;
+                    }
+                "
+      >
+        <span class="material-symbols">arrow_back</span>
+        <span>返回</span>
+      </a>
+      <h1>初尝Heroku</h1>
+      <time datetime="2025-11-25T12:03:53.564Z">最后更新于 Tue Nov 25 2025</time>
+    </header>
+    <main>
+      <article>
+        <p>Pipeline:</p>
+        <ul>
+          <li>Review Apps</li>
+          <li>Staging App</li>
+          <li>Production App</li>
+        </ul>
+        <p>
+          Add-on for app: database, oberservability Dyno: Compute node for app
+          <img
+            src="https://oss.lanzhijiang.dev/xiaoland/images/articles/use-heroku/image.png"
+            alt="alt text"
+          >
+        </p>
+        <p>Review Apps 会自动按照 staging / production app 的 add-ons 配置副本</p>
+      </article>
+    </main>
+  </body>
+</html>

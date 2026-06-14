@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>「教程」docker部署OnlyOffice服务器</title>
+        <meta name="description" content="教程：docker部署Onlyoffice服务器 本文将会介绍如何在Linux上使用docker compose部署onlyoffice的DocumentServer服务 onlyoffice DS的部署将是非常有用的 部署完毕之后，你可以在nextcloud、DzzOffice" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="「教程」docker部署OnlyOffice服务器" />
+        <meta property="og:description" content="${data.description}" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs"
+                href="/"
+                onclick="
+                    if (history.length > 1) {
+                        history.back();
+                        return false;
+                    }
+                "
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>「教程」docker部署OnlyOffice服务器</h1>
+            <time datetime="2021-08-02T06:46:00Z">最后更新于 Mon Aug 02 2021</time>
+        </header>
+        <main>
+            <article><h1>教程：docker部署Onlyoffice服务器</h1>
+<ul>
+<li>本文将会介绍如何在Linux上使用docker-compose部署onlyoffice的DocumentServer服务</li>
+<li>onlyoffice-DS的部署将是非常有用的
+部署完毕之后，你可以在nextcloud、DzzOffice上连接它以实现在线编辑office文件，甚至还可以参考官方API开发自己的在线编辑器</li>
+<li>本文实验环境为centos7.6，在centos8.3也实验过一遍，都是成功的</li>
+<li>使用docker-compose部署的优点<ul>
+<li>我们都知道onlyoffice的配置准备及其复杂，又是redis，又是postgresql，还有什么rabbitmq的，非常难搞</li>
+<li>而docker-compose直接一个运行，就可以自动部署好整一个onlyoffice服务，包括上面提及的前置</li>
+</ul>
+</li>
+</ul>
+<h3>目录</h3>
+<ul>
+<li>0.安装docker（若你没有docker，docker-compose将是徒劳）</li>
+<li>1.安装docker-compose</li>
+<li>2.安装onlyoffice<ul>
+<li>2.1下载安装包</li>
+<li>2.2修改docker-compose.yml</li>
+<li>2.3安装</li>
+</ul>
+</li>
+</ul>
+<h3>0. 安装docker</h3>
+<ul>
+<li>非常地简单，参考：<a href="https://docs.docker.com/get-docker/">https://docs.docker.com/get-docker/</a></li>
+<li>在centos下，如此操作：<ul>
+<li><code>yum install -y yum-utils</code></li>
+<li><code>yum yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</code></li>
+<li><code>yum install docker-ce docker-ce-cli containerd.io</code></li>
+</ul>
+</li>
+<li>启动：<ul>
+<li><code>systemctl start docker</code></li>
+<li>如果报错，尝试先<code>systemctl start docker.socket</code></li>
+<li>如果仍然报错，请<code>systemctl status docker</code>查看错误报告以定位问题自行解决</li>
+</ul>
+</li>
+</ul>
+<h3>1. 安装docker-compose</h3>
+<ul>
+<li>很简单，操作就是下载docker-compose运行文件，然后将其链接/放到 /usr/bin下，这样就可以从bash直接运行了<ul>
+<li><code>curl -L &quot;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</code><ul>
+<li>太慢下载不动，可以将uanme -s | uname -m 的值分别填入地址中获取之后下载到系统上</li>
+<li>但注意docker-compose应下载到/usr/local/bin下</li>
+</ul>
+</li>
+<li><code>chmod +x /usr/local/bin/docker-compose</code> 赋予执行权限</li>
+<li><code>ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose</code> 使其可以在bash中运行</li>
+</ul>
+</li>
+<li>测试<ul>
+<li><code>docker-compose --version</code> -&gt; &quot;docker-compose version 1.29.2, build 1110ad01&quot;</li>
+</ul>
+</li>
+</ul>
+<h3>2. 安装onlyoffice</h3>
+<h4>2.1 下载安装包</h4>
+<ul>
+<li><code>git clone https://github.com/ONLYOFFICE/Docker-DocumentServer</code><ul>
+<li>下载太慢可以在电脑上下载之后上传到服务器上：<a href="http://tencent.hadream.ltd:84/sharing/Docker-DocumentServer.zip">http://tencent.hadream.ltd:84/sharing/Docker-DocumentServer.zip</a>
+再解压</li>
+</ul>
+</li>
+</ul>
+<h4>修改docker-compose.yml</h4>
+<ul>
+<li><code>cd Docker-DocumentServer</code></li>
+<li>在docker-compose.yml找到容器端口映射的地方，根据自己的需要设置好，避免端口冲突导致启动失败<ul>
+<li><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/docker-onlyoffice-server/468688232-907d17f2.png" alt="屏幕截图 2021-08-02 150848.png"></li>
+<li>说明：宿主机端口:容器端口 仅修改宿主机端口即可</li>
+</ul>
+</li>
+</ul>
+<h4>安装</h4>
+<ul>
+<li><code>docker-compose up -d</code></li>
+<li>停止onlyoffice：<code>docker-compose down</code></li>
+<li>现在，访问http://<your-host>:port就可以看到如下的页面啦：<ul>
+<li><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/docker-onlyoffice-server/1351014222-2b8a087a.png" alt="屏幕截图 2021-08-02 151233.png"></li>
+</ul>
+</li>
+</ul>
+<h3>参考文章</h3>
+<ul>
+<li><p><a href="https://helpcenter.onlyoffice.com/installation/docs-community-docker-compose.aspx">helpcenter.onlyoffice.com</a></p>
+</li>
+<li><p><a href="https://docs.docker.com/engine/install/centos/">docs.docker.com</a></p>
+</li>
+</ul>
+</article>
+        </main>
+    </body>
+</html>

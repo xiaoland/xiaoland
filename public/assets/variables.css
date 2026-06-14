@@ -4,6 +4,7 @@
     /* Color Token */
     --sys-color-primary: var(--sys-color-primary-base);
     --sys-color-primary-base: #2f65f7;
+    --sys-color-primary-lighter: #4a86f7;
     --sys-color-primary-darker: #2a4ec6;
     --sys-color-surface: #ffffff;
     --sys-color-container: #efefef;

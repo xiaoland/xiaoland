@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="author" content="蓝汁酱">
+    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
+    <title>「攻略」Java程序语言设计</title>
+    <meta
+      name="description"
+      content="攻略 Java程序语言设计 说明：本文用于广外Java程序语言与设计的学生使用，可以在下方下载pdf后打印出来使用 基础能力要求 读题 自己看书看概念 各种变量类型 选择 if switch 循环 for while do while 继承 多态 解题 理解题目之后，讲题目的输入"
+    >
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="「攻略」Java程序语言设计">
+    <meta property="og:description" content="${data.description}">
+    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+    <meta property="og:site_name" content="蓝汁酱的小站">
+    <meta property="og:locale" content="zh_CN">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="/assets/variables.css">
+    <link rel="stylesheet" href="/articles/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <a
+        id="page-back"
+        class="typo-control flex-row spacing-xs"
+        href="/"
+        onclick="
+                    if (history.length > 1) {
+                        history.back();
+                        return false;
+                    }
+                "
+      >
+        <span class="material-symbols">arrow_back</span>
+        <span>返回</span>
+      </a>
+      <h1>「攻略」Java程序语言设计</h1>
+      <time datetime="2023-12-19T06:40:00Z">最后更新于 Tue Dec 19 2023</time>
+    </header>
+    <main>
+      <article>
+        <h1>攻略-Java程序语言设计</h1>
+        <blockquote>
+          <p>说明：本文用于广外Java程序语言与设计的学生使用，可以在下方下载pdf后打印出来使用</p>
+        </blockquote>
+        <h2>基础能力要求</h2>
+        <h3>读题</h3>
+        <p>自己看书看概念</p>
+        <ul>
+          <li>各种变量类型</li>
+          <li>
+            选择
+            <ul>
+              <li>if</li>
+              <li>switch</li>
+            </ul>
+          </li>
+          <li>
+            循环
+            <ul>
+              <li>for</li>
+              <li>while</li>
+              <li>do while</li>
+            </ul>
+          </li>
+          <li>继承</li>
+          <li>多态</li>
+        </ul>
+        <h3>解题</h3>
+        <ul>
+          <li>理解题目之后，讲题目的输入，输出要求列清楚</li>
+          <li>根据自己的知识，给一个大致的思路，分块</li>
+          <li>拿一个特定例子，用笔先在纸上模拟计算机演练一遍</li>
+          <li>
+            根据自己的知识，将代码组织好
+            <ul>
+              <li>注意缩进</li>
+              <li>不同的区块要空行，方便自己阅读</li>
+            </ul>
+          </li>
+          <li>
+            调试运行
+            <ul>
+              <li>如果出现不及预期的结果，一定要使用小虫子调试</li>
+              <li>问题往往出在循环和选择的条件写错了，这些很隐形，不会报错，很难定位</li>
+            </ul>
+          </li>
+          <li>尽可能覆盖多样的用例</li>
+        </ul>
+        <h2>基础知识</h2>
+        <ul>
+          <li>所有的区间都是左闭右开</li>
+          <li>所有下标、序号从0开始</li>
+        </ul>
+        <h3>变量类型</h3>
+        <h2>常用语句</h2>
+        <h3>各类循环</h3>
+        <h4>For</h4>
+        <p>什么时候使用：与数组操作相关时</p>
+        <h4>经典用例：与数组有关</h4>
+        <pre><code class="language-java">int[] nums = new int[10];
+
+for (int i = start; i &lt; nums.length; i++) {
+    // i是下标
+}
+
+for (int i:num) {
+    // i是值
+}
+</code></pre>
+        <p>这样理解for循环：</p>
+        <pre
+        ><code class="language-java">for (循环开始前执行的语句; 循环结束条件; 每次循环结束执行) {
+}
+</code></pre>
+        <h4>注意</h4>
+        <p><code>i &lt; nums.length</code>下标不能大于等于数组长度</p>
+        <h4>打开思路</h4>
+        <p><code>i--</code>；</p>
+        <h4>While</h4>
+        <p>什么时候使用：你喜欢，只要逻辑说得通</p>
+        <h3>键盘输入</h3>
+        <pre><code class="language-java">// 导入类
+import java.util.Scanner;
+
+// 实例化类
+Scanner scanner = new Scanner(System.in);
+
+// 读入
+String a = scanner.nextLine(); // 读入整一个下一行
+int a = scanner.nextInt(); // 同理，有nextDouble等
+</code></pre>
+        <h3>字符串操作</h3>
+        <h4>截取子串</h4>
+        <pre><code class="language-java">String a = &quot;123456&quot;;
+
+String b = a.substring(int start, int end); // 截取a从start到end的部分
+// 如start=2 end=5 则 b为345 
+</code></pre>
+        <h4>转化</h4>
+        <pre><code class="language-java">int a = 123;
+
+// 整型转字符串
+String b = String.valueOf(a);
+
+// 字符串转整型
+int b = Integet.parseInt(b);
+</code></pre>
+        <h4>比较</h4>
+        <pre><code class="language-java">String b = &quot;123&quot;;
+String a = &quot;123&quot;;
+Char d = &#39;1&#39;
+String e = &quot;1&quot;
+String f = &quot;Y&quot;
+String g = &quot;y&quot;
+
+Boolean c = a.equals(b); // 使用==是比较引用地址，特别比较
+Boolean c = e.equals(d); // 同样，字符与字符串的比较也可以用equals
+Boolean c = f.equalsIgnoreCase(g); // 忽略大小写的比较
+</code></pre>
+        <h4>抽取一个字符</h4>
+        <pre><code class="language-java">String a = &quot;abcde&quot;
+Char b = a.charAt(1) // &#39;b&#39;
+</code></pre>
+        <h4>字符串格式化</h4>
+        <p>用途：</p>
+        <ul>
+          <li>插入变量</li>
+        </ul>
+        <pre><code class="language-java">String name = &quot;YYH&quot;;
+int age = 18;
+System.out.println(String.format(&quot;My name is %s, age: %s&quot;, name, age));
+// out: My name is YYH, age: 18
+// same as: 
+System.out.println(&quot;My name is &quot; + name + &quot;, age: &quot; + age);
+</code></pre>
+        <ul>
+          <li>保留小数</li>
+        </ul>
+        <pre><code class="language-java">double a = 1.2356;
+System.out.println(String.format(&quot;Area: %.2f&quot;, a));
+// Area: 1.24
+// %.xf 即保留x位 f是浮点数，也就是double
+System.out.printf(&quot;Area: %.2f&quot;, a);
+// 效果同上
+</code></pre>
+        <h4>特殊字符</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>符号</th>
+              <th>含义</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>\t</td>
+              <td>制表符，相当于4个空格</td>
+            </tr>
+            <tr>
+              <td>\n</td>
+              <td>空格</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>随机数</h3>
+        <pre><code class="language-java">import java.util.Random;
+
+int x = 100;
+
+Random random = new Random();
+int a = random.nextInt(x);
+// 生成一个0-x之间的整数，左闭右开
+
+int a = random.nextInt(x) + y;
+// 生成一个y-x之间的整数，左闭右开
+</code></pre>
+        <h3>数学类</h3>
+        <pre><code class="language-java">// 直接使用，无需引入
+Math.PI // π
+Math.pow(底数, 指数) // 幂运算
+</code></pre>
+        <h3>排序算法</h3>
+        <p>在W14用到了，我就不多写了... :smile:</p>
+        <ul>
+          <li>选择排序</li>
+          <li>交叉排序</li>
+        </ul>
+        <h2>易错</h2>
+        <h3>比较，类型不匹配</h3>
+        <ul>
+          <li>
+            有些人容易打成这样<code
+              >x == 1</code
+            >以为自己在比较字符x是否为&#39;1&#39;这个字符，但容易漏打引号，结果把字符与数字比较，永远不可能成立
+          </li>
+        </ul>
+        <h3>
+          <a
+            href="https://wx.mail.qq.com/ftn/download?func=3&key=c9cd6e654be47d3cfbbe1f6560663264adc8336562663264131d49115b000455030a1c5656575649060604034f505351021f5253005604570f0a000053043c647c53470484f28983a3971f15060026ae65da3243648df8e09436d56f8bde328c2c073b&code=621ebf2d&k=c9cd6e654be47d3cfbbe1f6560663264adc8336562663264131d49115b000455030a1c5656575649060604034f505351021f5253005604570f0a000053043c647c53470484f28983a3971f15060026ae65da3243648df8e09436d56f8bde328c2c073b&fweb=1&cl=1"
+            >下载PDF</a
+          >
+        </h3>
+        <p>为什么下载不了？</p>
+        <ul>
+          <li>
+            点击下载后进入QQ邮箱文件中转站，此时就应该在浏览器中打开，而不是点击下载后跳转到浏览器
+          </li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>

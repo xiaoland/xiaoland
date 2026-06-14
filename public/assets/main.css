@@ -6,13 +6,17 @@ html {
     font-size: 14px;
 }
 
+body {
+    margin: 0;
+}
+
 :root {
     a {
         text-decoration: none;
-        color: var(--sys-color-text-base);
+        color: var(--comp-color-link);
     }
     a:hover {
-        --sys-color-text-base: var(--sys-color-primary);
+        --comp-color-link: var(--sys-color-primary);
     }
 
     .material-symbols {

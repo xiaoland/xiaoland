@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="author" content="蓝汁酱">
+    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
+    <title>问题解决：uniapp在微信小程序自定义TabBar</title>
+    <meta
+      name="description"
+      content="先简单记录一下，解决的是新的微信小程序基础库或者uniapp更新导致的，在this.$mp里面获取不到页面实例了 通过getCurrentPages 0 获取到当前页面实例，里面有getTabBar，可以获取到当前页面的TabBar组件实例。"
+    >
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="问题解决：uniapp在微信小程序自定义TabBar">
+    <meta property="og:description" content="${data.description}">
+    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+    <meta property="og:site_name" content="蓝汁酱的小站">
+    <meta property="og:locale" content="zh_CN">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="/assets/variables.css">
+    <link rel="stylesheet" href="/articles/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <a
+        id="page-back"
+        class="typo-control flex-row spacing-xs"
+        href="/"
+        onclick="
+                    if (history.length > 1) {
+                        history.back();
+                        return false;
+                    }
+                "
+      >
+        <span class="material-symbols">arrow_back</span>
+        <span>返回</span>
+      </a>
+      <h1>问题解决：uniapp在微信小程序自定义TabBar</h1>
+      <time datetime="2024-11-20T10:22:32Z">最后更新于 Wed Nov 20 2024</time>
+    </header>
+    <main>
+      <article>
+        <blockquote>
+          <p>
+            先简单记录一下，解决的是新的微信小程序基础库或者uniapp更新导致的，在<code
+              >this.$mp</code
+            >里面获取不到页面实例了
+          </p>
+        </blockquote>
+        <p>
+          通过<code>getCurrentPages()[0]</code>获取到当前页面实例，里面有<code
+            >getTabBar</code
+          >，可以获取到当前页面的TabBar组件实例。
+        </p>
+      </article>
+    </main>
+  </body>
+</html>

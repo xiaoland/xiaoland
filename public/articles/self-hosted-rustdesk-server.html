@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="author" content="蓝汁酱">
+    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
+    <title>「教程」搭建Rustdesk服务器实现远程控制Win/Linux/Android/Mac</title>
+    <meta
+      name="description"
+      content="教程 搭建Rustdesk服务器实现远程控制Win/Linux/Android/Mac rustdesk顾名思义就是用rust搭建的远程桌面控制软件 每一个客户端都是既可以控制又可以被控，WEB除外（WEB端的控制做的真的不好） 实际上，我们都不需要自己搭建服务器就可以直接下载使"
+    >
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="「教程」搭建Rustdesk服务器实现远程控制Win/Linux/Android/Mac">
+    <meta property="og:description" content="${data.description}">
+    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+    <meta property="og:site_name" content="蓝汁酱的小站">
+    <meta property="og:locale" content="zh_CN">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="/assets/variables.css">
+    <link rel="stylesheet" href="/articles/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <a
+        id="page-back"
+        class="typo-control flex-row spacing-xs"
+        href="/"
+        onclick="
+                    if (history.length > 1) {
+                        history.back();
+                        return false;
+                    }
+                "
+      >
+        <span class="material-symbols">arrow_back</span>
+        <span>返回</span>
+      </a>
+      <h1>「教程」搭建Rustdesk服务器实现远程控制Win/Linux/Android/Mac</h1>
+      <time datetime="2022-07-30T09:47:00Z">最后更新于 Sat Jul 30 2022</time>
+    </header>
+    <main>
+      <article>
+        <h1>教程-搭建Rustdesk服务器实现远程控制Win/Linux/Android/Mac</h1>
+        <ul>
+          <li>rustdesk顾名思义就是用rust搭建的远程桌面控制软件</li>
+          <li>每一个客户端都是既可以控制又可以被控，WEB除外（WEB端的控制做的真的不好）</li>
+          <li>
+            实际上，我们都不需要自己搭建服务器就可以直接下载使用其提供的免费控制服务器，但是这样就不有趣了，我们就来搭建一下
+          </li>
+        </ul>
+        <h2>搭建方式</h2>
+        <ul>
+          <li>有很多种，可以选择「docker」「docker-compose」「二进制文件直接运行」</li>
+        </ul>
+        <h2>分解</h2>
+        <ul>
+          <li>分为两个服务端：hbbs和hbbr，分别是ID server和Relay server</li>
+          <li>这里我们选择docker-compose，最为方便便捷</li>
+        </ul>
+        <h2>安装docker-ce和docker-compose</h2>
+        <ul>
+          <li>自己去官网找<a href="http://docker.com">docker.com</a></li>
+        </ul>
+        <h2>安装</h2>
+        <ul>
+          <li>首先cd 一个你喜欢的安装位置</li>
+          <li>nano/vi docker-compose.yml</li>
+          <li>输入以下内容</li>
+        </ul>
+        <pre><code>version: &#39;3&#39;
+
+networks:
+  rustdesk-net:
+    external: false
+
+services:
+  hbbs:
+    container_name: hbbs
+    ports:
+      - 21115:21115
+      - 21116:21116
+      - 21116:21116/udp
+      - 21118:21118
+    image: rustdesk/rustdesk-server:latest
+    command: hbbs -r example.com:21117
+    volumes:
+      - ./hbbs:/root
+    networks:
+      - rustdesk-net
+    depends_on:
+      - hbbr
+    restart: unless-stopped
+
+  hbbr:
+    container_name: hbbr
+    ports:
+      - 21117:21117
+      - 21119:21119
+    image: rustdesk/rustdesk-server:latest
+    command: hbbr
+    volumes:
+      - ./hbbr:/root
+    networks:
+      - rustdesk-net
+    restart: unless-stopped
+</code></pre>
+        <ul>
+          <li>Ctrl-X/:wq保存并退出</li>
+          <li>接着docker-compose up -d即可</li>
+          <li>
+            别忘了开放以下端口：
+            <ul>
+              <li>21116(tcp+udp) 21117 21118 21119</li>
+            </ul>
+          </li>
+          <li>最后，如需要停止，请docker-compose stop；需要启动则docker-compose start</li>
+        </ul>
+        <h2>客户端配置</h2>
+        <ul>
+          <li><p>客户端下载之后，找到ID/Relay Server配置项</p></li>
+          <li>
+            <p>只需要填写ID server 和 relay server即可，都填写一样的，你的服务器的ip/domain即可</p>
+          </li>
+          <li><p>网上有教程第二个填写了ip:21116，是不对的，会被拒绝，要填写也是ip:21117</p></li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>

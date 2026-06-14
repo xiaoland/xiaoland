@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="author" content="蓝汁酱">
+    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
+    <title>「教程」制作Python项目Docker镜像</title>
+    <meta
+      name="description"
+      content="教程 制作python项目docker镜像 因为有一个项目运行在树莓派上面，有好几个子Python项目要运行，所以做了一个控制app 但是即便如此，通过脚本运行还是很不方便，状态管理也很麻烦，所以就打算用docker来实现 其实docker本质就是一整个系统 运行环境 你能学到什"
+    >
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="「教程」制作Python项目Docker镜像">
+    <meta property="og:description" content="${data.description}">
+    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+    <meta property="og:site_name" content="蓝汁酱的小站">
+    <meta property="og:locale" content="zh_CN">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="/assets/variables.css">
+    <link rel="stylesheet" href="/articles/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <a
+        id="page-back"
+        class="typo-control flex-row spacing-xs"
+        href="/"
+        onclick="
+                    if (history.length > 1) {
+                        history.back();
+                        return false;
+                    }
+                "
+      >
+        <span class="material-symbols">arrow_back</span>
+        <span>返回</span>
+      </a>
+      <h1>「教程」制作Python项目Docker镜像</h1>
+      <time datetime="2023-08-14T12:27:00Z">最后更新于 Mon Aug 14 2023</time>
+    </header>
+    <main>
+      <article>
+        <h1>教程-制作python项目docker镜像</h1>
+        <ul>
+          <li>
+            因为有一个项目运行在树莓派上面，有好几个子Python项目要运行，所以做了一个控制app
+            但是即便如此，通过脚本运行还是很不方便，状态管理也很麻烦，所以就打算用docker来实现
+          </li>
+          <li>其实docker本质就是一整个系统(运行环境)</li>
+        </ul>
+        <h3>你能学到什么</h3>
+        <ul>
+          <li>怎样构建一个能够运行Python项目的docker镜像</li>
+          <li>
+            然后，我们把你需要的包(需要pip进行安装的包)写入<code>requirements.txt</code>之中
+            (怎么叫都可以，但已经约定俗成了)
+          </li>
+          <li>
+            通过requirements.txt，我们可以批量为新的python环境安装包。其中每一行一个包，且可以通过如下的符号来指定版本
+          </li>
+        </ul>
+        <pre><code>flask==1.1.2
+requests
+pyaudio&gt;=0.9
+</code></pre>
+        <h3>前置条件</h3>
+        <ul>
+          <li>运行Python项目需要对应的python解释器版本与python包</li>
+          <li>构建docker容器，你需要先安装docker(docker-ce)</li>
+        </ul>
+        <h3>主要步骤</h3>
+        <ul>
+          <li>确定Python环境</li>
+          <li>构建镜像</li>
+          <li>导出与导入镜像</li>
+          <li>运行镜像创建容器</li>
+        </ul>
+        <h3>确定Python环境</h3>
+        <ul>
+          <li>
+            一般来说，通过<code>python -m pip list</code>就可以找到当前python环境已经安装的所有包
+          </li>
+        </ul>
+        <h3>构建镜像</h3>
+        <ul>
+          <li>Docker构建镜像通过目标目录下的Dockerfile来进行</li>
+        </ul>
+        <h4>编写Dockerfile</h4>
+        <ul>
+          <li>[查看实例文件]</li>
+          <li>不知道为什么解释打不上来，相信大家自己能够理解的</li>
+        </ul>
+        <h4>构建</h4>
+        <h3>导出与导入</h3>
+        <h3>运行</h3>
+      </article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="author" content="蓝汁酱">
+    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
+    <title>「问题解决」libcareso.2无法加载</title>
+    <meta
+      name="description"
+      content="问题解决 libcare.so.2无法加载 这个是在宝塔安装完php56的时候出现的bug 报错为：error while loading shared libraries: libcares.so.2 原因 就是很简单的找不到了一些共享库 so lib, 可以参考其查找顺序来看"
+    >
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="「问题解决」libcareso.2无法加载">
+    <meta property="og:description" content="${data.description}">
+    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+    <meta property="og:site_name" content="蓝汁酱的小站">
+    <meta property="og:locale" content="zh_CN">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="/assets/variables.css">
+    <link rel="stylesheet" href="/articles/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <a
+        id="page-back"
+        class="typo-control flex-row spacing-xs"
+        href="/"
+        onclick="
+                    if (history.length > 1) {
+                        history.back();
+                        return false;
+                    }
+                "
+      >
+        <span class="material-symbols">arrow_back</span>
+        <span>返回</span>
+      </a>
+      <h1>「问题解决」libcareso.2无法加载</h1>
+      <time datetime="2021-07-28T12:56:00Z">最后更新于 Wed Jul 28 2021</time>
+    </header>
+    <main>
+      <article>
+        <h1>问题解决-libcare.so.2无法加载</h1>
+        <ul>
+          <li>这个是在宝塔安装完php56的时候出现的bug</li>
+          <li>报错为：error while loading shared libraries: libcares.so.2</li>
+        </ul>
+        <h3>原因</h3>
+        <ul>
+          <li>就是很简单的找不到了一些共享库(so lib, 可以参考其查找顺序来看看是否真的不存在)</li>
+        </ul>
+        <h3>解决方法</h3>
+        <ul>
+          <li>就是找到这个库并加载入环境变量(或者加载目标文件夹)中</li>
+        </ul>
+        <h4>centos</h4>
+        <ul>
+          <li>
+            系统下，有一篇<a href="https://blog.csdn.net/larance001/article/details/112143191"
+              >文章</a
+            >可以参考
+          </li>
+          <li>
+            实际上，libcare.so.2也有专门的<a href="https://pkgs.org/download/libcares.so.2()(64bit)"
+              >RPM包</a
+            >
+          </li>
+        </ul>
+        <h4>ubuntu/debian</h4>
+        <ul>
+          <li>
+            在ubuntu/debian下，应该可以如此解决（在ubuntu18.04测试成功）（但一般都是这个套路）
+          </li>
+          <li>先找找本机有没有该库：<code>find / -name libcares.so.2</code></li>
+          <li>
+            有的话：
+            <ul>
+              <li>找到在哪里，用ln -s建立软链接到/usr/lib64/</li>
+              <li>然后加入这个软链接到环境变量中</li>
+            </ul>
+          </li>
+          <li>
+            没有的话：
+            <ul>
+              <li>
+                <code>apt search cares</code>
+                找找有没有相关包——没有：<code>apt search c-ares</code>
+              </li>
+              <li>找到相关包，然后安装：<code>apt install 包名称（匹配架构）</code></li>
+            </ul>
+          </li>
+        </ul>
+        <h3>参考：</h3>
+        <ul>
+          <li>
+            <a href="https://blog.csdn.net/larance001/article/details/112143191"
+              >https://blog.csdn.net/larance001/article/details/112143191</a
+            >
+          </li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>

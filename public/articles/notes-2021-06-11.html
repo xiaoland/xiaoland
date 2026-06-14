@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="author" content="蓝汁酱">
+    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
+    <title>「吐槽」2021.6.11</title>
+    <meta
+      name="description"
+      content="吐槽系列 21.6.6 啊，是高考长假哦！加上端午节整整九天 不过作业没少，还更多了，管得还严，真的要命 本周过的还是挺紧张的说，发生了不少事情 SB病毒 事发经过 上周周末搭建一个聊天室，用到了Redis，结果就中毒了 毕竟如果redis配置不当会有一个严重的漏洞，就是一个甚至"
+    >
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="「吐槽」2021.6.11">
+    <meta property="og:description" content="${data.description}">
+    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+    <meta property="og:site_name" content="蓝汁酱的小站">
+    <meta property="og:locale" content="zh_CN">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="/assets/variables.css">
+    <link rel="stylesheet" href="/articles/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <a
+        id="page-back"
+        class="typo-control flex-row spacing-xs"
+        href="/"
+        onclick="
+                    if (history.length > 1) {
+                        history.back();
+                        return false;
+                    }
+                "
+      >
+        <span class="material-symbols">arrow_back</span>
+        <span>返回</span>
+      </a>
+      <h1>「吐槽」2021.6.11</h1>
+      <time datetime="2021-06-06T02:34:00Z">最后更新于 Sun Jun 06 2021</time>
+    </header>
+    <main>
+      <article>
+        <h1>吐槽系列-21.6.6</h1>
+        <ul>
+          <li>啊，是高考长假哦！加上端午节整整九天</li>
+          <li>不过作业没少，还更多了，管得还严，真的要命</li>
+          <li>本周过的还是挺紧张的说，发生了不少事情</li>
+        </ul>
+        <h2>SB病毒</h2>
+        <h3>事发经过</h3>
+        <ul>
+          <li>上周周末搭建一个聊天室，用到了Redis，结果就中毒了</li>
+          <li>毕竟如果redis配置不当会有一个严重的漏洞，就是一个甚至不需要密码的用户就可以登录</li>
+          <li>结果估计就是从这个漏洞进的，来了个挖矿病毒，弄得我CPU100%（16个核心占满）</li>
+          <li>表现就是...我的云盘服务挂了，重启修了一下，病毒还是在的</li>
+        </ul>
+        <h3>解决</h3>
+        <ul>
+          <li>因为是在上学时间遭到入侵，所以我要处理也只能利用下课时间——这样也是不好的，不要学</li>
+          <li>第一次遭到入侵，前几天才看过一本书，说控制进程就等于控制Linux</li>
+          <li>所以我从ps/top入手，发现没有异常，这绝壁是隐藏了自己嘛</li>
+          <li>找找相关资料，发现这次是篡改了ps和top的源码隐藏了自己，所以我装了个htop</li>
+          <li>啪的一下！很快啊！十六个占据榜首的进程[kthreaddi]出现了，就是这个sb东西</li>
+          <li>
+            分析了几天，尝试了killall -9 [kthreaddi]都还是会死灰复燃，主要是有以下几个特性
+            <ul>
+              <li>存在守护进程，使用了cron任务</li>
+              <li>启动自己之后会删除掉启动文件</li>
+            </ul>
+          </li>
+          <li>
+            大概也就是这样，因为在学校没时间处理，就写了个kill.sh
+            <ul>
+              <li>隔个30s就killall -9 [kthreaddi]，因为其守护进程名称是随机的，我也没办法</li>
+              <li>这样子，我的CPU就一直跳来跳去了</li>
+            </ul>
+          </li>
+          <li>
+            后面，我改了改kill.sh
+            <ul>
+              <li>大概就是每隔30s，还会清空/var/spool/cron/root</li>
+            </ul>
+          </li>
+          <li>
+            最后呢，解决的时候是这样的：
+            <ul>
+              <li>我停掉kill.sh，查看netstat -l中的端口，有一个奇怪的进程占用，kill了那个</li>
+              <li>看htop找到守护进程（名字奇怪的那个），kill了所有守护进程</li>
+              <li>kill了[kthreaddi]，马上再清空/var/spool/cron/root，修改权限为400</li>
+            </ul>
+          </li>
+          <li>因为那个时候没时间，我也没有看效果</li>
+          <li>后面终于到了放学回家时间，我高兴地发现问题解决了</li>
+        </ul>
+        <h3>教训</h3>
+        <ul>
+          <li>安装任何软件之前，保证来源并且查询是否存在漏洞</li>
+          <li>不要用root权限运行，很危险</li>
+          <li>一定要设置密码</li>
+          <li>没用的端口立刻关掉</li>
+        </ul>
+        <h2>经验差距</h2>
+        <h3>事发</h3>
+        <ul>
+          <li>
+            上个星期呢，我们班被年级主任训了一顿，理由是：
+            <ul>
+              <li>我们班级晚自习还有人到处走动，而且已经是期末，这些事情早就强调过很多遍了</li>
+            </ul>
+          </li>
+          <li>他一直说了我们20几分钟，但是并不是疯狂地愤怒，而是用一种严肃的态度教育我们</li>
+          <li>
+            我觉得他说得很好：“雪崩发生的时候，没有一片雪花是无辜的”——指我们考试年级倒数第一是每个人的原因
+          </li>
+          <li>不得不承认他教训得很好，直接一下子整顿起了我们班的风气</li>
+        </ul>
+        <h3>思考</h3>
+        <ul>
+          <li>
+            这里呢，我也不想多说，我们的班主任——后面知道这件事情之后，当晚又留了我们20分钟（我倒是没什么关系，本来走的就晚）
+          </li>
+          <li>
+            她大概是贯彻她的风格吧，就连生气也只是生气而已——“我真是太失望了”“你们不想学马上给我回家去，可以的啊”
+          </li>
+          <li>
+            诶...作为一名新班主任，她没有去接受别人的意见（即使我早就花了很多时间跟她提意见），只是这样觉得就可以了
+          </li>
+          <li>
+            她说不要怪科任老师，这都是我们自己的问题——真的没有错，我也没看到谁怪科任老师啊？反倒是她自己反思了自己吗？
+          </li>
+          <li>接下来两天她的数学课可以说是这么久以来最好的两节，上课很严肃，我也能听得很好</li>
+          <li>
+            结果第三天就打回原形，马上变得又是个CrazyWomen一样的风格，在课上到处交互...不论与课堂内容有没有关系...
+          </li>
+          <li>
+            有够有趣，结果她第三天讲的课所收的作业就收到了她自己的评价“怎么学的，感觉自己都白交了”
+            <ul>
+              <li>啊，可不是嘛...看看你的课堂都在干什么？</li>
+            </ul>
+          </li>
+        </ul>
+        <h2>iftop</h2>
+        <ul>
+          <li>iftop：在linux下运行的网卡流量监控工具</li>
+          <li>我现在专门留一个屏幕看着网络流量动向</li>
+          <li>一旦出现过多的异常连接，马上就断网排除</li>
+          <li>这几天，只在一天里遇到过两次，后面就没有了</li>
+          <li>这样我不仅能防止挖矿病毒入侵，还能防止ddos流量，即使止损</li>
+          <li>
+            不过这样终究是不行的，如果我哪天不在家怎么办，所以还是要写两个智能脚本
+            <ul>
+              <li>
+                一个装在服务器上：检测到异常的过多ip连接，就切断这些ip的连接
+                <ul>
+                  <li>
+                    因为我服务器用的是NAT，所以理论上只有一个ip（我映射服务器的）会流量比较大，其余都不会
+                  </li>
+                  <li>而且除了内网网段可以流量大一点，其余的异常连接都需要稍稍切断</li>
+                </ul>
+              </li>
+              <li>
+                一个装在映射服务器上：检测到流量大，而且表现为过多异常ip连接，ntp，SYN等都直接切断
+                <ul>
+                  <li>防止浪费我的流量，浪费我的钱</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <h2>颓废</h2>
+        <ul>
+          <li>这几天又有些颓废了起来，开始play mc了</li>
+          <li>play得有点过，homework每天都很挨着deadline</li>
+          <li>诶...该停停了</li>
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="author" content="蓝汁酱">
+    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
+    <title>密钥认证SSH</title>
+    <meta
+      name="description"
+      content="大家都知道密钥登录好，比密码安全、快速还简单，这里写一篇简明的教程，网络上各种教程杂七杂八拼凑在一起也能成，但是还有不少坑 基础知识 密钥对 sshd sshd（Secure Shell Daemon）是 SSH（Secure Shell）协议的服务器端程序。 就是它负责认证的事"
+    >
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="密钥认证SSH">
+    <meta property="og:description" content="${data.description}">
+    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+    <meta property="og:site_name" content="蓝汁酱的小站">
+    <meta property="og:locale" content="zh_CN">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="/assets/variables.css">
+    <link rel="stylesheet" href="/articles/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <a
+        id="page-back"
+        class="typo-control flex-row spacing-xs"
+        href="/"
+        onclick="
+                    if (history.length > 1) {
+                        history.back();
+                        return false;
+                    }
+                "
+      >
+        <span class="material-symbols">arrow_back</span>
+        <span>返回</span>
+      </a>
+      <h1>密钥认证SSH</h1>
+      <time datetime="2025-05-28T11:23:00Z">最后更新于 Wed May 28 2025</time>
+    </header>
+    <main>
+      <article>
+        <p>
+          大家都知道密钥登录好，比密码安全、快速还简单，这里写一篇简明的教程，网络上各种教程杂七杂八拼凑在一起也能成，但是还有不少坑
+        </p>
+        <h2>基础知识</h2>
+        <h3>密钥对</h3>
+        <h3><code>sshd</code></h3>
+        <p>sshd（Secure Shell Daemon）是 SSH（Secure Shell）协议的服务器端程序。</p>
+        <p>就是它负责认证的事情，所以如果登录不上，八成排查这里。</p>
+        <h2>简明步骤</h2>
+        <ol>
+          <li>
+            在你的计算机（不是服务器！）上，使用ssh-keygen工具生成一个密钥对，建议使用ed25519算法生成
+          </li>
+        </ol>
+        <pre><code class="language-bash">ssh-keygen -t ed25519
+</code></pre>
+        <p>
+          将你的私钥保存到当前用户（Windows的<code>%USERDATA%</code>）的<code>.ssh</code>文件夹中
+        </p>
+        <ol start="2">
+          <li>在你的服务器上，创建一个属于你的账号</li>
+        </ol>
+        <pre><code class="language-bash">sudo useradd username
+sudo passwd username
+sudo usermod -a -G wheel username
+</code></pre>
+        <p>
+          第三条命令赋予该新创建的用户<code>sudo</code>权限（通过添加到<code>wheel</code>或<code
+            >sudo</code
+          >用户组来完成）
+        </p>
+        <ol start="3">
+          <li>登录该用户 <code>su username</code>，并创建存放刚才公钥的文件</li>
+        </ol>
+        <pre><code class="language-bash">mkdir ~/.ssh
+vi ~/.ssh/authorized_keys
+</code></pre>
+        <p>
+          在 <code>authorized_keys</code> 中存放的是可以登录当前账号（<code
+            >~</code
+          >指向当前用户的家目录）的公钥，一行一个
+        </p>
+        <ol start="4">
+          <li>重启sshd服务</li>
+        </ol>
+        <pre><code class="language-bash">sudo systemctl restart sshd
+</code></pre>
+        <h2>问题排查</h2>
+        <h3>sshd配置可登录用户</h3>
+        <p>
+          在 <code>/etc/ssh/sshd_config</code> 文件中有
+          <code>AllowUsers</code> 配置项，用空格分隔可以通过ssh登录的用户名，不填写则默认全部
+        </p>
+        <h3>sshd配置可密钥登录</h3>
+        <pre><code class="language-txt">RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+PasswordAuthentication no  # 可选的
+</code></pre>
+      </article>
+    </main>
+  </body>
+</html>

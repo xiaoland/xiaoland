@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="author" content="蓝汁酱">
+    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
+    <title>为什么你的 swap 不生效？</title>
+    <meta name="description" content="如何在 Debian / RHEL 系统中开启 Swap 并确保其生效">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="为什么你的 swap 不生效？">
+    <meta property="og:description" content="${data.description}">
+    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+    <meta property="og:site_name" content="蓝汁酱的小站">
+    <meta property="og:locale" content="zh_CN">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="/assets/variables.css">
+    <link rel="stylesheet" href="/articles/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <a
+        id="page-back"
+        class="typo-control flex-row spacing-xs"
+        href="/"
+        onclick="
+                    if (history.length > 1) {
+                        history.back();
+                        return false;
+                    }
+                "
+      >
+        <span class="material-symbols">arrow_back</span>
+        <span>返回</span>
+      </a>
+      <h1>为什么你的 swap 不生效？</h1>
+      <time datetime="2025-11-25T12:03:53.558Z">最后更新于 Tue Nov 25 2025</time>
+    </header>
+    <main>
+      <article>
+        <h2>启用 Swap</h2>
+        <ol>
+          <li>
+            <p>在开始之前，先检查系统是否已经启用了 Swap。</p>
+            <pre><code class="language-bash">sudo swapon --show
+</code></pre>
+            <p>
+              如果没有任何输出，说明当前没有启用 Swap。你也可以用
+              <code>free -h</code> 查看内存使用情况。
+            </p>
+          </li>
+          <li>
+            <p>创建 Swap 文件</p>
+            <p>
+              我们需要创建一个用于作为 Swap 的文件。这里以创建一个 2GB 的 Swap
+              文件为例（你可以根据需要将 <code>2G</code> 改为 <code>1G</code> 或 <code>4G</code>）。
+            </p>
+            <p>使用 <code>fallocate</code> 命令快速创建文件：</p>
+            <pre><code class="language-bash">sudo fallocate -l 2G /swapfile
+</code></pre>
+            <blockquote>
+              <p>
+                <strong>注意：</strong>
+                如果你的文件系统不支持
+                <code>fallocate</code>（较为罕见），你会收到错误提示。此时可以使用以下
+                <code>dd</code> 命令替代：
+                <code>sudo dd if=/dev/zero of=/swapfile bs=1M count=2048</code>
+              </p>
+            </blockquote>
+          </li>
+          <li>
+            <p>设置权限</p>
+            <p>出于安全考虑，Swap 文件应该只能由 root 用户读写。</p>
+            <pre><code class="language-bash">sudo chmod 600 /swapfile
+</code></pre>
+            <p>验证权限是否设置正确：</p>
+            <pre><code class="language-bash">ls -lh /swapfile
+</code></pre>
+            <p>你应该看到类似 <code>-rw-------</code> 的输出。</p>
+          </li>
+          <li>
+            <p>将文件标记为 Swap</p>
+            <p>使用 <code>mkswap</code> 命令将刚才创建的文件格式化为 Swap 空间：</p>
+            <pre><code class="language-bash">sudo mkswap /swapfile
+</code></pre>
+            <p>
+              系统会提示类似 <code>Setting up swapspace version 1, size = 2 GiB...</code> 的信息。
+            </p>
+          </li>
+          <li>
+            <p>启用 Swap 文件</p>
+            <p>现在，临时启用这个 Swap 文件：</p>
+            <pre><code class="language-bash">sudo swapon /swapfile
+</code></pre>
+            <p>再次检查状态，你应该能看到它已经挂载了：</p>
+            <pre><code class="language-bash">sudo swapon --show
+</code></pre>
+          </li>
+          <li>
+            <p>设置开机自动挂载（永久生效）</p>
+            <p>为了防止重启后失效，需要将配置写入 <code>/etc/fstab</code> 文件。</p>
+            <p>直接运行以下命令将配置追加到文件末尾：</p>
+            <pre
+            ><code class="language-bash">echo &#39;/swapfile none swap sw 0 0&#39; | sudo tee -a /etc/fstab
+</code></pre>
+            <p>
+              或者使用编辑器打开文件 <code>/etc/fstab</code> 在末尾手动添加
+              <code>/swapfile none swap sw 0 0</code> 并保存。
+            </p>
+          </li>
+          <li>
+            <p>检查/优化 Swappiness</p>
+            <p>
+              <code>swappiness</code> 参数决定了系统使用 Swap 的积极程度（0-100）。 Debian 默认是
+              <code>60</code>，这意味着系统会比较积极地使用 Swap。
+              对于服务器或桌面，通常建议将其调低，以优先使用物理内存。
+              但有部分云服务厂商可能会将该值设置为 <strong>0</strong> ！这也就是为什么你设置了 Swap
+              但没有发现系统因内存造成的卡顿情况有明显的改善！（设置为0意味着只有在物理内存完全耗尽的时候才使用
+              swap ）
+            </p>
+            <p>查看当前值：</p>
+            <pre><code class="language-bash">cat /proc/sys/vm/swappiness
+</code></pre>
+            <p>临时修改（立即生效）为 10（推荐值）：</p>
+            <pre><code class="language-bash">sudo sysctl vm.swappiness=10
+</code></pre>
+            <p>永久修改：编辑 sysctl 配置文件：</p>
+            <pre><code class="language-bash">sudo nano /etc/sysctl.conf
+</code></pre>
+            <p>
+              在文件末尾添加：
+              <code>vm.swappiness=10</code>
+              保存退出即可。
+            </p>
+          </li>
+        </ol>
+        <hr>
+        <h2>删除 Swap</h2>
+        <p>如果你以后不再需要它，可以按以下步骤安全删除：</p>
+        <ol>
+          <li>关闭 Swap: <code>sudo swapoff -v /swapfile</code></li>
+          <li>删除配置: 编辑 <code>/etc/fstab</code> 删除添加的那一行。</li>
+          <li>删除文件: <code>sudo rm /swapfile</code></li>
+        </ol>
+      </article>
+    </main>
+  </body>
+</html>
