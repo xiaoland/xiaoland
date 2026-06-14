@@ -1,27 +1,154 @@
 <!doctype html>
 <html lang="zh-CN">
     <head>
-        <title>蓝汁酱的小站</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#2a4ec6" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>蓝汁酱的小站</title>
+        <meta
+            name="description"
+            content="蓝汁酱(Lanzhijiang)的个人网站，记录技术、生活、学习与思考。"
+        />
         <link rel="stylesheet" href="index.css" />
         <link rel="stylesheet" href="assets/main.css" />
         <link rel="stylesheet" href="assets/variables.css" />
         <link
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
             rel="stylesheet"
         />
     </head>
     <body>
+        <div id="page-background"></div>
         <header>
-            <h1>👋你好，我是蓝汁酱</h1>
+            <h1>👋 你好，我是蓝汁酱</h1>
         </header>
         <main>
-            <section id="article-list">
-                <a class="article-card" href="articles/google-cn-issue">
-                    <h3>记被谷歌送中</h3>
-                    <p>什么是“送中”，如何解决？</p>
-                </a>
+            <section id="articles">
+                <div id="selector">
+                    <h2>精选文章</h2>
+                    <div>
+                        <button type="button">
+                            <span class="material-symbols">arrow_back</span>
+                        </button>
+                        <button type="button">
+                            <span class="material-symbols">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+                <ul id="list">
+                    <li>
+                        <article>
+                            <a href="/articles/google-cn-issue">
+                                <h3>记被谷歌送中</h3>
+                                <time datetime="2025-11-12">2025-11-12</time>
+                                <p>什么是“送中”，如何解决？</p>
+                            </a>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <a href="/articles/scss-vue-style-management">
+                                <h3>SCSS 与 Vue 样式管理</h3>
+                                <time datetime="2024-11-22">2024-11-22</time>
+                                <p>
+                                    介绍我如何在 Web 开发中进行样式管理，包括
+                                    Vue.js 以及 SCSS 相关的特定经验
+                                </p>
+                            </a>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <a href="/articles/bilibili-2233-mh5-earbuds">
+                                <h3>纪念我的第一个蓝牙耳机</h3>
+                                <time datetime="2024-08-30">2024-08-30</time>
+                                <p>
+                                    我的第一个蓝牙耳机是 Bilibili 2233
+                                    联名款，购买于 2019 年，最终在 2024
+                                    年完全遗失
+                                </p>
+                            </a>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <a href="/articles/centos-nginx-usage">
+                                <h3>在 CentOS 上安装并使用 Nginx</h3>
+                                <time datetime="2021-03-13">2021-03-13</time>
+                                <p>
+                                    如何在 CentOS 上安装 Nginx
+                                    并启动、停止，配置网站以及 PHP
+                                </p>
+                            </a>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <a
+                                href="/articles/comprehensive-english-presentation-reflection"
+                            >
+                                <h3>综合英语演讲反思</h3>
+                                <time datetime="2024-04-08">2024-04-08</time>
+                                <p>
+                                    综合英语课上我准备了以 Psycho Pass 为主题的
+                                    presentation，但感觉很失败
+                                </p>
+                            </a>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <a href="/articles/private-python-package-hosting">
+                                <h3>Python 包私有托管</h3>
+                                <time datetime="2024-11-04">2024-11-04</time>
+                                <p>
+                                    开发 Python package 的最佳实践以及如何在
+                                    GitLab 的 Python package private registry
+                                    托管包
+                                </p>
+                            </a>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <a href="/articles/macos-windows-first-impressions">
+                                <h3>MacOS 初体验，对比 Windows</h3>
+                                <time datetime="2023-07-13">2023-07-13</time>
+                                <p>
+                                    在今年的暑假，有幸通过实习拿到一台 Macbook
+                                    Pro，第一次体验到了从小就一直在听，但从来没有用过的
+                                    MacOS。
+                                    虽然一开始快捷键上感觉很反人类，后面却只觉越用越顺手，软件开发、工作的效率比
+                                    Windows 高多了。
+                                </p>
+                            </a>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <a href="/articles/photoshop-2020-channel-cutout">
+                                <h3>Photoshop 通道抠图法</h3>
+                                <time datetime="2021-11-07">2021-11-07</time>
+                                <p>
+                                    如何在 Adobe Photoshop 2020
+                                    上使用通道抠图法进行抠图
+                                </p>
+                            </a>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <a href="/articles/flask-self-signed-ssl">
+                                <h3>Flask 提供 HTTPS 服务以及自签证书</h3>
+                                <time datetime="2023-07-01">2023-07-01</time>
+                                <p>
+                                    如何在 Flask 中使用自签证书提供 HTTPS 服务
+                                </p>
+                            </a>
+                        </article>
+                    </li>
+                </ul>
             </section>
         </main>
         <footer>

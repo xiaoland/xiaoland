@@ -7,8 +7,8 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/240/'
 categories: ['feelings', 'summary', 'report']
 tags: ['mac', 'windows', '报告']
 ---
-# 报告-MacOS与Windows使用体验上手简单对比
-- 本文参与影视飓风在2023.7.10-20举办的Mac与Win系统调查
+
+> 本文还特别参与影视飓风在2023.7.10-20举办的Mac与Win系统调查
 
 ### 背景说明
 - 鄙人最近很幸运，得到了一次在互联网公司的实习经验。而公司分配的电脑是 MacBookPro 2019 15，配置如下

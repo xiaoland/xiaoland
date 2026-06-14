@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "strict": true,
@@ -8,7 +8,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "lib": ["es2020", "dom"]
+    "lib": ["es2022", "dom"],
   },
-  "include": ["./**/*.ts"]
+  "include": ["./**/*.ts"],
 }

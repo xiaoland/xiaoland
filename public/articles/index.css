@@ -1,7 +1,21 @@
+body {
+    margin: 1rem 1rem;
+}
+
 header {
+    #back-back {
+    }
+
     h1 {
         font-size: 2rem;
         color: var(--sys-color-text-base);
+        margin: 0;
+    }
+
+    time {
+        font-size: 0.875rem;
+        color: var(--sys-color-text-subtle);
+        margin: 0;
     }
 }
 
@@ -14,5 +28,20 @@ article {
         max-height: 40vh;
         object-fit: contain;
         margin: 0 auto;
+    }
+
+    blockquote {
+        border-left: 4px solid var(--sys-color-text-subtle);
+        color: var(--sys-color-text-subtle);
+        padding-left: var(--sys-spacing-sm);
+        margin: 0;
+    }
+
+    @media (max-width: 768px) {
+        padding: 0 2vw;
+
+        img {
+            width: 90%;
+        }
     }
 }

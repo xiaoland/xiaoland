@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>${data.title}</title>
+        <meta name="description" content="${data.description}" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="${data.title}" />
+        <meta property="og:description" content="${data.description}" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs"
+                href="/"
+                onclick="
+                    if (history.length > 1) {
+                        history.back();
+                        return false;
+                    }
+                "
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>${data.title}</h1>
+            <time datetime="${data.datetime}">最后更新于 ${data.date}</time>
+        </header>
+        <main>
+            <article>${body}</article>
+        </main>
+    </body>
+</html>

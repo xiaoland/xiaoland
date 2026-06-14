@@ -1,26 +1,79 @@
 ---
-title: '「教程」Centos上的nginx使用'
-description: '关于Centos上的Nginx的使用 本文介绍了nginx的基本使用 包括重启，开机自启动等等 还包括 设置网站地址 ，设置 多个不同网站 和 不同php版本 日后还会陆续增加哦 启动、停止、重启 要执行这些操作，最根本的是找到nginx的核心（仅是编译安装的情况下） 若是直接包'
+title: '在 CentOS 上安装并使用 Nginx'
+description: '如何在 CentOS 上从源码编译并安装 Nginx，然后配置网站、PHP等'
 createdAt: '2021-03-13T17:40:00Z'
 oldId: 20
 oldUrl: 'https://blog.hadream.ltd/index.php/archives/20/'
 categories: ['tutorial-server', 'tutorial']
 tags: ['nginx']
 ---
-# 关于Centos上的Nginx的使用
+# 在 CentOS 上安装并使用 Nginx
+
+## 前言
+- nginx是一个与apache(httpd)同类型的东西，可以简单地理解为一个web服务器
+- nginx比较轻量，使用它我们可以轻易做到不同网站不同php、反向代理等等
+- 因为我用的就是Centos，所以我也就写是centos，当然，本教程用源码安装，所以其实在linux上应该都是可以的
+  - PS：只要选对nginx源码的架构和系统
 
 - 本文介绍了nginx的基本使用
 - 包括重启，开机自启动等等
 - 还包括**设置网站地址**，设置**多个不同网站**和**不同php版本**
 - 日后还会陆续增加哦
 
+## 安装
+
+## 下载源码
+- [NGINX官网下载](http://nginx.org/en/download.html)
+- 选择适合你的CHARACTER吧！
+- 当然，你可以直接wget到服务器上，也可以选择下载以后再ftp过去等等
+
+## 解压
+```bash
+tar -zxvf nginx-x-xx.tar.gz
+```
+- 总之，把你的nginx源码解压出来，并命名文件夹为nginx
+- 在哪里解压不重要（大概），但是还是推荐解压在/usr/local下
+
+## 安装
+
+### 安装依赖
+- 在没有这些依赖的情况下，安装nginx是会报错的，所以先安装环境
+```bash
+yum install -y gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel
+```
+
+### 安装nginx
+
+- 接着，进入到nginx目录下，使用老套路
+```bash
+cd nginx
+./configure
+make && make install
+```
+- PS：在./configure部分，可以添加参数以添加各种扩展和调整安装目录等
+  - 很重要的一点就是解决*"conf/koi-win" 与"/usr/local/nginx/conf/koi-win" 为同一文件*这个问题
+  - 要解决这个问题，可以使用`./configure --prefix=<path_install_nginx> --conf-path=<path_to_nginx_conf>`
+    - "--prefix"项指定nginx的安装目录，之后会在指定的目录下生成各种文件
+    - "--conf-path"则指定nginx的配置文件路径，当你有两个nginx时，这个是很必要的
+  - 你还可以使用"--add-moudle=xxxx"来安装各种各样的拓展模块
+
+## 启动
+
+- 安装完之后默认就已经启动了
+- 如果80端口被占用或者你想要重启或更改配置什么的，请看[「教程」Centos上的nginx使用](http://blog.hadream.ltd/index.php/archives/20/)
+
+
 ## 启动、停止、重启
-- 要执行这些操作，最根本的是找到nginx的核心（仅是编译安装的情况下）
-  - 若是直接包安装，使用systemctl stop/start/restart nginx就可以了
-### nginx核心在哪里
+
+要执行这些操作，最根本的是找到nginx的核心（仅是编译安装的情况下）。
+若是直接包安装，使用systemctl stop/start/restart nginx就可以了。
+
+### nginx 核心在哪里
+
 - 一般情况下nginx的核心文件在你安装nginx的那个文件夹下的sbin或objs文件夹中
   - 如：/usr/local/nginx是你安装nginx的位置 
   - 那/usr/local/nginx/sbin/或/usr/local/nginx/objs中的nginx这个文件就是nginx的核心
+
 ### 三指令
 - 启动，配置文件可以不指定，要指定就是nginx.conf
 ```bash
@@ -44,6 +97,7 @@ nginx -s reload
 ### nginx的配置
 - nginx的配置文件一般位于其安装目录下的conf/nginx.conf
 - 现在，让我给你一个模板的一部分
+
 ```conf
 events {
     worker_connections  1024;
@@ -143,6 +197,7 @@ http {
   - php5.6设置了fastcgi端口为9001，那么要用php5的server就设置为127.0.0.1:9001
 
 ### 配置多个网站
+
 - 其实就是在http中多几个server的意思
 - 一个server就是一个网站站点，可以给它们指定不同的端口，不同的目录和不同的php版本
   - 区别于location。location可以起到跳转啊，代理的作用，但是php版本是不能不同的（在一个server下的location们）

@@ -16,7 +16,8 @@ async function formatWithBiome(filePath: string) {
 }
 
 async function main() {
-  const [, , articleSlug] = process.argv;
+  const [, , articleSlug, htmlTemplatePath = "src/templates/article.html"] =
+    process.argv;
 
   if (!articleSlug) {
     console.error("Usage: tsx script/article-md-to-html.ts <article-slug>");
@@ -29,36 +30,20 @@ async function main() {
   const markdown = await readFile(input, "utf-8");
   const { data, content } = matter(markdown);
   const body = await marked.parse(content);
-  const html = `<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${data.title}</title>
-  <meta name="description" content="${normalizeIntoTagAttributeSafeString(data.description)}">
-  <link rel="stylesheet" href="/assets/main.css" />
-  <link rel="stylesheet" href="/assets/variables.css" />
-  <link rel="stylesheet" href="/articles/index.css" />
-  <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols"
-      rel="stylesheet"
-  />
-</head>
-<body>
-<header>
-  <a class="back typo-control" href="/" onclick="if (history.length > 1) { history.back(); return false; }">
-    <span class="material-symbols">arrow_back</span>
-    <span>返回</span>
-  </a>
-  <h1>${data.title}</h1>
-</header>
-<main>
-<article>
-${body}
-</article>
-</main>
-</body>
-</html>`;
+
+  const htmlTemplate = await readFile(resolve(htmlTemplatePath), "utf-8");
+  const html = htmlTemplate
+    .replace("${body}", body)
+    .replaceAll("${data.title}", data.title)
+    .replace(
+      "${data.description}",
+      normalizeIntoTagAttributeSafeString(data.description),
+    )
+    .replace("${data.datetime}", data.createdAt ?? data.updatedAt)
+    .replace(
+      "${data.date}",
+      new Date(data.createdAt ?? data.updatedAt).toDateString(),
+    );
 
   await mkdir(dirname(output), { recursive: true });
   await writeFile(output, html, "utf-8");

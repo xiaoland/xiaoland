@@ -1,13 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="author" content="蓝汁酱">
+    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
     <title>记被谷歌送中以及解决方案</title>
     <meta
       name="description"
       content="记录通过代理被&quot;送中&quot;导致 google.com 重定向到 google.cn 的排查过程与解决办法：使用 IPv6 并在 Sing-Box 客户端启用 &quot;domain_strategy&quot;: &quot;prefer_ipv6&quot; 以强制通过 IPv6 出站。"
     >
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="记被谷歌送中以及解决方案">
+    <meta property="og:description" content="${data.description}">
+    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+    <meta property="og:site_name" content="蓝汁酱的小站">
+    <meta property="og:locale" content="zh_CN">
     <link rel="stylesheet" href="/assets/main.css">
     <link rel="stylesheet" href="/assets/variables.css">
     <link rel="stylesheet" href="/articles/index.css">
@@ -16,14 +25,21 @@
   <body>
     <header>
       <a
-        class="back typo-control"
+        id="page-back"
+        class="typo-control flex-row spacing-xs"
         href="/"
-        onclick="if (history.length > 1) { history.back(); return false; }"
+        onclick="
+                    if (history.length > 1) {
+                        history.back();
+                        return false;
+                    }
+                "
       >
         <span class="material-symbols">arrow_back</span>
         <span>返回</span>
       </a>
       <h1>记被谷歌送中以及解决方案</h1>
+      <time datetime="2025-11-12T21:23:35.000Z">最后更新于 Thu Nov 13 2025</time>
     </header>
     <main>
       <article>
