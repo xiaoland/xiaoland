@@ -21,4 +21,21 @@
       },
     },
   },
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/.jj",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.classpath",
+    "**/.settings",
+
+    "**/dist",
+    "**/.venv",
+    "**/.wrangler",
+    "**/.worker-build",
+    "**/node_modules",
+  ],
 }

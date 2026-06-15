@@ -24,14 +24,29 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm run ci
+      - name: Build
+        run: pnpm run build:ci
 
-      - run: pnpm run deploy:worker
+      - name: Check D1 migrations
+        run: pnpm run db:list
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-      - run: pnpm exec wrangler pages deploy dist --project-name xiaoland --branch main
+      - name: Apply D1 migrations
+        run: pnpm run db:apply
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Deploy backend
+        run: pnpm run deploy:worker
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Deploy frontend
+        run: pnpm exec wrangler pages deploy dist --project-name xiaoland --env production --tag "sha-${GITHUB_SHA}"
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
