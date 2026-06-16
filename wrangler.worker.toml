@@ -1,4 +1,3 @@
-[env.production]
 name = "lanzhijiang"
 main = "src/worker/index.ts"
 compatibility_date = "2026-03-01"

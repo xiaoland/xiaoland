@@ -17,14 +17,14 @@
     "typecheck": "tsc --noEmit",
     "check": "pnpm run typecheck",
     "db:generate": "drizzle-kit generate",
-    "db:list:preview": "pnpm wrangler d1 migrations list xiaoland-site-preview --remote --env preview",
-    "db:apply:preview": "pnpm wrangler d1 migrations apply xiaoland-site-preview --remote --env preview",
-    "db:list": "pnpm wrangler d1 migrations list xiaoland-site --remote --env production",
-    "db:apply": "pnpm wrangler d1 migrations apply xiaoland-site --remote --env production",
+    "db:list:preview": "pnpm wrangler d1 migrations list xiaoland-site-preview --env preview --config wrangler.worker.toml",
+    "db:apply:preview": "pnpm wrangler d1 migrations apply xiaoland-site-preview --env preview --config wrangler.worker.toml",
+    "db:list": "pnpm wrangler d1 migrations list xiaoland-site --env production --config wrangler.worker.toml",
+    "db:apply": "pnpm wrangler d1 migrations apply xiaoland-site --env production --config wrangler.worker.toml",
     "deploy": "pnpm run deploy:worker && pnpm run deploy:pages",
-    "deploy:pages": "wrangler pages deploy dist --project-name xiaoland",
-    "deploy:worker": "wrangler deploy --config wrangler.worker.toml",
-    "deploy:worker:preview": "tsx scripts/deploy-preview-worker.ts",
+    "deploy:frontend": "wrangler pages deploy dist --project-name xiaoland --config wrangler.pages.toml",
+    "deploy:backend": "wrangler deploy --config wrangler.worker.toml --env production",
+    "deploy:backend:preview": "tsx scripts/deploy-preview-worker.ts",
     "tool:gen-article": "tsx scripts/article-md-to-html.ts"
   },
   "dependencies": {
@@ -45,13 +45,7 @@
     "tsx": "^4.21.0",
     "typescript": "^5.8.3",
     "vite": "^8.0.0",
+    "vite-plugin-sitemap": "^0.8.2",
     "wrangler": "^4.74.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "sharp",
-      "workerd"
-    ]
   }
 }

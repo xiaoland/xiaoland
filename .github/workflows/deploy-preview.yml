@@ -27,27 +27,26 @@ jobs:
         run: pnpm run build:ci
 
       - name: Check D1 migrations
-        run: pnpm run db:list:preview
+        run: pnpm run db:list:preview --remote
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Apply D1 migrations
-        run: pnpm run db:apply:preview
+        run: pnpm run db:apply:preview --remote
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Deploy Backend
-        run: pnpm run deploy:worker:preview
+        run: pnpm run deploy:backend:preview
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_WORKERS_SUBDOMAIN: ${{ vars.CLOUDFLARE_WORKERS_SUBDOMAIN }}
 
       - name: Deploy Frontend
-        run: pnpm run deploy:pages --branch "${{ github.head_ref }}"
-        # 需要进一步校验能不能这样传 branch 参数
+        run: pnpm run deploy:frontend --branch "${{ github.head_ref }}"
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

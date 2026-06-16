@@ -1,5 +1,6 @@
 import { defineConfig, type Plugin } from "vite";
 import { cloudflare } from "@cloudflare/vite-plugin";
+import Sitemap from "vite-plugin-sitemap";
 import { readdir } from "node:fs/promises";
 import { mirrorHtmlFile } from "./scripts/image-mirroring";
 import { fileURLToPath } from "node:url";
@@ -8,6 +9,7 @@ import path from "node:path";
 
 const rootDir = fileURLToPath(new URL(".", import.meta.url));
 const publicDir = path.resolve(rootDir, "public");
+const distDir = path.resolve(rootDir, "dist");
 
 async function findHtmlFiles(directory: string): Promise<string[]> {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -98,12 +100,21 @@ export default defineConfig(() => {
       },
     },
     build: {
-      outDir: "../dist",
+      outDir: distDir,
       emptyOutDir: true,
       rolldownOptions: {
         input: collectHtmlInputs(publicDir),
       },
     },
-    plugins: [cloudflare(), postbuildPlugin()],
+    plugins: [
+      cloudflare(),
+      postbuildPlugin(),
+      Sitemap({
+        hostname: "https://lanzhijiang.dev",
+        outDir: distDir,
+        generateRobotsTxt: false,
+        exclude: [],
+      }),
+    ],
   };
 });

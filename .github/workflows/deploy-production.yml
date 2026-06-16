@@ -28,25 +28,28 @@ jobs:
         run: pnpm run build:ci
 
       - name: Check D1 migrations
-        run: pnpm run db:list
+        run: pnpm run db:list --remote
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Apply D1 migrations
-        run: pnpm run db:apply
+        run: pnpm run db:apply --remote
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Deploy backend
-        run: pnpm run deploy:worker
+        run: pnpm run deploy:backend --tag "sha-${GITHUB_SHA::12}" \
+          --message "ref=${GITHUB_REF_NAME}; actor=${GITHUB_ACTOR}; run=${GITHUB_RUN_ID}"
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Deploy frontend
-        run: pnpm exec wrangler pages deploy dist --project-name xiaoland --env production --tag "sha-${GITHUB_SHA}"
+        run: |
+          pnpm run deploy:frontend --branch main --commit-hash "${GITHUB_SHA}" \
+          --message "actor=${GITHUB_ACTOR}; run=${GITHUB_RUN_ID}"
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
