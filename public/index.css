@@ -39,7 +39,7 @@ main {
         flex-grow: 1;
         overflow-y: hidden;
 
-        #selector {
+        #navigator {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -63,7 +63,11 @@ main {
             }
         }
 
-        .list {
+        [hidden] {
+            display: none !important;
+        }
+
+        .article-list {
             display: flex;
             flex-direction: column;
             gap: var(--sys-spacing-md);
