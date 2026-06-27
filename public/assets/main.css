@@ -12,17 +12,19 @@ body {
     color: var(--sys-color-text-base);
 }
 
+a {
+    --comp-color-link: var(--sys-color-text-base);
+    --comp-color-link-hover: var(--sys-color-primary);
+
+    color: var(--comp-color-link);
+    text-decoration: none;
+
+    &:hover {
+        color: var(--comp-color-link-hover);
+    }
+}
+
 :root {
-    a {
-        --comp-color-link: var(--sys-color-text-base);
-
-        color: var(--comp-color-link);
-        text-decoration: none;
-    }
-    a:hover {
-        --comp-color-link: var(--sys-color-primary);
-    }
-
     .material-symbols {
         font-variation-settings:
             "FILL" 0,
@@ -37,29 +39,23 @@ body {
         align-items: center;
         justify-content: center;
     }
-    .typo-control {
-        font-size: var(--sys-typo-control-font-size);
-        line-height: var(--sys-typo-control-line-height);
-        letter-spacing: var(--sys-typo-control-letter-spacing);
-    }
+}
 
-    .spacing-xs {
-        --spacing: var(--sys-spacing-xs);
-    }
-    .spacing-sm {
-        --spacing: var(--sys-spacing-sm);
-    }
+.typo-control {
+    font-size: var(--sys-typo-control-font-size);
+    line-height: var(--sys-typo-control-line-height);
+    letter-spacing: var(--sys-typo-control-letter-spacing);
+}
 
-    .flex-col {
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing);
-    }
-    .flex-row {
-        display: flex;
-        flex-direction: row;
-        gap: var(--spacing);
-    }
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing);
+}
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing);
 }
 
 @media (max-width: 768px) {
@@ -68,7 +64,7 @@ body {
     }
 }
 
-@media (max-width: 374px) {
+@media (max-width: 420px) {
     :root {
         font-size: 17px;
     }

@@ -22,6 +22,10 @@ header {
         font-weight: 300;
         margin: 1rem 0 2rem 0;
         color: var(--sys-color-text-on-primary);
+
+        @media (max-width: 768px) {
+            margin: 0.5rem 0 1rem 0;
+        }
     }
 }
 
@@ -56,10 +60,15 @@ main {
                 background: none;
                 border: none;
                 cursor: pointer;
-                padding: 0.4rem;
-            }
-            button:hover {
-                background-color: var(--sys-color-container);
+                padding: 0.4em;
+                font-size: var(--sys-typo-control-font-size);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                    background-color: var(--sys-color-container);
+                }
             }
         }
 
@@ -86,13 +95,7 @@ main {
                 h3 {
                     font-size: 1.8rem;
                     font-weight: 450;
-                    margin: 0;
-                }
-                p {
-                    font-size: var(--sys-typo-base-font-size);
-                    line-height: var(--sys-typo-base-line-height);
-                    letter-spacing: var(--sys-typo-base-letter-spacing);
-                    color: var(--sys-color-text-subtle);
+                    line-height: 1.1;
                     margin: 0;
                 }
 
@@ -101,21 +104,44 @@ main {
                     line-height: var(--sys-typo-caption-line-height);
                     letter-spacing: var(--sys-typo-caption-letter-spacing);
                 }
+
+                p {
+                    margin: var(--sys-spacing-xs) 0 0;
+                    font-size: var(--sys-typo-base-font-size);
+                    line-height: var(--sys-typo-base-line-height);
+                    letter-spacing: var(--sys-typo-base-letter-spacing);
+                    color: var(--sys-color-text-subtle);
+                }
             }
         }
     }
 }
 
 footer {
-    padding: var(--sys-spacing-xs) var(--sys-spacing-sm);
+    padding: var(--sys-spacing-xs) var(--sys-spacing-md) var(--sys-spacing-xs)
+        var(--sys-spacing-sm);
     background-color: var(--sys-color-primary-lighter);
     color: var(--sys-color-text-on-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    --comp-color-link: var(--sys-color-text-on-primary);
+    @media (max-width: 768px) {
+        padding: var(--sys-spacing-sm) var(--sys-spacing-md);
+    }
 
     #social-links {
         display: flex;
-        flex-direction: row;
         gap: var(--sys-spacing-sm);
+    }
+
+    #pages {
+        display: flex;
+        gap: var(--sys-spacing-sm);
+    }
+
+    a {
+        --comp-color-link: var(--sys-color-text-on-primary);
+        --comp-color-link-hover: var(--sys-color-text-base);
     }
 }

@@ -6,6 +6,7 @@
     --sys-color-primary-base: #2f65f7;
     --sys-color-primary-lighter: #4a86f7;
     --sys-color-primary-darker: #2a4ec6;
+    --sys-color-primary-inverse: #fafafa;
     --sys-color-surface: #ffffff;
     --sys-color-container: #efefef;
     --sys-color-container-high: #ffffff;
@@ -31,10 +32,22 @@
     --sys-typo-base-letter-spacing: 0.01em;
 
     /* Spacing Token */
-    --sys-spacing-xs: 0.25rem;
-    --sys-spacing-sm: 0.5rem;
-    --sys-spacing-md: 1rem;
-    --sys-spacing-lg: 2rem;
+    --sys-spacing-xs: 0.25em;
+    --sys-spacing-sm: 0.5em;
+    --sys-spacing-md: 1em;
+    --sys-spacing-lg: 2em;
+
+    .spacing-xs {
+        --spacing: var(--sys-spacing-xs);
+    }
+    .spacing-sm {
+        --spacing: var(--sys-spacing-sm);
+    }
+
+    /* Breakpoint Token */
+    /* 没法在 media query 中使用，仅做记录 */
+    --sys-breakpoint-mobile: 375px;
+    --sys-breakpoint-tablet: 720px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,17 +58,5 @@
         --sys-color-text-subtle: #afafaf;
         --sys-color-border-primary: #1f65ff;
         --sys-color-border-muted: #e0e0e0;
-    }
-}
-
-@media (max-width: 768px) {
-    :root {
-        --sys-spacing-sm: 0.4em;
-    }
-}
-
-@media (max-width: 374px) {
-    :root {
-        --sys-spacing-sm: 0.3em;
     }
 }
