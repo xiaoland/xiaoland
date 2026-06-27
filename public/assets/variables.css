@@ -59,5 +59,7 @@
         --sys-color-text-subtle: #afafaf;
         --sys-color-border-primary: #1f65ff;
         --sys-color-border-muted: #e0e0e0;
+
+        --sys-color-container: #6f6f6f;
     }
 }

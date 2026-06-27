@@ -65,6 +65,7 @@ main {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                color: var(--sys-color-text-base);
 
                 &:hover {
                     background-color: var(--sys-color-container);
@@ -85,6 +86,16 @@ main {
             list-style: none;
             overflow-y: scroll;
             flex-grow: 1;
+
+            scrollbar-width: thin;
+            scrollbar-color: var(--sys-color-container) transparent;
+            &:-webkit-scrollbar-thumb {
+                background: var(--sys-color-container);
+                border-radius: 999px;
+            }
+            &:-webkit-scrollbar-track {
+                background: transparent;
+            }
 
             article a {
                 display: flex;
