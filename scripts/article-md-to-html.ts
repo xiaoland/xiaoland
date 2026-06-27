@@ -30,6 +30,7 @@ async function main() {
   const markdown = await readFile(input, "utf-8");
   const { data, content } = matter(markdown);
   const body = await marked.parse(content);
+  const lastUpdatedAt = data.createdAt ?? data.updatedAt;
 
   const htmlTemplate = await readFile(resolve(htmlTemplatePath), "utf-8");
   const html = htmlTemplate
@@ -39,7 +40,7 @@ async function main() {
       "${data.description}",
       normalizeIntoTagAttributeSafeString(data.description),
     )
-    .replace("${data.datetime}", data.createdAt ?? data.updatedAt)
+    .replace("${data.datetime}", lastUpdatedAt)
     .replace(
       "${data.date}",
       new Date(data.createdAt ?? data.updatedAt).toDateString(),
@@ -50,6 +51,8 @@ async function main() {
   await formatWithBiome(output);
 
   console.log(`Generated: ${output}`);
+  console.log(`Last updated at: ${lastUpdatedAt}`);
+  console.log(`-----------`);
 }
 
 main().catch((error) => {

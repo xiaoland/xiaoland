@@ -1,0 +1,32 @@
+ul {
+    list-style: none;
+    padding: 0 var(--sys-spacing-sm);
+
+    article a {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        padding-bottom: var(--sys-spacing-xs);
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 450;
+            line-height: 1.1;
+            margin: 0;
+        }
+
+        time {
+            font-size: var(--sys-typo-caption-font-size);
+            line-height: var(--sys-typo-caption-line-height);
+            letter-spacing: var(--sys-typo-caption-letter-spacing);
+        }
+
+        p {
+            margin: var(--sys-spacing-xs) 0 0;
+            font-size: var(--sys-typo-base-font-size);
+            line-height: var(--sys-typo-base-line-height);
+            letter-spacing: var(--sys-typo-base-letter-spacing);
+            color: var(--sys-color-text-subtle);
+        }
+    }
+}
