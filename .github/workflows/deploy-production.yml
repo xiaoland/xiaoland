@@ -28,20 +28,20 @@ jobs:
         run: pnpm run build:ci
 
       - name: Check D1 migrations
-        run: pnpm run db:list -- --remote
+        run: pnpm run db:list --remote
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Apply D1 migrations
-        run: pnpm run db:apply -- --remote
+        run: pnpm run db:apply --remote
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Deploy backend
         run: |
-          pnpm run deploy:backend -- \
+          pnpm run deploy:backend \
           --tag "sha-${GITHUB_SHA::12}" \
           --message "ref=${GITHUB_REF_NAME}; actor=${GITHUB_ACTOR}; run=${GITHUB_RUN_ID}"
         env:
@@ -50,7 +50,7 @@ jobs:
 
       - name: Deploy frontend
         run: |
-          pnpm run deploy:frontend -- \
+          pnpm run deploy:frontend \
           --branch main \
           --commit-hash "${GITHUB_SHA}" \
           --commit-message "actor=${GITHUB_ACTOR}; run=${GITHUB_RUN_ID}"
