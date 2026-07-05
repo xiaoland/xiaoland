@@ -24,7 +24,7 @@
     "db:list": "pnpm wrangler d1 migrations list xiaoland-site --env production --config wrangler.worker.toml",
     "db:apply": "pnpm wrangler d1 migrations apply xiaoland-site --env production --config wrangler.worker.toml",
     "deploy": "pnpm run deploy:worker && pnpm run deploy:pages",
-    "deploy:frontend": "wrangler pages deploy dist --project-name xiaoland --config wrangler.pages.toml",
+    "deploy:frontend": "wrangler pages deploy dist --project-name xiaoland",
     "deploy:backend": "wrangler deploy --config wrangler.worker.toml --env production",
     "deploy:backend:preview": "tsx scripts/deploy-preview-worker.ts",
     "tool:gen-article": "tsx scripts/article-md-to-html.ts"

@@ -1,0 +1,5 @@
+# For Cloudflare Pages causes it does not support custom paths for the configuration file
+
+name = "xiaoland"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-03-01"

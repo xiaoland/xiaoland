@@ -34,8 +34,7 @@ Features & Invariants:
 ├── package.json
 ├── tsconfig.json
 ├── vite.config.ts
-├── wrangler.pages.ts
-└── wrangler.pages.toml
+└── wrangler.toml
 ```
 
 ## Development Workflow
