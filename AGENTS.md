@@ -41,6 +41,7 @@ Features & Invariants:
 ## Development Workflow
 
 - Tooling: pnpm, Wrangler CLI, Zed tasks & debugger
+- Database migration: `pnpm run db:generate` + `pnpm run db:apply:local`
 
 ## Coding Guidelines
 

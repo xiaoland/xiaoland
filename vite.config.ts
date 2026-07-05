@@ -1,4 +1,4 @@
-import { defineConfig, type Plugin } from "vite";
+import { defineConfig, type Plugin, type UserConfig } from "vite";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import Sitemap from "vite-plugin-sitemap";
 import { readdir } from "node:fs/promises";
@@ -81,7 +81,7 @@ const devServerPort = process.env.PORT
   ? Number.parseInt(process.env.PORT, 10)
   : undefined;
 
-export default defineConfig(() => {
+export default defineConfig((): UserConfig => {
   const server = {
     host: devServerHost,
     port: devServerPort,

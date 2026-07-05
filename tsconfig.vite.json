@@ -6,7 +6,8 @@
     "moduleResolution": "Bundler",
     "strict": true,
     "skipLibCheck": true,
-    "types": ["@cloudflare/workers-types", "vite/client", "node"],
+    "noEmit": true,
+    "types": ["vite/client", "node"],
   },
-  "include": ["src/**/*"],
+  "include": ["vite.config.ts"],
 }

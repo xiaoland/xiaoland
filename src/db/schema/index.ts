@@ -24,5 +24,3 @@ export const comments = sqliteTable("comments", {
 
 export type InsertComment = typeof comments.$inferInsert;
 export type SelectComment = typeof comments.$inferSelect;
-
-export * from "./xenix";

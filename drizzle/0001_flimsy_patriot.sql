@@ -1,0 +1,1 @@
+DROP TABLE `xenix_download_users`;

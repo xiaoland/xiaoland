@@ -8,6 +8,13 @@
       "when": 1781513819852,
       "tag": "0000_misty_excalibur",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1783228587775,
+      "tag": "0001_flimsy_patriot",
+      "breakpoints": true
     }
   ]
 }

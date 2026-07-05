@@ -5,6 +5,12 @@ routes = [
   { pattern = "lanzhijiang.dev/api/*", zone_name = "lanzhijiang.dev" }
 ]
 
+[[d1_databases]]
+binding = "DB"
+database_name = "xiaoland-site"
+database_id = "62f4f604-e106-4c2d-aed5-f512066529b6"
+migrations_dir = "drizzle"
+
 [[env.production.d1_databases]]
 binding = "DB"
 database_name = "xiaoland-site"
