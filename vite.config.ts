@@ -1,7 +1,7 @@
 import { defineConfig, type Plugin, type UserConfig } from "vite";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import Sitemap from "vite-plugin-sitemap";
-import { readdir } from "node:fs/promises";
+import { readdir, copyFile } from "node:fs/promises";
 import { mirrorHtmlFile } from "./scripts/image-mirroring";
 import { fileURLToPath } from "node:url";
 import { readdirSync } from "node:fs";
@@ -76,6 +76,19 @@ function collectHtmlInputs(dir: string): Record<string, string> {
   return input;
 }
 
+function redirectsPlugin(): Plugin {
+  return {
+    name: "copy-redirects",
+    apply: "build",
+    async closeBundle() {
+      await copyFile(
+        path.resolve("public/_redirects"),
+        path.resolve("dist/_redirects"),
+      );
+    },
+  };
+}
+
 const devServerHost = process.env.HOST;
 const devServerPort = process.env.PORT
   ? Number.parseInt(process.env.PORT, 10)
@@ -108,6 +121,7 @@ export default defineConfig((): UserConfig => {
     },
     plugins: [
       cloudflare(),
+      redirectsPlugin(),
       postbuildPlugin(),
       Sitemap({
         hostname: "https://lanzhijiang.dev",
