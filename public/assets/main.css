@@ -4,6 +4,14 @@ html {
         -apple-system,
         Roboto;
     font-size: 14px;
+
+    @media (max-width: 375px) {
+        font-size: 13px;
+    }
+
+    @media (min-width: 768px) {
+        font-size: 15px;
+    }
 }
 
 body {
@@ -58,14 +66,18 @@ a {
     gap: var(--spacing);
 }
 
-@media (max-width: 768px) {
-    :root {
-        font-size: 16px;
-    }
-}
+.button-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4em;
+    font-size: var(--sys-typo-control-font-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sys-color-text-base);
 
-@media (max-width: 420px) {
-    :root {
-        font-size: 17px;
+    &:hover {
+        background-color: var(--sys-color-container);
     }
 }
