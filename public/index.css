@@ -154,7 +154,7 @@ footer {
     }
 
     a {
-        --comp-color-link: var(--sys-color-text-on-primary);
-        --comp-color-link-hover: var(--sys-color-text-base);
+        --comp-link-color: var(--sys-color-text-on-primary);
+        --comp-link-color-hover: var(--sys-color-text-base);
     }
 }
