@@ -45,7 +45,7 @@
           <time id="last-updated-at" class="localized" datetime="2022-02-04T12:08:00Z" />
         </dd>
         <!--firstWordAt
-                <dt>第一个字写于</dt>
+                <dt>开始于</dt>
                 <dd>
                     <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
                 </dd>
@@ -69,44 +69,46 @@
           <li><p>比较常用的是解压缩</p></li>
           <li>
             <p>解压缩要加上-x 参数后面跟着文件名加-f</p>
-            <table>
-              <thead>
-                <tr>
-                  <th align="left">文件类型</th>
-                  <th>参数</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td align="left">*.tar</td>
-                  <td>-xvf</td>
-                </tr>
-                <tr>
-                  <td align="left">*.tar.gz</td>
-                  <td>-xzvf</td>
-                </tr>
-                <tr>
-                  <td align="left">*.tar.bz2</td>
-                  <td>-xjf</td>
-                </tr>
-                <tr>
-                  <td align="left">*.tar.xz</td>
-                  <td>-zJf</td>
-                </tr>
-                <tr>
-                  <td align="left">*.tar.Z</td>
-                  <td>-xZf</td>
-                </tr>
-                <tr>
-                  <td align="left">*.bz2</td>
-                  <td>bunzip2/bzip2-d</td>
-                </tr>
-                <tr>
-                  <td align="left">*.xz</td>
-                  <td>xz -d</td>
-                </tr>
-              </tbody>
-            </table>
+            <div id="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th align="left">文件类型</th>
+                    <th>参数</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td align="left">*.tar</td>
+                    <td>-xvf</td>
+                  </tr>
+                  <tr>
+                    <td align="left">*.tar.gz</td>
+                    <td>-xzvf</td>
+                  </tr>
+                  <tr>
+                    <td align="left">*.tar.bz2</td>
+                    <td>-xjf</td>
+                  </tr>
+                  <tr>
+                    <td align="left">*.tar.xz</td>
+                    <td>-zJf</td>
+                  </tr>
+                  <tr>
+                    <td align="left">*.tar.Z</td>
+                    <td>-xZf</td>
+                  </tr>
+                  <tr>
+                    <td align="left">*.bz2</td>
+                    <td>bunzip2/bzip2-d</td>
+                  </tr>
+                  <tr>
+                    <td align="left">*.xz</td>
+                    <td>xz -d</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </li>
           <li><p>前三个常用，要记好：-xvf -xzvf -xjf</p></li>
         </ul>
@@ -119,32 +121,34 @@
               <li>
                 <code>tar -czf jpg.tar.gz *.jpg</code>
                 <code>tar -czf pi.tar.gz /home/pi</code>
-                <table>
-                  <thead>
-                    <tr>
-                      <th align="left">文件类型</th>
-                      <th>参数</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td align="left">*.tar</td>
-                      <td>-cvf</td>
-                    </tr>
-                    <tr>
-                      <td align="left">*.tar.gz</td>
-                      <td>-czf</td>
-                    </tr>
-                    <tr>
-                      <td align="left">*.tar.bz2</td>
-                      <td>-cjf</td>
-                    </tr>
-                    <tr>
-                      <td align="left">*.tar.Z</td>
-                      <td>-zZf</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div id="table-wrapper">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th align="left">文件类型</th>
+                        <th>参数</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td align="left">*.tar</td>
+                        <td>-cvf</td>
+                      </tr>
+                      <tr>
+                        <td align="left">*.tar.gz</td>
+                        <td>-czf</td>
+                      </tr>
+                      <tr>
+                        <td align="left">*.tar.bz2</td>
+                        <td>-cjf</td>
+                      </tr>
+                      <tr>
+                        <td align="left">*.tar.Z</td>
+                        <td>-zZf</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </li>
             </ul>
           </li>

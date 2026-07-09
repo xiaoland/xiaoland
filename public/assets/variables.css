@@ -9,11 +9,14 @@
     --sys-color-primary-inverse: #fafafa;
     --sys-color-tertiary: #f7bf2f;
     --sys-color-surface: #ffffff;
+    --sys-color-container-low: #dfdfdf;
     --sys-color-container: #efefef;
     --sys-color-container-high: #ffffff;
     --sys-color-red: #ff4d4f;
     --sys-color-text: var(--sys-color-text-base);
     --sys-color-text-on-primary: #fafafa;
+    --sys-color-text-on-container-low: #111111;
+    --sys-color-text-on-container: #18181a;
     --sys-color-text-base: #18181a;
     --sys-color-text-muted: #6c717f;
     --sys-color-text-subtle: #6f6f6f;
@@ -22,6 +25,9 @@
     --sys-color-border-muted: #e0e0e0;
 
     /* Typography Token */
+    --sys-typo-code-font-size: 0.92rem;
+    --sys-typo-code-line-height: 1.25;
+    --sys-typo-code-letter-spacing: 0.01em;
     --sys-typo-caption-font-size: 0.875rem;
     --sys-typo-caption-line-height: 1.2;
     --sys-typo-caption-letter-spacing: 0.01em;
@@ -34,6 +40,7 @@
     --sys-typo-heading-font-size: 2rem;
     --sys-typo-heading-line-height: 1.4;
     --sys-typo-heading-letter-spacing: 0.01em;
+    --sys-font-family-monospace: ui-monospace, Monaco, monospace;
 
     /* Spacing Token */
     --sys-spacing-xs: 0.25em;
@@ -63,7 +70,11 @@
         --sys-color-border-primary: #1f65ff;
         --sys-color-border-muted: #e0e0e0;
 
-        --sys-color-container: #6f6f6f;
+        --sys-color-container: #3e3e3e;
+        --sys-color-container-low: #efefef;
+
+        --sys-color-text-on-container: #f2f2f2;
+        --sys-color-text-on-container-low: #111111;
     }
 }
 

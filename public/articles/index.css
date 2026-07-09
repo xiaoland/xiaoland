@@ -26,9 +26,11 @@ header {
         row-gap: var(--sys-spacing-sm);
         align-items: center;
 
-        dd {
+        dt,dd {
             font-size: var(--sys-typo-caption-font-size);
             line-height: var(--sys-typo-caption-line-height);
+        }
+        dd {
             color: var(--sys-color-text-subtle);
         }
     }
@@ -37,6 +39,11 @@ header {
 article {
     overflow-wrap: break-word;
     border-top: 1px solid var(--sys-color-border-base);
+
+    a {
+        text-decoration: underline;
+        text-underline-offset: 0.25em;
+    }
 
     h2 {
         margin: var(--sys-spacing-md) 0;
@@ -65,6 +72,78 @@ article {
         border-left: 0.25em solid var(--sys-color-text-subtle);
         color: var(--sys-color-text-subtle);
         padding-left: var(--sys-spacing-sm);
+    }
+
+    pre {
+        box-sizing: border-box;
+        max-inline-size: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        margin-block: var(--sys-spacing-sm);
+        padding: var(--sys-spacing-md) var(--sys-spacing-md);
+
+        border: 1px solid var(--sys-color-border-muted);
+
+        background: var(--sys-color-container);
+        color: var(--sys-color-text-on-container);
+
+        font-family: var(--sys-font-family-monospace);
+        font-size: var(--sys-typo-code-font-size);
+        line-height: var(--sys-typo-code-line-height);
+        letter-spacing: var(--sys-typo-code-letter-spacing);
+
+        tab-size: 2;
+        white-space: pre;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #table-wrapper {
+        max-inline-size: 100%;
+        overflow-x: auto;
+        margin-block: var(--sys-spacing-sm);
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        inline-size: 100%;
+        min-inline-size: 36rem;
+
+        border-collapse: collapse;  /* 把相邻单元格的边框合并，否则表格边框可能会出现间隙 */
+        border-spacing: 0;
+
+        font-size: var(--comp-article-table-font-size, 0.95rem);
+        line-height: var(--comp-article-table-line-height, 1.6);
+
+        thead {
+          background: var(--comp-article-thead-color-bg, var(--sys-color-container-low));
+          color: var(--comp-article-thead-color-text, var(--sys-color-text-on-container-low));
+        }
+
+        tr {
+          border-block-end: 1px solid var(--sys-color-border-muted);
+        }
+
+        th,
+        td {
+          padding: var(--sys-spacing-sm);
+          text-align: start;
+          vertical-align: top;
+        }
+
+        th {
+          font-weight: 600;
+          color: var(--sys-color-text-on-container-low);
+        }
+
+        tbody tr:hover {
+          background: var(--sys-color-container);
+
+          td {
+              color: var(--sys-color-text-on-container);
+          }
+        }
     }
 
     img {

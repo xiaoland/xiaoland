@@ -1,12 +1,13 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { logger } from "hono/logger";
+import { secureHeaders } from "hono/secure-headers";
+import { createMiddleware } from "hono/factory";
+import type { AppEnv } from "../worker/env";
 import { createDb } from "../db";
+import authApp from "./auth";
 
-type Env = {
-  DB: D1Database;
-};
-
-const app = new Hono<{ Bindings: Env }>().basePath("/api");
+const app = new Hono<AppEnv>().basePath("/api");
 
 function corsOrigin(origin: string): string {
   if (origin === "https://lanzhijiang.dev") {
@@ -28,6 +29,8 @@ function corsOrigin(origin: string): string {
   return "https://lanzhijiang.dev";
 }
 
+// use cors, secureHeaders, logger
+app.use("*", logger());
 app.use(
   "*",
   cors({
@@ -43,7 +46,19 @@ app.use(
     ],
   }),
 );
+app.use("*", secureHeaders());
+
+// use db
+app.use(
+  "*",
+  createMiddleware<AppEnv>(async (c, next) => {
+    c.set("db", createDb(c.env.DB));
+    await next();
+  }),
+);
 
 app.get("/health", (c) => c.json({ ok: true }));
+
+app.route("/auth", authApp);
 
 export default app;

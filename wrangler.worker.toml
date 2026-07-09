@@ -5,6 +5,15 @@ routes = [
   { pattern = "lanzhijiang.dev/api/*", zone_name = "lanzhijiang.dev" }
 ]
 
+[vars]
+APP_ORIGIN = "https://lanzhijiang.dev"
+
+[env.production.vars]
+APP_ORIGIN = "https://lanzhijiang.dev"
+
+[env.preview.vars]
+APP_ORIGIN = "https://xiaoland.pages.dev"
+
 [[d1_databases]]
 binding = "DB"
 database_name = "xiaoland-site"

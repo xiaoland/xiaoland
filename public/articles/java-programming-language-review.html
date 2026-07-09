@@ -45,7 +45,7 @@
           <time id="last-updated-at" class="localized" datetime="2023-12-19T06:40:00Z" />
         </dd>
         <!--firstWordAt
-                <dt>第一个字写于</dt>
+                <dt>开始于</dt>
                 <dd>
                     <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
                 </dd>
@@ -199,24 +199,26 @@ System.out.printf(&quot;Area: %.2f&quot;, a);
 // 效果同上
 </code></pre>
         <h4>特殊字符</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>符号</th>
-              <th>含义</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>\t</td>
-              <td>制表符，相当于4个空格</td>
-            </tr>
-            <tr>
-              <td>\n</td>
-              <td>空格</td>
-            </tr>
-          </tbody>
-        </table>
+        <div id="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>符号</th>
+                <th>含义</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>\t</td>
+                <td>制表符，相当于4个空格</td>
+              </tr>
+              <tr>
+                <td>\n</td>
+                <td>空格</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <h3>随机数</h3>
         <pre><code class="language-java">import java.util.Random;
 

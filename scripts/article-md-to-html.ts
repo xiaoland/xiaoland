@@ -1,5 +1,5 @@
 import matter from "gray-matter";
-import { marked } from "marked";
+import { marked, Marked, Renderer, type Tokens } from "marked";
 import { mkdir, readFile, writeFile, readdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { execFile } from "node:child_process";
@@ -10,6 +10,7 @@ import { stdin, stdout } from "node:process";
 const articleMarkdownPathStr = "content/articles";
 const articleHtmlPathStr = "public/articles";
 const execFileAsync = promisify(execFile);
+const defaultRenderer = new Renderer();
 
 function normalizeIntoTagAttributeSafeString(str: string): string {
   return str.replace(/"/g, "&quot;");
@@ -17,6 +18,21 @@ function normalizeIntoTagAttributeSafeString(str: string): string {
 
 async function formatWithBiome(filePath: string) {
   await execFileAsync("biome", ["format", "--write", filePath]);
+}
+
+const markdownParser = new Marked({
+  gfm: true,
+  renderer: {
+    table(this: Renderer, token: Tokens.Table) {
+      const tableHtml = defaultRenderer.table.call(this, token);
+
+      return `<div id="table-wrapper">\n${tableHtml}</div>\n`;
+    },
+  },
+});
+
+function renderMarkdown(markdown: string) {
+  return markdownParser.parse(markdown);
 }
 
 async function main() {
@@ -57,6 +73,8 @@ async function main() {
         articleSlugs.push(entry.name.replace(".md", ""));
       }
     }
+  } else {
+    articleSlugs.push(articleSlug);
   }
 
   const results = await Promise.allSettled(
@@ -81,7 +99,7 @@ async function mdToHtml(articleSlug: string, htmlTemplatePath: string) {
 
   const markdown = await readFile(input, "utf-8");
   const { data, content } = matter(markdown);
-  const body = await marked.parse(content);
+  const body = await renderMarkdown(content);
   const lastUpdatedAt = data.createdAt ?? data.updatedAt;
   const firstWordAt = data.firstWordAt ?? null;
 

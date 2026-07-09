@@ -17,11 +17,11 @@ tags: ['nginx']
 - 本文介绍了nginx的基本使用
 - 包括重启，开机自启动等等
 - 还包括**设置网站地址**，设置**多个不同网站**和**不同php版本**
-- 日后还会陆续增加哦
 
 ## 安装
 
 ## 下载源码
+
 - [NGINX官网下载](http://nginx.org/en/download.html)
 - 选择适合你的CHARACTER吧！
 - 当然，你可以直接wget到服务器上，也可以选择下载以后再ftp过去等等
@@ -44,11 +44,13 @@ yum install -y gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel
 ### 安装nginx
 
 - 接着，进入到nginx目录下，使用老套路
+
 ```bash
 cd nginx
 ./configure
 make && make install
 ```
+
 - PS：在./configure部分，可以添加参数以添加各种扩展和调整安装目录等
   - 很重要的一点就是解决*"conf/koi-win" 与"/usr/local/nginx/conf/koi-win" 为同一文件*这个问题
   - 要解决这个问题，可以使用`./configure --prefix=<path_install_nginx> --conf-path=<path_to_nginx_conf>`
@@ -74,26 +76,36 @@ make && make install
   - 那/usr/local/nginx/sbin/或/usr/local/nginx/objs中的nginx这个文件就是nginx的核心
 
 ### 三指令
-- 启动，配置文件可以不指定，要指定就是nginx.conf
+
+启动，配置文件可以不指定，要指定就是nginx.conf
+
 ```bash
 nginx -c 你的配置文件
 ```
-- 停止
+
+停止
+
 ```bash
 nginx -s stop
 nginx -s quit
 ```
-- 重启
+
+重启
+
 ```bash
 nginx -s reload
 ```
-- ATTENTION: 如果说找不到指令nginx
-  - 请在环境变量中添加nginx或者你直接指定到nginx文件
-  - 就像：/usr/local/nginx/sbin/nginx -s reload
+
+ATTENTION: 如果说找不到指令nginx
+- 请在环境变量中添加nginx或者你直接指定到nginx文件
+- 就像：/usr/local/nginx/sbin/nginx -s reload
 
 ## 多个网站不同php版本
-- 在配置多个网站之前，我们先来看看一个网站的配置是怎样的吧
+
+在配置多个网站之前，我们先来看看一个网站的配置是怎样的吧
+
 ### nginx的配置
+
 - nginx的配置文件一般位于其安装目录下的conf/nginx.conf
 - 现在，让我给你一个模板的一部分
 
@@ -148,36 +160,38 @@ http {
     }
 }
 ```
-- 好了，没有必要去仔细地解析这个配置，让我来告诉你就好
+
+好了，没有必要去仔细地解析这个配置，让我来告诉你就好
 
 ### 配置不同php版本
-- 我们的目的就在于「多个网站」「不同php」而已
 
-- 可以发现，在http下的server其实就是一个网站的配置
+我们的目的就在于「多个网站」「不同php」而已
 
-  - 每个网站允许拥有自己的php版本，自己的端口号，自己的目录，自己的各种配置
+可以发现，在http下的server其实就是一个网站的配置
+
+- 每个网站允许拥有自己的php版本，自己的端口号，自己的目录，自己的各种配置
 
 - 上面的是本网站的nginx的配置，这个是基本版的
 
-  ```conf
-  server {
-      listen       8000;
-      server_name  somename;
-      
-      location / {
-          root   /home/www/;
-          index  index.html index.htm index.php;
-      }
-      
-      location ~ \.php$ {
-              root           /home/www;
-              fastcgi_pass   127.0.0.1:9000;
-              fastcgi_index  index.php;
-              fastcgi_param  SCRIPT_FILENAME   /scripts$fastcgi_script_name;
-              include        fastcgi_params;
-          }
-  }
-  ```
+```conf
+server {
+    listen       8000;
+    server_name  somename;
+    
+    location / {
+        root   /home/www/;
+        index  index.html index.htm index.php;
+    }
+    
+    location ~ \.php$ {
+            root           /home/www;
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME   /scripts$fastcgi_script_name;
+            include        fastcgi_params;
+        }
+}
+```
 
 | 字段          | 说明                                           |
 | :------------- | :---------------------------------------------- |
@@ -201,15 +215,16 @@ http {
 - 一个server就是一个网站站点，可以给它们指定不同的端口，不同的目录和不同的php版本
   - 区别于location。location可以起到跳转啊，代理的作用，但是php版本是不能不同的（在一个server下的location们）
 - 那么创建一个基本的网站就只需要在http中添加：
-```
-    server{
-        listen 80; # 监听端口 可以这样：listen 443 ssl; 来使用https协议
-        server_name 一个有意义的名字;
 
-        location / {  # 指定网站访问根目录的时候的事情
-            root 网站根目录的绝对路径;
-            index 初始化脚本; # 通常是index.html index.htm index.php
-        
-        }
+```conf
+server {
+    listen 80; # 监听端口 可以这样：listen 443 ssl; 来使用https协议
+    server_name 一个有意义的名字;
+
+    location / {  # 指定网站访问根目录的时候的事情
+        root 网站根目录的绝对路径;
+        index 初始化脚本; # 通常是index.html index.htm index.php
+    
     }
+}
 ```

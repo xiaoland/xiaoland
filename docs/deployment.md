@@ -83,17 +83,8 @@ The Worker route handles only API traffic:
 lanzhijiang.dev/api/*
 ```
 
-## Local checks
+## CORS
 
-Run before pushing deployment changes:
-
-```sh
-pnpm run check
-```
-
-Useful deploy commands:
-
-```sh
-pnpm run deploy:worker
-pnpm run deploy:pages -- --branch main
-```
+Origin should be explictly set in Bindings.APP_ORIGIN,
+default to `https://lanzhijiang.dev` and can be `xiaoland.pages.dev`
+in preview environment.

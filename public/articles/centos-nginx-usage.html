@@ -42,7 +42,7 @@
           <time id="last-updated-at" class="localized" datetime="2021-03-13T17:40:00Z" />
         </dd>
         <!--firstWordAt
-                <dt>第一个字写于</dt>
+                <dt>开始于</dt>
                 <dd>
                     <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
                 </dd>
@@ -72,7 +72,6 @@
               >
             </p>
           </li>
-          <li><p>日后还会陆续增加哦</p></li>
         </ul>
         <h2>安装</h2>
         <h2>下载源码</h2>
@@ -158,35 +157,23 @@ make &amp;&amp; make install
           </li>
         </ul>
         <h3>三指令</h3>
-        <ul>
-          <li>启动，配置文件可以不指定，要指定就是nginx.conf</li>
-        </ul>
+        <p>启动，配置文件可以不指定，要指定就是nginx.conf</p>
         <pre><code class="language-bash">nginx -c 你的配置文件
 </code></pre>
-        <ul>
-          <li>停止</li>
-        </ul>
+        <p>停止</p>
         <pre><code class="language-bash">nginx -s stop
 nginx -s quit
 </code></pre>
-        <ul>
-          <li>重启</li>
-        </ul>
+        <p>重启</p>
         <pre><code class="language-bash">nginx -s reload
 </code></pre>
+        <p>ATTENTION: 如果说找不到指令nginx</p>
         <ul>
-          <li>
-            ATTENTION: 如果说找不到指令nginx
-            <ul>
-              <li>请在环境变量中添加nginx或者你直接指定到nginx文件</li>
-              <li>就像：/usr/local/nginx/sbin/nginx -s reload</li>
-            </ul>
-          </li>
+          <li>请在环境变量中添加nginx或者你直接指定到nginx文件</li>
+          <li>就像：/usr/local/nginx/sbin/nginx -s reload</li>
         </ul>
         <h2>多个网站不同php版本</h2>
-        <ul>
-          <li>在配置多个网站之前，我们先来看看一个网站的配置是怎样的吧</li>
-        </ul>
+        <p>在配置多个网站之前，我们先来看看一个网站的配置是怎样的吧</p>
         <h3>nginx的配置</h3>
         <ul>
           <li>nginx的配置文件一般位于其安装目录下的conf/nginx.conf</li>
@@ -242,21 +229,15 @@ http {
     }
 }
 </code></pre>
-        <ul>
-          <li>好了，没有必要去仔细地解析这个配置，让我来告诉你就好</li>
-        </ul>
+        <p>好了，没有必要去仔细地解析这个配置，让我来告诉你就好</p>
         <h3>配置不同php版本</h3>
+        <p>我们的目的就在于「多个网站」「不同php」而已</p>
+        <p>可以发现，在http下的server其实就是一个网站的配置</p>
         <ul>
-          <li><p>我们的目的就在于「多个网站」「不同php」而已</p></li>
-          <li>
-            <p>可以发现，在http下的server其实就是一个网站的配置</p>
-            <ul>
-              <li>每个网站允许拥有自己的php版本，自己的端口号，自己的目录，自己的各种配置</li>
-            </ul>
-          </li>
-          <li>
-            <p>上面的是本网站的nginx的配置，这个是基本版的</p>
-            <pre><code class="language-conf">server {
+          <li><p>每个网站允许拥有自己的php版本，自己的端口号，自己的目录，自己的各种配置</p></li>
+          <li><p>上面的是本网站的nginx的配置，这个是基本版的</p></li>
+        </ul>
+        <pre><code class="language-conf">server {
     listen       8000;
     server_name  somename;
     
@@ -274,46 +255,46 @@ http {
         }
 }
 </code></pre>
-          </li>
-        </ul>
-        <table>
-          <thead>
-            <tr>
-              <th align="left">字段</th>
-              <th align="left">说明</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td align="left">server_name</td>
-              <td align="left">一个名称，你喜欢就好</td>
-            </tr>
-            <tr>
-              <td align="left">listen</td>
-              <td align="left">网站的监听端口；使用https协议加上ssl: 8000 ssl</td>
-            </tr>
-            <tr>
-              <td align="left">location</td>
-              <td align="left">路由设置</td>
-            </tr>
-            <tr>
-              <td align="left">root</td>
-              <td align="left">每个路由对应的工作文件夹</td>
-            </tr>
-            <tr>
-              <td align="left">index</td>
-              <td align="left">地址栏进入后加载的文件</td>
-            </tr>
-            <tr>
-              <td align="left">fastcgi_pass</td>
-              <td align="left">php的fastcgi的地址</td>
-            </tr>
-            <tr>
-              <td align="left">fastcgi_index</td>
-              <td align="left">被访问时fastcgi加载的文件</td>
-            </tr>
-          </tbody>
-        </table>
+        <div id="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th align="left">字段</th>
+                <th align="left">说明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="left">server_name</td>
+                <td align="left">一个名称，你喜欢就好</td>
+              </tr>
+              <tr>
+                <td align="left">listen</td>
+                <td align="left">网站的监听端口；使用https协议加上ssl: 8000 ssl</td>
+              </tr>
+              <tr>
+                <td align="left">location</td>
+                <td align="left">路由设置</td>
+              </tr>
+              <tr>
+                <td align="left">root</td>
+                <td align="left">每个路由对应的工作文件夹</td>
+              </tr>
+              <tr>
+                <td align="left">index</td>
+                <td align="left">地址栏进入后加载的文件</td>
+              </tr>
+              <tr>
+                <td align="left">fastcgi_pass</td>
+                <td align="left">php的fastcgi的地址</td>
+              </tr>
+              <tr>
+                <td align="left">fastcgi_index</td>
+                <td align="left">被访问时fastcgi加载的文件</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <ul>
           <li>这里就不多做详细解释了，要设置多个网站，只需要设置多个server就可以了</li>
           <li>而需要不同网站不同工作目录，要改所有location（一个server内的）参数下的root参数</li>
@@ -341,16 +322,16 @@ http {
           </li>
           <li>那么创建一个基本的网站就只需要在http中添加：</li>
         </ul>
-        <pre><code>    server{
-        listen 80; # 监听端口 可以这样：listen 443 ssl; 来使用https协议
-        server_name 一个有意义的名字;
+        <pre><code class="language-conf">server {
+    listen 80; # 监听端口 可以这样：listen 443 ssl; 来使用https协议
+    server_name 一个有意义的名字;
 
-        location / {  # 指定网站访问根目录的时候的事情
-            root 网站根目录的绝对路径;
-            index 初始化脚本; # 通常是index.html index.htm index.php
-        
-        }
+    location / {  # 指定网站访问根目录的时候的事情
+        root 网站根目录的绝对路径;
+        index 初始化脚本; # 通常是index.html index.htm index.php
+    
     }
+}
 </code></pre>
       </article>
     </main>
