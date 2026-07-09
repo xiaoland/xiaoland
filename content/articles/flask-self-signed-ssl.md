@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/235/'
 categories: ['tutorial-it', 'tutorial']
 tags: ['flask', 'python', 'ssl']
 ---
-# 教程-Flask自签证书对SSL支持
 - 本文章要点包括：
   - Flask如何支持SSL从而提供https接口
   - 如何自签SSL证书

@@ -6,7 +6,6 @@ oldId: 299
 oldUrl: 'https://blog.hadream.ltd/index.php/archives/299/'
 categories: ['tutorial-college', 'tutorial']
 ---
-# 教程-广外选课
 > **免责声明：本教程不是官方权威教程，只作参考**
 > 最后更新时间：2023-9-8
 - 在本教程，你可以知道：

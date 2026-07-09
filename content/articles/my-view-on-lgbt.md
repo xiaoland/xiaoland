@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/148/'
 categories: ['view']
 tags: ['LGBT']
 ---
-# 观点-关于LGBT，我的看法
 - 我们知道LGBT是性少数群体的意思，也可以理解为非异性恋者
 - 首先要声明的是，我就是LGBT中的一员，双性恋，但更加偏向同性
 - 不得不承认，我肯定是对LGBT群体有主观上的包容的

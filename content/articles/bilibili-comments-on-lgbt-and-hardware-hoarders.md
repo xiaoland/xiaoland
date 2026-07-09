@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/200/'
 categories: ['view']
 tags: ['转载']
 ---
-# 一些评论-来自B站
 - 一些来自B站的评论
 
 ### 关于同性恋

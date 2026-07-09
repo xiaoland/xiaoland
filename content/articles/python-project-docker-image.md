@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/278/'
 categories: ['tutorial-it', 'tutorial']
 tags: ['docker', 'python']
 ---
-# 教程-制作python项目docker镜像
 - 因为有一个项目运行在树莓派上面，有好几个子Python项目要运行，所以做了一个控制app
   但是即便如此，通过脚本运行还是很不方便，状态管理也很麻烦，所以就打算用docker来实现
 - 其实docker本质就是一整个系统(运行环境)

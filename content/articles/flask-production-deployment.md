@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/232/'
 categories: ['tutorial-it', 'tutorial']
 tags: ['flask']
 ---
-# 教程-flask生产环境部署
 - 关于这个，网络上很多教程都抄来抄去，讲得东西不好好说明，弄的小白一头雾水
 - 现在弄懂了，所以写一篇教程
 - 我使用的是gunicorn结合supervisor的方案，**所以只能在linux上运行**

@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/85/'
 categories: ['tutorial-server', 'tutorial']
 tags: ['LVM', '磁盘管理']
 ---
-# 教程-Centos修改分区大小(仅在centos上进行过测试)
 - linux最亮的点就在于其LVM这一层的设计，实在是妙得不能再妙了
 - LVM层可以做什么呢？
   - 它统一了各种不同的文件系统，让他们能够一起使用

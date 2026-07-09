@@ -31,6 +31,9 @@
     --sys-typo-base-font-size: 1rem;
     --sys-typo-base-line-height: 1.2;
     --sys-typo-base-letter-spacing: 0.01em;
+    --sys-typo-heading-font-size: 2rem;
+    --sys-typo-heading-line-height: 1.4;
+    --sys-typo-heading-letter-spacing: 0.01em;
 
     /* Spacing Token */
     --sys-spacing-xs: 0.25em;
@@ -69,10 +72,13 @@
         /* Typography Token */
         --sys-typo-base-line-height: 1.3;
 
+        --sys-typo-heading-font-size: 1.7rem;
+        --sys-typo-heading-line-height: 1.6;
+
         /* Spacing Token */
-        --sys-spacing-xs: 0.2em;
-        --sys-spacing-sm: 0.25em;
-        --sys-spacing-md: 0.6em;
+        --sys-spacing-xs: 0.3em;
+        --sys-spacing-sm: 0.4em;
+        --sys-spacing-md: 0.7em;
         --sys-spacing-lg: 1em;
     }
 }

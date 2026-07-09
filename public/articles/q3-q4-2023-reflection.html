@@ -26,7 +26,7 @@
     <header>
       <a
         id="page-back"
-        class="typo-control flex-row spacing-xs"
+        class="typo-control flex-row spacing-xs items-center"
         href="/"
         onclick="
                     if (history.length > 1) {
@@ -39,12 +39,22 @@
         <span>返回</span>
       </a>
       <h1>2023年第3，4季度反思</h1>
-      <time datetime="2024-01-16T02:18:00Z">最后更新于 Tue Jan 16 2024</time>
+      <dl id="meta">
+        <dt>最后更新于</dt>
+        <dd>
+          <time id="last-updated-at" class="localized" datetime="2024-01-16T02:18:00Z" />
+        </dd>
+        <!--firstWordAt
+                <dt>第一个字写于</dt>
+                <dd>
+                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                </dd>
+                firstWordAt-->
+      </dl>
     </header>
     <main>
       <article>
         <p>2023年第3、4季度总结 | 即2023级第一学期总结</p>
-        <h1>分类总结</h1>
         <h2>学业层面</h2>
         <h3>期末总结</h3>
         <p>
@@ -230,4 +240,16 @@
       </article>
     </main>
   </body>
+
+  <script type="module">
+  const formatter = new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  for (const el of document.querySelectorAll("time.localized")) {
+    const date = new Date(el.dateTime);
+    el.textContent = formatter.format(date);
+  }
+  </script>
 </html>

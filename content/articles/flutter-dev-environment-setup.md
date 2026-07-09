@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/157/'
 categories: ['tutorial-it', 'tutorial']
 tags: ['flutter']
 ---
-# 教程-flutter开发环境搭建
 - 这里就不对flutter作介绍了，就是一个google开发的，便于开发ui应用（web/mobile）的SDK
   flutter使用Dart语言
 - 在官网和中文官网上，都有交你如何搭建flutter开发环境的教程

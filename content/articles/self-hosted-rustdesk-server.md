@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/217/'
 categories: ['tutorial']
 tags: ['docker-compose', 'rustdesk']
 ---
-# 教程-搭建Rustdesk服务器实现远程控制Win/Linux/Android/Mac
 - rustdesk顾名思义就是用rust搭建的远程桌面控制软件
 - 每一个客户端都是既可以控制又可以被控，WEB除外（WEB端的控制做的真的不好）
 - 实际上，我们都不需要自己搭建服务器就可以直接下载使用其提供的免费控制服务器，但是这样就不有趣了，我们就来搭建一下

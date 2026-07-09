@@ -6,7 +6,6 @@ oldId: 53
 oldUrl: 'https://blog.hadream.ltd/index.php/archives/53/'
 categories: ['feelings']
 ---
-# 平凡人的斗争
 
 ## 引语
 > 大多数人都是平凡的人，但生活在现今的这个时代下，又没有人是平凡的

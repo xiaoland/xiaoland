@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/183/'
 categories: ['tutorial']
 tags: ['ps', '抠图']
 ---
-# PS教程系列-通道抠图法PS2020
 
 ## 前言
 - 通道抠图法是一种抠图的办法，原理我不是很懂，只是大概会运用这种办法

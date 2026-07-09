@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/209/'
 categories: ['summary']
 tags: ['生活方式', '绿色生活', '零浪费']
 ---
-# 总结-北京零浪费情侣的生活——我们如何打造零浪费生活的习惯
 - 相关报道文章：
   - https://zhuanlan.zhihu.com/p/50182170
   - https://www.thepaper.cn/newsDetail_forward_15691750

@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/20/'
 categories: ['tutorial-server', 'tutorial']
 tags: ['nginx']
 ---
-# 在 CentOS 上安装并使用 Nginx
 
 ## 前言
 - nginx是一个与apache(httpd)同类型的东西，可以简单地理解为一个web服务器

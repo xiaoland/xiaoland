@@ -6,7 +6,6 @@ oldId: 214
 oldUrl: 'https://blog.hadream.ltd/index.php/archives/214/'
 categories: ['feelings']
 ---
-# 回忆-llm老师
 - 为了不透露姓名，就用了首字母简写
 - 虽然说是回忆，但人家还好好地，只是因为高中之后，很有可能难以再见面了，也是因为这深刻的印象，催促着我赶快记录她吧
 

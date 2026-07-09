@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/344/'
 categories: ['tutorial-college', 'tutorial']
 tags: ['攻略', '管理学']
 ---
-# 攻略-管理学期末复习
 - 根据往届整理的管理学复习资料、本届考试重点等，终于归纳出本份资料
 - 下载链接在下方，不允许擅自分享，可以分享本文章链接
 

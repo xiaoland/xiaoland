@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/151/'
 categories: ['view']
 tags: ['观点']
 ---
-# 观点-关于娘炮这件事
 - 声明：
   - 文中的娘炮指的是男性女性化的人，不是我们生活中熟知的狭义的娘炮
   - 本文暂不讨论流量明星的事情

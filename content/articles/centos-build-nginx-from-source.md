@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/10/'
 categories: ['tutorial-it', 'tutorial']
 tags: ['nginx']
 ---
-# 关于如何在Centos上用源码安装Nginx
 - 本文章包括了：
   - nginx配置
   - nginx的基本操作

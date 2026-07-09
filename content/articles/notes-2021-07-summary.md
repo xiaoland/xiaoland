@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/124/'
 categories: ['feelings']
 tags: ['吐槽']
 ---
-# 吐槽系列-21.7月总
 - 这个嘛...自从放假以来就没有怎么说过放假中生活的事情了
   就是懒
 - 所以今天就来说说吧

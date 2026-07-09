@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/348/'
 categories: ['tutorial-college', 'tutorial']
 tags: ['学术英语', '攻略']
 ---
-# 攻略-学术英语(1)技能与知识
 - 技能与知识也是学术英语的考察重点，在正误判断、写作、阅读理解都会用到
 
 ## 食用指南

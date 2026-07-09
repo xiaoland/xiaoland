@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/216/'
 categories: ['summary-coding', 'summary']
 tags: ['异常处理']
 ---
-# 编程技术-关于异常处理
 - 好奇怪哦，明明我是写Python的，但是到现在，我还没有发过任何关于编程方面技术的文章
 - 今天就来谈谈关于“异常处理”的事情吧
 - 本文章的内容来源于《异常处理：设计与重构》

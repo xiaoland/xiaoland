@@ -26,7 +26,7 @@
         <header>
             <a
                 id="page-back"
-                class="typo-control flex-row spacing-xs"
+                class="typo-control flex-row spacing-xs items-center"
                 href="/"
                 onclick="
                     if (history.length > 1) {
@@ -39,11 +39,25 @@
                 <span>返回</span>
             </a>
             <h1>「教程」docker部署OnlyOffice服务器</h1>
-            <time datetime="2021-08-02T06:46:00Z">最后更新于 Mon Aug 02 2021</time>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2021-08-02T06:46:00Z"
+                    />
+                </dd>
+                <!--firstWordAt
+                <dt>第一个字写于</dt>
+                <dd>
+                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                </dd>
+                firstWordAt-->
+            </dl>
         </header>
         <main>
-            <article><h1>教程：docker部署Onlyoffice服务器</h1>
-<ul>
+            <article><ul>
 <li>本文将会介绍如何在Linux上使用docker-compose部署onlyoffice的DocumentServer服务</li>
 <li>onlyoffice-DS的部署将是非常有用的
 部署完毕之后，你可以在nextcloud、DzzOffice上连接它以实现在线编辑office文件，甚至还可以参考官方API开发自己的在线编辑器</li>
@@ -135,4 +149,16 @@
 </article>
         </main>
     </body>
+
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
+
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>

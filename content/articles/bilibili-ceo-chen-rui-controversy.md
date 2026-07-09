@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/109/'
 categories: ['view']
 tags: ['B站']
 ---
-# 观点-B站CEO陈睿被喷事件
 - B站最近越做越大了，这本质上是得多亏这位新任CEO陈睿的
   不过B站的老用户们大多数对其不满，认为B站变味了
 - 很多人对此怨气都很大，但理智的也很多，至少B站目前还在慢慢地，越来越好

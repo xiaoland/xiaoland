@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/347/'
 categories: ['tutorial-college', 'tutorial']
 tags: ['学术英语', '攻略']
 ---
-# 攻略-学术英语词汇总结
 - 学术英语的复习重点在于其词汇以及学术英语技能
 - 本攻略是学术英语(1)的四个单元词汇汇总
 

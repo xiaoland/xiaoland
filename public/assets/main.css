@@ -21,7 +21,7 @@ body {
 }
 
 a {
-    --comp-color-link: var(--sys-color-text-base);
+    --comp-color-link: inherit;
     --comp-color-link-hover: var(--sys-color-primary);
 
     color: var(--comp-color-link);
@@ -64,6 +64,10 @@ a {
     display: flex;
     flex-direction: row;
     gap: var(--spacing);
+}
+
+.items-center {
+    align-items: center;
 }
 
 .button-icon {

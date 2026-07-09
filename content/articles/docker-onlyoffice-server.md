@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/130/'
 categories: ['tutorial-server', 'tutorial']
 tags: ['onlyoffice']
 ---
-# 教程：docker部署Onlyoffice服务器
 - 本文将会介绍如何在Linux上使用docker-compose部署onlyoffice的DocumentServer服务
 - onlyoffice-DS的部署将是非常有用的
   部署完毕之后，你可以在nextcloud、DzzOffice上连接它以实现在线编辑office文件，甚至还可以参考官方API开发自己的在线编辑器

@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/208/'
 categories: ['summary']
 tags: ['MongoDB', '数据库', '非关系型数据库']
 ---
-# 总结-非关系型数据库的设计
 ### 前言
 - 大家想必都知道非关系型数据库（MongoDB、Redis）等等的了。
   他们不同于传统的关系型数据库（Mysql）最大的一点就是不依赖于泛式，每个应用的设计都是随意的，自由的，不必被拘束的

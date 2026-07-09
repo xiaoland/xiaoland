@@ -26,7 +26,7 @@
     <header>
       <a
         id="page-back"
-        class="typo-control flex-row spacing-xs"
+        class="typo-control flex-row spacing-xs items-center"
         href="/"
         onclick="
                     if (history.length > 1) {
@@ -39,11 +39,21 @@
         <span>返回</span>
       </a>
       <h1>「读后感」远大前程</h1>
-      <time datetime="2021-08-21T12:34:00Z">最后更新于 Sat Aug 21 2021</time>
+      <dl id="meta">
+        <dt>最后更新于</dt>
+        <dd>
+          <time id="last-updated-at" class="localized" datetime="2021-08-21T12:34:00Z" />
+        </dd>
+        <!--firstWordAt
+                <dt>第一个字写于</dt>
+                <dd>
+                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                </dd>
+                firstWordAt-->
+      </dl>
     </header>
     <main>
       <article>
-        <h1>读后感-《远大前程》读后感</h1>
         <ul>
           <li>
             我阅读的是英文版本，当然是没有看完的，只是作为一个学校的作业。所以本读后感也并不是自己的真情实感。
@@ -201,4 +211,16 @@
       </article>
     </main>
   </body>
+
+  <script type="module">
+  const formatter = new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  for (const el of document.querySelectorAll("time.localized")) {
+    const date = new Date(el.dateTime);
+    el.textContent = formatter.format(date);
+  }
+  </script>
 </html>

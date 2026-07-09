@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/211/'
 categories: ['summary']
 tags: ['linux', 'tar', '指令', '详解']
 ---
-# 总结-tar指令使用方法总结
 - tar指令用于解压/生成tar.gz/bz/.bz2等等的压缩包
 - 需要注意的是zip/rar不可使用tar指令操作，只可以用unzip/unrar或zip/rar来进行压缩或解压缩
 - 本文是整理常见的压缩包格式的配置选项，而不是详解这个指令

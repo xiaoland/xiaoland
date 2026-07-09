@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/110/'
 categories: ['tutorial-it', 'tutorial']
 tags: ['ssh']
 ---
-# 问题解决-SSH无法登录或密码错误
 - 本文章记录了遇到SSH限制(root)登录或者总是密码错误的情况的解决方法
 
 ### 问题描述

@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/234/'
 categories: ['tutorial-it', 'tutorial']
 tags: ['snowboy', 'swig']
 ---
-# 教程-snowboy的构建与使用
 - snowboy是kitt.ai(chengguoguo)开发的一款热词检测式语音唤醒开源软件
 - 许多项目如HadreamAssistant与wukong-robot都用过它
 - 要将snowboy加入到自己的项目的关键一步，就是编译出符合系统的swig以及_snowboydetect.so，否则不论怎么调试，都不会好的

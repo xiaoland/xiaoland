@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/74/'
 categories: ['tutorial-it', 'tutorial']
 tags: ['ddos']
 ---
-# 教程-Linux防御软件型DDoS攻击
 - 相信大家都知道DDoS攻击的危害性是极大的，造成的损失不计其数
 - 昨天我的服务器就被DDoS攻击了，给我带来了巨额的流量账单和服务器响应慢速
 - 还好目前我受到的只是**大量连接型**DDoS攻击

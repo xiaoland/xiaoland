@@ -26,7 +26,7 @@
     <header>
       <a
         id="page-back"
-        class="typo-control flex-row spacing-xs"
+        class="typo-control flex-row spacing-xs items-center"
         href="/"
         onclick="
                     if (history.length > 1) {
@@ -39,11 +39,21 @@
         <span>返回</span>
       </a>
       <h1>「吐槽」2021.3.20</h1>
-      <time datetime="2021-03-20T05:16:00Z">最后更新于 Sat Mar 20 2021</time>
+      <dl id="meta">
+        <dt>最后更新于</dt>
+        <dd>
+          <time id="last-updated-at" class="localized" datetime="2021-03-20T05:16:00Z" />
+        </dd>
+        <!--firstWordAt
+                <dt>第一个字写于</dt>
+                <dd>
+                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                </dd>
+                firstWordAt-->
+      </dl>
     </header>
     <main>
       <article>
-        <h1>吐槽系列-21.3.20</h1>
         <ul>
           <li>这个星期倒是过得很开心，舒畅到飞起</li>
           <li>过得很快很开心，挺好的，也做了不少事情</li>
@@ -224,4 +234,16 @@
       </article>
     </main>
   </body>
+
+  <script type="module">
+  const formatter = new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  for (const el of document.querySelectorAll("time.localized")) {
+    const date = new Date(el.dateTime);
+    el.textContent = formatter.format(date);
+  }
+  </script>
 </html>

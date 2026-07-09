@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/198/'
 categories: ['view']
 tags: ['转载']
 ---
-# 转载观点-关于道歉
 - 关于道歉，我在B站某个视频（鸡汤玩梗）下面看到了很有深意和思考意义的评论，于是就转载过来保留着，真的很有意思
 
 ### 原文

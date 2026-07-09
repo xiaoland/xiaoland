@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/108/'
 categories: ['report']
 tags: ['B站']
 ---
-# 观点-B站崩了
 - 2021.7.13，B站所有服务全面崩溃将近2个小时
 - 说实话，这次事故真的算是很严重了
 - 当时我在刷着B漫，刷着刷着就：

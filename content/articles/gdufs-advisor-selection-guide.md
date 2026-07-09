@@ -6,7 +6,6 @@ oldId: 333
 oldUrl: 'https://blog.hadream.ltd/index.php/archives/333/'
 categories: ['tutorial-college', 'tutorial']
 ---
-# 教程-广外选导师解读
 
 ## 基本理解
 ### 导师的作用

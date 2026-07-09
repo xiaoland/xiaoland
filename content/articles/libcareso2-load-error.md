@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/113/'
 categories: ['tutorial-it', 'tutorial']
 tags: ['共享库']
 ---
-# 问题解决-libcare.so.2无法加载
 - 这个是在宝塔安装完php56的时候出现的bug
 - 报错为：error while loading shared libraries: libcares.so.2
 

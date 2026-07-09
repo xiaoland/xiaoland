@@ -26,7 +26,7 @@
     <header>
       <a
         id="page-back"
-        class="typo-control flex-row spacing-xs"
+        class="typo-control flex-row spacing-xs items-center"
         href="/"
         onclick="
                     if (history.length > 1) {
@@ -39,11 +39,21 @@
         <span>返回</span>
       </a>
       <h1>「教程」在Centos上用源码安装Nginx</h1>
-      <time datetime="2021-03-07T05:57:00Z">最后更新于 Sun Mar 07 2021</time>
+      <dl id="meta">
+        <dt>最后更新于</dt>
+        <dd>
+          <time id="last-updated-at" class="localized" datetime="2021-03-07T05:57:00Z" />
+        </dd>
+        <!--firstWordAt
+                <dt>第一个字写于</dt>
+                <dd>
+                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                </dd>
+                firstWordAt-->
+      </dl>
     </header>
     <main>
       <article>
-        <h1>关于如何在Centos上用源码安装Nginx</h1>
         <ul>
           <li>
             本文章包括了：
@@ -133,4 +143,16 @@ make &amp;&amp; make install
       </article>
     </main>
   </body>
+
+  <script type="module">
+  const formatter = new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  for (const el of document.querySelectorAll("time.localized")) {
+    const date = new Date(el.dateTime);
+    el.textContent = formatter.format(date);
+  }
+  </script>
 </html>

@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/286/'
 categories: ['tutorial-it', 'tutorial']
 tags: ['rust', 'vscode']
 ---
-# 教程-配置开发Rust调试Debug环境
 - rust作为一门大热的语言，我觉得还是有必要学一学的
 - rust一般按照[官方教程](https://www.rust-lang.org/zh-CN/learn/get-started)来即可
 

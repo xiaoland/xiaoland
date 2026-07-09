@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/194/'
 categories: ['stalk', 'others']
 tags: ['喝鸡汤', '梗']
 ---
-# 梗-鸡汤
 - 夏天劈西瓜，冬天喝鸡汤
 - 来自B站
 

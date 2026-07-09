@@ -1,26 +1,71 @@
 body {
-    margin: 1rem 1rem;
+    margin: var(--sys-spacing-md);
 }
 
 header {
-    #back-back {
+    #page-back {
+        margin-bottom: var(--sys-spacing-sm);
     }
 
     h1 {
         font-size: 2rem;
-        color: var(--sys-color-text-base);
+        color: var(--sys-color-text-on-primary);
+        background-color: var(--sys-color-primary);
         margin: 0;
+        padding: var(--sys-spacing-xs) var(--sys-spacing-sm);
+
+        @media (max-width: 375px) {
+            padding: 0.2em var(--sys-spacing-xs);
+        }
     }
 
-    time {
-        font-size: 0.875rem;
-        color: var(--sys-color-text-subtle);
-        margin: 0;
+    dl#meta {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        column-gap: var(--sys-spacing-sm);
+        row-gap: var(--sys-spacing-sm);
+        align-items: center;
+
+        dd {
+            font-size: var(--sys-typo-caption-font-size);
+            line-height: var(--sys-typo-caption-line-height);
+            color: var(--sys-color-text-subtle);
+        }
     }
 }
 
 article {
-    padding: 0 4vw;
+    overflow-wrap: break-word;
+    border-top: 1px solid var(--sys-color-border-base);
+
+    h2 {
+        margin: var(--sys-spacing-md) 0;
+    }
+    h3 {
+        margin: var(--sys-spacing-sm) 0;
+    }
+
+    p,
+    ul,
+    ol,
+    blockquote {
+        margin: var(--sys-spacing-sm) 0;
+    }
+
+    ul,
+    ol {
+        padding-left: clamp(1vw, 1.5rem, 4vw);
+    }
+
+    li {
+        margin: var(--sys-spacing-sm) 0;
+    }
+
+    blockquote {
+        border-left: 0.25em solid var(--sys-color-text-subtle);
+        color: var(--sys-color-text-subtle);
+        padding-left: var(--sys-spacing-sm);
+    }
 
     img {
         display: block;
@@ -28,19 +73,8 @@ article {
         max-height: 40vh;
         object-fit: contain;
         margin: 0 auto;
-    }
 
-    blockquote {
-        border-left: 4px solid var(--sys-color-text-subtle);
-        color: var(--sys-color-text-subtle);
-        padding-left: var(--sys-spacing-sm);
-        margin: 0;
-    }
-
-    @media (max-width: 768px) {
-        padding: 0 2vw;
-
-        img {
+        @media (max-width: 768px) {
             width: 90%;
         }
     }

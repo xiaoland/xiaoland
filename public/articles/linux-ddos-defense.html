@@ -26,7 +26,7 @@
     <header>
       <a
         id="page-back"
-        class="typo-control flex-row spacing-xs"
+        class="typo-control flex-row spacing-xs items-center"
         href="/"
         onclick="
                     if (history.length > 1) {
@@ -39,11 +39,21 @@
         <span>返回</span>
       </a>
       <h1>「教程」Linux防御DDoS攻击</h1>
-      <time datetime="2021-05-23T03:18:00Z">最后更新于 Sun May 23 2021</time>
+      <dl id="meta">
+        <dt>最后更新于</dt>
+        <dd>
+          <time id="last-updated-at" class="localized" datetime="2021-05-23T03:18:00Z" />
+        </dd>
+        <!--firstWordAt
+                <dt>第一个字写于</dt>
+                <dd>
+                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                </dd>
+                firstWordAt-->
+      </dl>
     </header>
     <main>
       <article>
-        <h1>教程-Linux防御软件型DDoS攻击</h1>
         <ul>
           <li>相信大家都知道DDoS攻击的危害性是极大的，造成的损失不计其数</li>
           <li>昨天我的服务器就被DDoS攻击了，给我带来了巨额的流量账单和服务器响应慢速</li>
@@ -137,4 +147,16 @@ BAN_PERIOD=600  #禁用IP时间，可根据情况调整，默认单位：秒
       </article>
     </main>
   </body>
+
+  <script type="module">
+  const formatter = new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  for (const el of document.querySelectorAll("time.localized")) {
+    const date = new Date(el.dateTime);
+    el.textContent = formatter.format(date);
+  }
+  </script>
 </html>

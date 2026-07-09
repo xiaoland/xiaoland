@@ -26,7 +26,7 @@
     <header>
       <a
         id="page-back"
-        class="typo-control flex-row spacing-xs"
+        class="typo-control flex-row spacing-xs items-center"
         href="/"
         onclick="
                     if (history.length > 1) {
@@ -39,11 +39,21 @@
         <span>返回</span>
       </a>
       <h1>「报告」关于男性女性化及其社会舆论的调查报告</h1>
-      <time datetime="2021-12-24T04:51:00Z">最后更新于 Fri Dec 24 2021</time>
+      <dl id="meta">
+        <dt>最后更新于</dt>
+        <dd>
+          <time id="last-updated-at" class="localized" datetime="2021-12-24T04:51:00Z" />
+        </dd>
+        <!--firstWordAt
+                <dt>第一个字写于</dt>
+                <dd>
+                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                </dd>
+                firstWordAt-->
+      </dl>
     </header>
     <main>
       <article>
-        <h1>报告-关于男性女性化及其社会舆论的调查报告</h1>
         <ul>
           <li>本报告是我高二上学期的综合实践课题，包含ppt/论文/资料册各一份</li>
           <li>本研究的主要目的是弄清男性女性化等有关内容的社会舆论以及表达我们的观点</li>
@@ -121,4 +131,16 @@
       </article>
     </main>
   </body>
+
+  <script type="module">
+  const formatter = new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  for (const el of document.querySelectorAll("time.localized")) {
+    const date = new Date(el.dateTime);
+    el.textContent = formatter.format(date);
+  }
+  </script>
 </html>

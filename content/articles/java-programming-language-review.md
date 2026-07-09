@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/340/'
 categories: ['tutorial-college', 'tutorial']
 tags: ['java', '大学', '攻略']
 ---
-# 攻略-Java程序语言设计
 
 > 说明：本文用于广外Java程序语言与设计的学生使用，可以在下方下载pdf后打印出来使用
 

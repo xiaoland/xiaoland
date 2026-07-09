@@ -7,7 +7,6 @@ oldUrl: 'https://blog.hadream.ltd/index.php/archives/248/'
 categories: ['it-industry-share', 'summary']
 tags: ['gdg']
 ---
-# 总结-GoogleIOExtended2023线下沙龙总结
 - 这一次的讲座准备了很多丰富有趣的内容，跟NLP、LLM都有许多的关系，十分值得学习
 
 ### 关于ML
