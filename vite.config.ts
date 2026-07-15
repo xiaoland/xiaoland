@@ -76,15 +76,17 @@ function collectHtmlInputs(dir: string): Record<string, string> {
   return input;
 }
 
-function redirectsPlugin(): Plugin {
+function otherStaticFiles(): Plugin {
   return {
     name: "copy-redirects",
     apply: "build",
     async closeBundle() {
-      await copyFile(
-        path.resolve("public/_redirects"),
-        path.resolve("dist/_redirects"),
-      );
+      for (const file of ["_redirects", "robots.txt", "ads.txt"]) {
+        await copyFile(
+          path.resolve("public", file),
+          path.resolve("dist", file),
+        );
+      }
     },
   };
 }
@@ -121,7 +123,7 @@ export default defineConfig((): UserConfig => {
     },
     plugins: [
       cloudflare(),
-      redirectsPlugin(),
+      otherStaticFiles(),
       postbuildPlugin(),
       Sitemap({
         hostname: "https://lanzhijiang.dev",

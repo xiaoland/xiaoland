@@ -7,6 +7,7 @@ import { promisify } from "node:util";
 import { createInterface } from "node:readline/promises";
 import { stdin, stdout } from "node:process";
 
+const SITE_ORIGIN = "https://lanzhijiang.dev";
 const articleMarkdownPathStr = "content/articles";
 const articleHtmlPathStr = "public/articles";
 const execFileAsync = promisify(execFile);
@@ -100,18 +101,29 @@ async function mdToHtml(articleSlug: string, htmlTemplatePath: string) {
   const markdown = await readFile(input, "utf-8");
   const { data, content } = matter(markdown);
   const body = await renderMarkdown(content);
-  const lastUpdatedAt = data.createdAt ?? data.updatedAt;
+  const status = data.status ?? "published";
+  if (status === "draft") {
+    console.log(`${articleSlug} is a draft`);
+    console.log(`-----------`);
+    return;
+  }
+  const lastUpdatedAt = data.updatedAt ?? data.createdAt;
   const firstWordAt = data.firstWordAt ?? null;
+  const canonicalUrl = new URL(
+    `/articles/${articleSlug}`,
+    SITE_ORIGIN,
+  ).toString();
 
   const htmlTemplate = await readFile(resolve(htmlTemplatePath), "utf-8");
   let html = htmlTemplate
     .replace("${body}", body)
     .replaceAll("${data.title}", data.title)
-    .replace(
+    .replaceAll(
       "${data.description}",
       normalizeIntoTagAttributeSafeString(data.description ?? ""),
     )
-    .replace("${data.datetime}", lastUpdatedAt);
+    .replaceAll("${data.datetime}", lastUpdatedAt)
+    .replaceAll("${data.canonicalUrl}", canonicalUrl);
   // handling optional data fields
   if (firstWordAt !== null) {
     html = html.replace("${data.firstWordAt}", firstWordAt);
