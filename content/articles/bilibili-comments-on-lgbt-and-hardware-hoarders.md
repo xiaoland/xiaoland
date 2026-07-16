@@ -2,6 +2,7 @@
 title: '「观点」来自B站的一些关于LGBT、垃圾佬的评论'
 description: '一些评论 来自B站 一些来自B站的评论 关于同性恋 一些冷知识: 一、自然性 1、同性恋或双性恋现象广泛存在于大自然。不是人类社会与文明的产物。同性恋从古至今在任何国家都存在 2、同性恋本身就是符合自然规律而诞生的东西。符合物种基因传递的原则——物种整体适应度假说。一个种群中有一'
 createdAt: '2021-12-24T06:37:00Z'
+status: 'draft'
 oldId: 200
 oldUrl: 'https://blog.hadream.ltd/index.php/archives/200/'
 categories: ['view']

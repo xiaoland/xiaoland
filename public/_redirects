@@ -1,3 +1,4 @@
 /xenix https://xenix.cn 301
 /article/* /articles/:splat 301
-/articles/_archive /articles/ 301
+/articles/ /articles/_archive 301
+/articles /articles/_archive 301
