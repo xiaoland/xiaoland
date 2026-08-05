@@ -1,96 +1,80 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="蓝汁酱">
-    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
-    <title>记被谷歌送中以及解决方案</title>
-    <meta
-      name="description"
-      content="记录通过代理被&quot;送中&quot;导致 google.com 重定向到 google.cn 的排查过程与解决办法：使用 IPv6 并在 Sing-Box 客户端启用 &quot;domain_strategy&quot;: &quot;prefer_ipv6&quot; 以强制通过 IPv6 出站。"
-    >
-    <meta property="og:url" content="https://lanzhijiang.dev/articles/google-cn-issue">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="记被谷歌送中以及解决方案">
-    <meta
-      property="og:description"
-      content="记录通过代理被&quot;送中&quot;导致 google.com 重定向到 google.cn 的排查过程与解决办法：使用 IPv6 并在 Sing-Box 客户端启用 &quot;domain_strategy&quot;: &quot;prefer_ipv6&quot; 以强制通过 IPv6 出站。"
-    >
-    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
-    <meta property="og:site_name" content="蓝汁酱的小站">
-    <meta property="og:locale" content="zh_CN">
-    <link rel="canonical" href="https://lanzhijiang.dev/articles/google-cn-issue">
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/variables.css">
-    <link rel="stylesheet" href="/articles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a
-        id="page-back"
-        class="typo-control flex-row spacing-xs items-center"
-        href="/"
-        onclick="
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>记被谷歌送中以及解决方案</title>
+        <meta name="description" content="记录通过代理被&quot;送中&quot;导致 google.com 重定向到 google.cn 的排查过程与解决办法：使用 IPv6 并在 Sing-Box 客户端启用 &quot;domain_strategy&quot;: &quot;prefer_ipv6&quot; 以强制通过 IPv6 出站。" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/google-cn-issue" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="记被谷歌送中以及解决方案" />
+        <meta property="og:description" content="记录通过代理被&quot;送中&quot;导致 google.com 重定向到 google.cn 的排查过程与解决办法：使用 IPv6 并在 Sing-Box 客户端启用 &quot;domain_strategy&quot;: &quot;prefer_ipv6&quot; 以强制通过 IPv6 出站。" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/google-cn-issue" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
                     if (history.length > 1) {
                         history.back();
                         return false;
                     }
                 "
-      >
-        <span class="material-symbols">arrow_back</span>
-        <span>返回</span>
-      </a>
-      <h1>记被谷歌送中以及解决方案</h1>
-      <dl id="meta">
-        <dt>最后更新于</dt>
-        <dd>
-          <time id="last-updated-at" class="localized" datetime="2025-11-12T21:23:35.000Z" />
-        </dd>
-        <!--firstWordAt
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>记被谷歌送中以及解决方案</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2025-11-12T21:23:35.000Z"
+                    />
+                </dd>
+                <!-- createdAt
                 <dt>开始于</dt>
                 <dd>
-                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                    <time datetime="2025-11-12T21:23:35.000Z">${data.createdAt}</time>
                 </dd>
-                firstWordAt-->
-      </dl>
-    </header>
-    <main>
-      <article>
-        <p>
-          不知道怎么回事，突然某天开始通过 Osaka 的代理就无法访问 Google Gemini, Google Jules
-          等服务了，访问 <code>google.com</code> 就会被重定向到 <code>google.cn</code>。
-          毫无疑问，这就是代理服务器的 IP 被谷歌标记为了中国 IP，也就是俗称的&quot;送中&quot;。
-        </p>
-        <p>
-          解决这个问题最简单的方法就是换一个 IP，于是我向客服 （服务器是 Evoxt 家的）申请更换一个
-          IPv4 地址。然而在我更换之后，运行脚本
-          <code>bash &lt;(curl -L -s https://git.io/JRw8R)</code>，结果如下图：
-        </p>
-        <p>
-          <img
-            src="https://oss.lanzhijiang.dev/xiaoland/images/articles/google-cn-issue/PixPin_2025-10-18_21-04-54.png"
-            alt="IPv4各服务解锁情况"
-          >
-        </p>
-        <p>
-          仍然没有解锁，看来是这一段 IP
-          都被标记了，这也就说通了为什么我们没有给谷歌打开任何的定位权限，还是被送中了——有一些人犯蠢了，害得整个
-          IP 段都没得用。 然而还好我顺带和客服申请了一个 IPv6 地址，测试结果如图：
-        </p>
-        <p>
-          <img
-            src="https://oss.lanzhijiang.dev/xiaoland/images/articles/google-cn-issue/PixPin_2025-10-18_21-07-01.png"
-            alt="IPv6各服务解锁情况"
-          >
-        </p>
-        <p>
-          太好啦！这意味着我只要让代理用它的 IPv6 网卡出站 Google 流量就可以了！ 于是我马上开始配置
-          Sing-Box :
-        </p>
-        <pre><code class="language-json">{
+                createdAt-->
+                <!-- finishedAt
+                <dt>完成于</dt>
+                <dd>
+                    <time datetime="${data.finishedAt}">${data.finishedAt}</time>
+                </dd>
+                finishedAt -->
+            </dl>
+        </header>
+        <main>
+            <article><p>不知道怎么回事，突然某天开始通过 Osaka 的代理就无法访问 Google Gemini, Google Jules 等服务了，访问 <code>google.com</code> 就会被重定向到 <code>google.cn</code>。
+毫无疑问，这就是代理服务器的 IP 被谷歌标记为了中国 IP，也就是俗称的&quot;送中&quot;。</p>
+<p>解决这个问题最简单的方法就是换一个 IP，于是我向客服 （服务器是 Evoxt 家的）申请更换一个 IPv4 地址。然而在我更换之后，运行脚本 <code>bash &lt;(curl -L -s https://git.io/JRw8R)</code>，结果如下图：</p>
+<p><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/google-cn-issue/PixPin_2025-10-18_21-04-54.png" alt="IPv4各服务解锁情况"></p>
+<p>仍然没有解锁，看来是这一段 IP 都被标记了，这也就说通了为什么我们没有给谷歌打开任何的定位权限，还是被送中了——有一些人犯蠢了，害得整个 IP 段都没得用。
+然而还好我顺带和客服申请了一个 IPv6 地址，测试结果如图：</p>
+<p><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/google-cn-issue/PixPin_2025-10-18_21-07-01.png" alt="IPv6各服务解锁情况"></p>
+<p>太好啦！这意味着我只要让代理用它的 IPv6 网卡出站 Google 流量就可以了！
+于是我马上开始配置 Sing-Box :</p>
+<pre><code class="language-json">{
   &quot;outbounds&quot;: [
     {
       &quot;tag&quot;: &quot;direct6&quot;,
@@ -110,36 +94,27 @@
   }
 }
 </code></pre>
-        <p>
-          但是没有效果，我不断检查配置的正确性、有效性以及运行日志，始终不行... 因为我错误理解了
-          Sing-Box 的运作方式，代理服务器根本就不知道你要访问哪个域名，因为它不负责 DNS 解析，DNS
-          解析早在 Sing-Box 客户端就已经完成了。 所以应当在 Sing-Box 客户端配置
-          <code>&quot;domain_strategy&quot;: &quot;prefer_ipv6&quot;</code>
-          ，这样你的客户端就会解析到 <code>gemini.google.com</code> 的 IPv6
-          地址，然后客户端再告诉代理服务器它要向 IPv6 地址通信，代理服务器自然而然会使用 IPv6
-          出站，因为这是个 IPv6 的包呀。
-        </p>
-        <h2>Takeaways</h2>
-        <ul>
-          <li>
-            运行
-            <code>bash &lt;(curl -L -s https://git.io/JRw8R)</code> 可以测试代理对各种服务的解锁情况
-          </li>
-          <li>代理的 DNS 解析是在客户端完成的，服务端并不知道你在访问哪个域名</li>
-        </ul>
-      </article>
-    </main>
-  </body>
+<p>但是没有效果，我不断检查配置的正确性、有效性以及运行日志，始终不行...
+因为我错误理解了 Sing-Box 的运作方式，代理服务器根本就不知道你要访问哪个域名，因为它不负责 DNS 解析，DNS 解析早在 Sing-Box 客户端就已经完成了。
+所以应当在 Sing-Box 客户端配置 <code>&quot;domain_strategy&quot;: &quot;prefer_ipv6&quot;</code> ，这样你的客户端就会解析到 <code>gemini.google.com</code> 的 IPv6 地址，然后客户端再告诉代理服务器它要向 IPv6 地址通信，代理服务器自然而然会使用 IPv6 出站，因为这是个 IPv6 的包呀。</p>
+<h2>Takeaways</h2>
+<ul>
+<li>运行 <code>bash &lt;(curl -L -s https://git.io/JRw8R)</code> 可以测试代理对各种服务的解锁情况</li>
+<li>代理的 DNS 解析是在客户端完成的，服务端并不知道你在访问哪个域名</li>
+</ul>
+</article>
+        </main>
+    </body>
 
-  <script type="module">
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
 
-  for (const el of document.querySelectorAll("time.localized")) {
-    const date = new Date(el.dateTime);
-    el.textContent = formatter.format(date);
-  }
-  </script>
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>

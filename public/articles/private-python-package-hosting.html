@@ -1,255 +1,196 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="蓝汁酱">
-    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
-    <title>开发并私有托管自己的Python包</title>
-    <meta
-      name="description"
-      content="本文章解决从开发到发布一个Python包，再到使用该Python包开发应用的一系列问题 背景 这篇文章的背景是我的项目越发得庞大，后端有至少4个分体软件，但是他们都遵循基本的模式：数据模型定义 + 业务逻辑 + 通用的依赖库（数据库操作、日志、配置），为了避免重复开发与多处修改，"
-    >
-    <meta
-      property="og:url"
-      content="https://lanzhijiang.dev/articles/private-python-package-hosting"
-    >
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="开发并私有托管自己的Python包">
-    <meta
-      property="og:description"
-      content="本文章解决从开发到发布一个Python包，再到使用该Python包开发应用的一系列问题 背景 这篇文章的背景是我的项目越发得庞大，后端有至少4个分体软件，但是他们都遵循基本的模式：数据模型定义 + 业务逻辑 + 通用的依赖库（数据库操作、日志、配置），为了避免重复开发与多处修改，"
-    >
-    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
-    <meta property="og:site_name" content="蓝汁酱的小站">
-    <meta property="og:locale" content="zh_CN">
-    <link rel="canonical" href="https://lanzhijiang.dev/articles/private-python-package-hosting">
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/variables.css">
-    <link rel="stylesheet" href="/articles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a
-        id="page-back"
-        class="typo-control flex-row spacing-xs items-center"
-        href="/"
-        onclick="
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>开发并私有托管自己的Python包</title>
+        <meta name="description" content="本文章解决从开发到发布一个Python包，再到使用该Python包开发应用的一系列问题 背景 这篇文章的背景是我的项目越发得庞大，后端有至少4个分体软件，但是他们都遵循基本的模式：数据模型定义 + 业务逻辑 + 通用的依赖库（数据库操作、日志、配置），为了避免重复开发与多处修改，" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/private-python-package-hosting" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="开发并私有托管自己的Python包" />
+        <meta property="og:description" content="本文章解决从开发到发布一个Python包，再到使用该Python包开发应用的一系列问题 背景 这篇文章的背景是我的项目越发得庞大，后端有至少4个分体软件，但是他们都遵循基本的模式：数据模型定义 + 业务逻辑 + 通用的依赖库（数据库操作、日志、配置），为了避免重复开发与多处修改，" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/private-python-package-hosting" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
                     if (history.length > 1) {
                         history.back();
                         return false;
                     }
                 "
-      >
-        <span class="material-symbols">arrow_back</span>
-        <span>返回</span>
-      </a>
-      <h1>开发并私有托管自己的Python包</h1>
-      <dl id="meta">
-        <dt>最后更新于</dt>
-        <dd>
-          <time id="last-updated-at" class="localized" datetime="2024-11-04T15:37:00Z" />
-        </dd>
-        <!--firstWordAt
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>开发并私有托管自己的Python包</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2024-11-04T15:37:00Z"
+                    />
+                </dd>
+                <!-- createdAt
                 <dt>开始于</dt>
                 <dd>
-                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                    <time datetime="2024-11-04T15:37:00Z">${data.createdAt}</time>
                 </dd>
-                firstWordAt-->
-      </dl>
-    </header>
-    <main>
-      <article>
-        <blockquote>
-          <p>本文章解决从开发到发布一个Python包，再到使用该Python包开发应用的一系列问题</p>
-        </blockquote>
-        <h2>背景</h2>
-        <p>
-          这篇文章的背景是我的项目越发得庞大，后端有至少4个分体软件，但是他们都遵循基本的模式：数据模型定义
-          + 业务逻辑 +
-          通用的依赖库（数据库操作、日志、配置），为了避免重复开发与多处修改，我将这些通用的内容抽象成为一个库
-          —— 也就是包。
-        </p>
-        <p>
-          而我后端使用的是Python，所以就被Python包管理上的各种坑狠狠地折腾了一遍。（其实并不复杂，主要是自托管问题）
-        </p>
-        <p>阅读本文你将得到：</p>
-        <ul>
-          <li>开发Python包的最佳实践</li>
-          <li>基于Poetry与Gitlab Registry发布、托管PyPI包</li>
-          <li>基于Poetry与Gitlab Registry安装PyPI包</li>
-        </ul>
-        <p>环境：</p>
-        <ul>
-          <li>Windows10</li>
-          <li>Python3.10</li>
-        </ul>
-        <h2>怎样开发一个Python包</h2>
-        <p>
-          Python包的开发和脚本与应用不同，其诞生就是为了将代码交给别人使用，所以它没有入口文件。
-          平时我们的脚本和各种应用不写测试也行，只要启动跑通就行了 ——
-          但包是没有所谓的入口的，需要基于实际的应用场景才能启动。
-          所以我们就得写测试：在根目录下创建<code>tests</code>文件夹
-        </p>
-        <p>
-          本包的所有核心代码，都存储在<code>&lt;package_name&gt;</code>文件夹中（如你的包叫做<code
-            >my-package</code
-          >，那么这个文件夹就是<code>my_package</code>）
-        </p>
-        <p>接着执行<code>poetry init</code>初始化这个项目：</p>
-        <ul>
-          <li>配置这个包的各种基本信息</li>
-          <li>
-            可以交互式地指定依赖包以及版本等（还可以指定开发环境的依赖，比如<code>pytest</code>）
-          </li>
-        </ul>
-        <p>
-          初始化之后，根目录下面就会有<code>pyproject.toml</code>文件，和npm的<code
-            >packages.json</code
-          >是类似的，你可以在里面定义脚本和源等等。
-        </p>
-        <p>现在，确保你的项目中至少有这些目录和文件</p>
-        <pre><code class="language-md">- dist/
+                createdAt-->
+                <!-- finishedAt
+                <dt>完成于</dt>
+                <dd>
+                    <time datetime="${data.finishedAt}">${data.finishedAt}</time>
+                </dd>
+                finishedAt -->
+            </dl>
+        </header>
+        <main>
+            <article><blockquote>
+<p>本文章解决从开发到发布一个Python包，再到使用该Python包开发应用的一系列问题</p>
+</blockquote>
+<h2>背景</h2>
+<p>这篇文章的背景是我的项目越发得庞大，后端有至少4个分体软件，但是他们都遵循基本的模式：数据模型定义 + 业务逻辑 + 通用的依赖库（数据库操作、日志、配置），为了避免重复开发与多处修改，我将这些通用的内容抽象成为一个库 —— 也就是包。</p>
+<p>而我后端使用的是Python，所以就被Python包管理上的各种坑狠狠地折腾了一遍。（其实并不复杂，主要是自托管问题）</p>
+<p>阅读本文你将得到：</p>
+<ul>
+<li>开发Python包的最佳实践</li>
+<li>基于Poetry与Gitlab Registry发布、托管PyPI包</li>
+<li>基于Poetry与Gitlab Registry安装PyPI包</li>
+</ul>
+<p>环境：</p>
+<ul>
+<li>Windows10</li>
+<li>Python3.10</li>
+</ul>
+<h2>怎样开发一个Python包</h2>
+<p>Python包的开发和脚本与应用不同，其诞生就是为了将代码交给别人使用，所以它没有入口文件。
+平时我们的脚本和各种应用不写测试也行，只要启动跑通就行了 —— 但包是没有所谓的入口的，需要基于实际的应用场景才能启动。
+所以我们就得写测试：在根目录下创建<code>tests</code>文件夹</p>
+<p>本包的所有核心代码，都存储在<code>&lt;package_name&gt;</code>文件夹中（如你的包叫做<code>my-package</code>，那么这个文件夹就是<code>my_package</code>）</p>
+<p>接着执行<code>poetry init</code>初始化这个项目：</p>
+<ul>
+<li>配置这个包的各种基本信息</li>
+<li>可以交互式地指定依赖包以及版本等（还可以指定开发环境的依赖，比如<code>pytest</code>）</li>
+</ul>
+<p>初始化之后，根目录下面就会有<code>pyproject.toml</code>文件，和npm的<code>packages.json</code>是类似的，你可以在里面定义脚本和源等等。</p>
+<p>现在，确保你的项目中至少有这些目录和文件</p>
+<pre><code class="language-md">- dist/
 - tests/
 - my_package/
   - ...
 - pyproject.toml
 - .gitignore
 </code></pre>
-        <p>在<code>.gitignore</code>中，忽略这些文件：</p>
-        <ul>
-          <li><code>dist/*</code>：包编译后的结果，就是<code>.whl</code>文件</li>
-        </ul>
-        <h3>版本命名</h3>
-        <p>
-          很简单，就是
-          <code>&lt;primary_version&gt;.&lt;secondary_version&gt;.&lt;patch_version&gt;</code>
-        </p>
-        <p>我们推荐从<code>0.1.0</code>开始，但绝对不可以从<code>0.0.1</code>开始</p>
-        <h3>开发</h3>
-        <p>在开发一个包的过程中，肯定会有很多模块，这个时候<strong>注意！</strong></p>
-        <p>
-          不要使用绝对引入，使用相对引入： 如你要从<code>libs.a</code>引入<code
-            >utils.c</code
-          >，不要写<code>from utils import c</code>，而是<code>from ..utils import c</code>
-        </p>
-        <p>使用<code>.</code>表示当前目录，<code>..</code>表示上一目录</p>
-        <h3>测试</h3>
-        <p>
-          写测试我就不再这里多赘述，但总之请放到<code
-            >tests</code
-          >文件夹中，你可以使用pytest或者unittest来完成测试
-        </p>
-        <p>
-          但总有人不喜欢写测试，喜欢上应用里去调试... @(huaji_pc) （我就是其一）
-          那难道每次做一点修改就要编译又卸载重装？——那还得了！
-        </p>
-        <p>
-          你只需要这样在你的应用中安装你要开发的包就可以啦：<code
-            >pip install -e path/to/your/package/folder</code
-          >
-          这是pip的editable模式，它会创建一个映射到你的开发文件夹中
-        </p>
-        <h3>使用poetry</h3>
-        <p>使用poerty管理依赖：</p>
-        <ul>
-          <li>
-            <code>poetry add</code>安装依赖并自动更新到<code>pyproject.toml</code>中
-            <ul>
-              <li>
-                注意按照下面的方法配置源，poetry不会使用<code>~/pip.ini</code>的配置，也没有全局配置
-              </li>
-            </ul>
-          </li>
-          <li><code>poetry config --list</code>检查配置正确性</li>
-        </ul>
-        <h2>发布到托管</h2>
-        <blockquote>
-          <p>现在你完成了包的开发，需要发布到包托管（如PyPI的地方），并给你的其它项目使用</p>
-        </blockquote>
-        <p>本处是基于poetry + gitlab，但其它的都是大同小异，变通一下就好。</p>
-        <p>首先，如果你的Gitlab Registry是私密的，那就需要先获得访问凭证：</p>
-        <ol>
-          <li>在个人设置的Access Token里面创建具有api权限的token</li>
-          <li>
-            执行<code
-              >poetry config http-basic.&lt;repo-name&gt; &lt;token-name&gt; &lt;token&gt;</code
-            >
-            <ul>
-              <li>
-                这里<code
-                  >repo-name</code
-                >可以理解为源的名称，你稍后可以自定义其名称还有地址，源可以是任何一个符合PyPI标准的Registry，如清华大学的PyPI镜像、GitLab的PyPI
-                Registry
-              </li>
-              <li>
-                别担心，这个凭证不会保存到你的项目中；它会在你的<code
-                  >~/pypoetry/auth.toml</code
-                >中保存该凭证信息（不知道为什么我这里保存不成功，于是我手动修改了这个文件，你也最好在poetry
-                resovling dependencies不成功的时候检查有没有password字段）
-              </li>
-            </ul>
-          </li>
-        </ol>
-        <p>接下来，编译出<code>whl</code>文件用于发布：<code>poetry build</code></p>
-        <p>
-          配置源，用于发布时指定发布源（比如你的 Gitlab Regisrty）：
-          <code
-            >poetry config repositories.&lt;repo-name&gt;
-            https://gitlab.yourself-hosted.com/api/v4/projects/&lt;project-id&gt;/packages/pypi</code
-          >
-        </p>
-        <blockquote>
-          <p>注意：</p>
-          <ul>
-            <li><code>repo-name</code>与上面一致</li>
-            <li><code>project-id</code>在你的Gitlab Project的General中查看</li>
-          </ul>
-        </blockquote>
-        <p><code>poetry publish -r &lt;repo-name&gt;</code></p>
-        <blockquote>
-          <p>如果这时候认证失败，建议加上<code>-u &lt;token-name&gt; -p &lt;token&gt;</code></p>
-        </blockquote>
-        <p>如果发布有问题，就按照报错排查就好</p>
-        <h2>使用这个包</h2>
-        <blockquote>
-          <p>关键只在于要指定你的包的索引源，因为你的包没有被托管在PyPI.org上面，而是私有托管</p>
-        </blockquote>
-        <h3>pip</h3>
-        <p>使用pip或者requirements.txt安装，就使用<code>--extra-index-url</code>指定即可</p>
-        <h3>poetry</h3>
-        <p>在<code>pyproject.toml</code>中，添加源：</p>
-        <pre><code class="language-toml">[[tool.poetry.source]]
+<p>在<code>.gitignore</code>中，忽略这些文件：</p>
+<ul>
+<li><code>dist/*</code>：包编译后的结果，就是<code>.whl</code>文件</li>
+</ul>
+<h3>版本命名</h3>
+<p>很简单，就是 <code>&lt;primary_version&gt;.&lt;secondary_version&gt;.&lt;patch_version&gt;</code></p>
+<p>我们推荐从<code>0.1.0</code>开始，但绝对不可以从<code>0.0.1</code>开始</p>
+<h3>开发</h3>
+<p>在开发一个包的过程中，肯定会有很多模块，这个时候<strong>注意！</strong></p>
+<p>不要使用绝对引入，使用相对引入：
+如你要从<code>libs.a</code>引入<code>utils.c</code>，不要写<code>from utils import c</code>，而是<code>from ..utils import c</code></p>
+<p>使用<code>.</code>表示当前目录，<code>..</code>表示上一目录</p>
+<h3>测试</h3>
+<p>写测试我就不再这里多赘述，但总之请放到<code>tests</code>文件夹中，你可以使用pytest或者unittest来完成测试</p>
+<p>但总有人不喜欢写测试，喜欢上应用里去调试...  @(huaji_pc) （我就是其一）
+那难道每次做一点修改就要编译又卸载重装？——那还得了！</p>
+<p>你只需要这样在你的应用中安装你要开发的包就可以啦：<code>pip install -e path/to/your/package/folder</code>
+这是pip的editable模式，它会创建一个映射到你的开发文件夹中</p>
+<h3>使用poetry</h3>
+<p>使用poerty管理依赖：</p>
+<ul>
+<li><code>poetry add</code>安装依赖并自动更新到<code>pyproject.toml</code>中<ul>
+<li>注意按照下面的方法配置源，poetry不会使用<code>~/pip.ini</code>的配置，也没有全局配置</li>
+</ul>
+</li>
+<li><code>poetry config --list</code>检查配置正确性</li>
+</ul>
+<h2>发布到托管</h2>
+<blockquote>
+<p>现在你完成了包的开发，需要发布到包托管（如PyPI的地方），并给你的其它项目使用</p>
+</blockquote>
+<p>本处是基于poetry + gitlab，但其它的都是大同小异，变通一下就好。</p>
+<p>首先，如果你的Gitlab Registry是私密的，那就需要先获得访问凭证：</p>
+<ol>
+<li>在个人设置的Access Token里面创建具有api权限的token</li>
+<li>执行<code>poetry config http-basic.&lt;repo-name&gt; &lt;token-name&gt; &lt;token&gt;</code><ul>
+<li>这里<code>repo-name</code>可以理解为源的名称，你稍后可以自定义其名称还有地址，源可以是任何一个符合PyPI标准的Registry，如清华大学的PyPI镜像、GitLab的PyPI Registry</li>
+<li>别担心，这个凭证不会保存到你的项目中；它会在你的<code>~/pypoetry/auth.toml</code>中保存该凭证信息（不知道为什么我这里保存不成功，于是我手动修改了这个文件，你也最好在poetry resovling dependencies不成功的时候检查有没有password字段）</li>
+</ul>
+</li>
+</ol>
+<p>接下来，编译出<code>whl</code>文件用于发布：<code>poetry build</code></p>
+<p>配置源，用于发布时指定发布源（比如你的 Gitlab Regisrty）：
+<code>poetry config repositories.&lt;repo-name&gt; https://gitlab.yourself-hosted.com/api/v4/projects/&lt;project-id&gt;/packages/pypi</code></p>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li><code>repo-name</code>与上面一致</li>
+<li><code>project-id</code>在你的Gitlab Project的General中查看</li>
+</ul>
+</blockquote>
+<p><code>poetry publish -r &lt;repo-name&gt;</code></p>
+<blockquote>
+<p>如果这时候认证失败，建议加上<code>-u &lt;token-name&gt; -p &lt;token&gt;</code></p>
+</blockquote>
+<p>如果发布有问题，就按照报错排查就好</p>
+<h2>使用这个包</h2>
+<blockquote>
+<p>关键只在于要指定你的包的索引源，因为你的包没有被托管在PyPI.org上面，而是私有托管</p>
+</blockquote>
+<h3>pip</h3>
+<p>使用pip或者requirements.txt安装，就使用<code>--extra-index-url</code>指定即可</p>
+<h3>poetry</h3>
+<p>在<code>pyproject.toml</code>中，添加源：</p>
+<pre><code class="language-toml">[[tool.poetry.source]]
 name = &quot;repo-name&quot;
 url = &quot;上面上传的地址&quot;
 </code></pre>
-        <p>如果有多个源，你可以使用前后顺序或者<code>priority</code>选项指定索引的顺序。</p>
-        <p>注意：</p>
-        <ul>
-          <li>
-            确保你所有的源都可以被正常访问：URL没错、凭证正确（特别注意我上面说的config无效的情况）
-          </li>
-          <li>确保没有漏源：比如你发布了A和B包，B包依赖于A包，但是你只配置了B包的源</li>
-        </ul>
-        <p>要求使用特定源安装依赖项：</p>
-        <pre
-        ><code class="language-toml">&lt;dependence-name&gt; = { version = &quot;&quot;, source = &quot;&lt;repo-name&gt;&quot; }
+<p>如果有多个源，你可以使用前后顺序或者<code>priority</code>选项指定索引的顺序。</p>
+<p>注意：</p>
+<ul>
+<li>确保你所有的源都可以被正常访问：URL没错、凭证正确（特别注意我上面说的config无效的情况）</li>
+<li>确保没有漏源：比如你发布了A和B包，B包依赖于A包，但是你只配置了B包的源</li>
+</ul>
+<p>要求使用特定源安装依赖项：</p>
+<pre><code class="language-toml">&lt;dependence-name&gt; = { version = &quot;&quot;, source = &quot;&lt;repo-name&gt;&quot; }
 </code></pre>
-      </article>
-    </main>
-  </body>
+</article>
+        </main>
+    </body>
 
-  <script type="module">
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
 
-  for (const el of document.querySelectorAll("time.localized")) {
-    const date = new Date(el.dateTime);
-    el.textContent = formatter.format(date);
-  }
-  </script>
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>

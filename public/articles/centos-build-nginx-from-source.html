@@ -1,166 +1,145 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="蓝汁酱">
-    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
-    <title>「教程」在Centos上用源码安装Nginx</title>
-    <meta
-      name="description"
-      content="关于如何在Centos上用源码安装Nginx 本文章包括了： nginx配置 nginx的基本操作 配置一个网站 前言 nginx是一个与apache httpd 同类型的东西，可以简单地理解为一个web服务器 nginx比较轻量，使用它我们可以轻易做到不同网站不同php、反向代"
-    >
-    <meta
-      property="og:url"
-      content="https://lanzhijiang.dev/articles/centos-build-nginx-from-source"
-    >
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="「教程」在Centos上用源码安装Nginx">
-    <meta
-      property="og:description"
-      content="关于如何在Centos上用源码安装Nginx 本文章包括了： nginx配置 nginx的基本操作 配置一个网站 前言 nginx是一个与apache httpd 同类型的东西，可以简单地理解为一个web服务器 nginx比较轻量，使用它我们可以轻易做到不同网站不同php、反向代"
-    >
-    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
-    <meta property="og:site_name" content="蓝汁酱的小站">
-    <meta property="og:locale" content="zh_CN">
-    <link rel="canonical" href="https://lanzhijiang.dev/articles/centos-build-nginx-from-source">
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/variables.css">
-    <link rel="stylesheet" href="/articles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a
-        id="page-back"
-        class="typo-control flex-row spacing-xs items-center"
-        href="/"
-        onclick="
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>「教程」在Centos上用源码安装Nginx</title>
+        <meta name="description" content="关于如何在Centos上用源码安装Nginx 本文章包括了： nginx配置 nginx的基本操作 配置一个网站 前言 nginx是一个与apache httpd 同类型的东西，可以简单地理解为一个web服务器 nginx比较轻量，使用它我们可以轻易做到不同网站不同php、反向代" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/centos-build-nginx-from-source" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="「教程」在Centos上用源码安装Nginx" />
+        <meta property="og:description" content="关于如何在Centos上用源码安装Nginx 本文章包括了： nginx配置 nginx的基本操作 配置一个网站 前言 nginx是一个与apache httpd 同类型的东西，可以简单地理解为一个web服务器 nginx比较轻量，使用它我们可以轻易做到不同网站不同php、反向代" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/centos-build-nginx-from-source" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
                     if (history.length > 1) {
                         history.back();
                         return false;
                     }
                 "
-      >
-        <span class="material-symbols">arrow_back</span>
-        <span>返回</span>
-      </a>
-      <h1>「教程」在Centos上用源码安装Nginx</h1>
-      <dl id="meta">
-        <dt>最后更新于</dt>
-        <dd>
-          <time id="last-updated-at" class="localized" datetime="2021-03-07T05:57:00Z" />
-        </dd>
-        <!--firstWordAt
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>「教程」在Centos上用源码安装Nginx</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2021-03-07T05:57:00Z"
+                    />
+                </dd>
+                <!-- createdAt
                 <dt>开始于</dt>
                 <dd>
-                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                    <time datetime="2021-03-07T05:57:00Z">${data.createdAt}</time>
                 </dd>
-                firstWordAt-->
-      </dl>
-    </header>
-    <main>
-      <article>
-        <ul>
-          <li>
-            本文章包括了：
-            <ul>
-              <li>nginx配置</li>
-              <li>nginx的基本操作</li>
-              <li>配置一个网站</li>
-            </ul>
-          </li>
-        </ul>
-        <h2>前言</h2>
-        <ul>
-          <li>nginx是一个与apache(httpd)同类型的东西，可以简单地理解为一个web服务器</li>
-          <li>nginx比较轻量，使用它我们可以轻易做到不同网站不同php、反向代理等等</li>
-          <li>
-            因为我用的就是Centos，所以我也就写是centos，当然，本教程用源码安装，所以其实在linux上应该都是可以的
-            <ul>
-              <li>PS：只要选对nginx源码的架构和系统</li>
-            </ul>
-          </li>
-        </ul>
-        <h2>下载源码</h2>
-        <ul>
-          <li><a href="http://nginx.org/en/download.html">NGINX官网下载</a></li>
-          <li>选择适合你的CHARACTER吧！</li>
-          <li>当然，你可以直接wget到服务器上，也可以选择下载以后再ftp过去等等</li>
-        </ul>
-        <h2>解压</h2>
-        <pre><code class="language-bash">tar -zxvf nginx-x-xx.tar.gz
+                createdAt-->
+                <!-- finishedAt
+                <dt>完成于</dt>
+                <dd>
+                    <time datetime="${data.finishedAt}">${data.finishedAt}</time>
+                </dd>
+                finishedAt -->
+            </dl>
+        </header>
+        <main>
+            <article><ul>
+<li>本文章包括了：<ul>
+<li>nginx配置</li>
+<li>nginx的基本操作</li>
+<li>配置一个网站</li>
+</ul>
+</li>
+</ul>
+<h2>前言</h2>
+<ul>
+<li>nginx是一个与apache(httpd)同类型的东西，可以简单地理解为一个web服务器</li>
+<li>nginx比较轻量，使用它我们可以轻易做到不同网站不同php、反向代理等等</li>
+<li>因为我用的就是Centos，所以我也就写是centos，当然，本教程用源码安装，所以其实在linux上应该都是可以的<ul>
+<li>PS：只要选对nginx源码的架构和系统</li>
+</ul>
+</li>
+</ul>
+<h2>下载源码</h2>
+<ul>
+<li><a href="http://nginx.org/en/download.html">NGINX官网下载</a></li>
+<li>选择适合你的CHARACTER吧！</li>
+<li>当然，你可以直接wget到服务器上，也可以选择下载以后再ftp过去等等</li>
+</ul>
+<h2>解压</h2>
+<pre><code class="language-bash">tar -zxvf nginx-x-xx.tar.gz
 </code></pre>
-        <ul>
-          <li>总之，把你的nginx源码解压出来，并命名文件夹为nginx</li>
-          <li>在哪里解压不重要（大概），但是还是推荐解压在/usr/local下</li>
-        </ul>
-        <h2>安装</h2>
-        <h3>安装依赖</h3>
-        <ul>
-          <li>在没有这些依赖的情况下，安装nginx是会报错的，所以先安装环境</li>
-        </ul>
-        <pre
-        ><code class="language-bash">yum install -y gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel
+<ul>
+<li>总之，把你的nginx源码解压出来，并命名文件夹为nginx</li>
+<li>在哪里解压不重要（大概），但是还是推荐解压在/usr/local下</li>
+</ul>
+<h2>安装</h2>
+<h3>安装依赖</h3>
+<ul>
+<li>在没有这些依赖的情况下，安装nginx是会报错的，所以先安装环境</li>
+</ul>
+<pre><code class="language-bash">yum install -y gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel
 </code></pre>
-        <h3>安装nginx</h3>
-        <ul>
-          <li>接着，进入到nginx目录下，使用老套路</li>
-        </ul>
-        <pre><code class="language-bash">cd nginx
+<h3>安装nginx</h3>
+<ul>
+<li>接着，进入到nginx目录下，使用老套路</li>
+</ul>
+<pre><code class="language-bash">cd nginx
 ./configure
 make &amp;&amp; make install
 </code></pre>
-        <ul>
-          <li>
-            PS：在./configure部分，可以添加参数以添加各种扩展和调整安装目录等
-            <ul>
-              <li>
-                很重要的一点就是解决*&quot;conf/koi-win&quot;
-                与&quot;/usr/local/nginx/conf/koi-win&quot; 为同一文件*这个问题
-              </li>
-              <li>
-                要解决这个问题，可以使用<code
-                  >./configure --prefix=&lt;path_install_nginx&gt;
-                  --conf-path=&lt;path_to_nginx_conf&gt;</code
-                >
-                <ul>
-                  <li>
-                    &quot;--prefix&quot;项指定nginx的安装目录，之后会在指定的目录下生成各种文件
-                  </li>
-                  <li>
-                    &quot;--conf-path&quot;则指定nginx的配置文件路径，当你有两个nginx时，这个是很必要的
-                  </li>
-                </ul>
-              </li>
-              <li>你还可以使用&quot;--add-moudle=xxxx&quot;来安装各种各样的拓展模块</li>
-            </ul>
-          </li>
-        </ul>
-        <h2>启动</h2>
-        <ul>
-          <li>安装完之后默认就已经启动了</li>
-          <li>
-            如果80端口被占用或者你想要重启或更改配置什么的，请看<a
-              href="http://blog.hadream.ltd/index.php/archives/20/"
-              >「教程」Centos上的nginx使用</a
-            >
-          </li>
-        </ul>
-      </article>
-    </main>
-  </body>
+<ul>
+<li>PS：在./configure部分，可以添加参数以添加各种扩展和调整安装目录等<ul>
+<li>很重要的一点就是解决*&quot;conf/koi-win&quot; 与&quot;/usr/local/nginx/conf/koi-win&quot; 为同一文件*这个问题</li>
+<li>要解决这个问题，可以使用<code>./configure --prefix=&lt;path_install_nginx&gt; --conf-path=&lt;path_to_nginx_conf&gt;</code><ul>
+<li>&quot;--prefix&quot;项指定nginx的安装目录，之后会在指定的目录下生成各种文件</li>
+<li>&quot;--conf-path&quot;则指定nginx的配置文件路径，当你有两个nginx时，这个是很必要的</li>
+</ul>
+</li>
+<li>你还可以使用&quot;--add-moudle=xxxx&quot;来安装各种各样的拓展模块</li>
+</ul>
+</li>
+</ul>
+<h2>启动</h2>
+<ul>
+<li>安装完之后默认就已经启动了</li>
+<li>如果80端口被占用或者你想要重启或更改配置什么的，请看<a href="http://blog.hadream.ltd/index.php/archives/20/">「教程」Centos上的nginx使用</a></li>
+</ul>
+</article>
+        </main>
+    </body>
 
-  <script type="module">
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
 
-  for (const el of document.querySelectorAll("time.localized")) {
-    const date = new Date(el.dateTime);
-    el.textContent = formatter.format(date);
-  }
-  </script>
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>

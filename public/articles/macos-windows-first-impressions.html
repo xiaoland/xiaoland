@@ -1,391 +1,283 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="蓝汁酱">
-    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
-    <title>「报告」MacOS与Windows使用体验上手简单对比</title>
-    <meta
-      name="description"
-      content="报告 MacOS与Windows使用体验上手简单对比 本文参与影视飓风在2023.7.10 20举办的Mac与Win系统调查 背景说明 鄙人最近很幸运，得到了一次在互联网公司的实习经验。而公司分配的电脑是 MacBookPro 2019 15，配置如下 不选择win本是因为配备的"
-    >
-    <meta
-      property="og:url"
-      content="https://lanzhijiang.dev/articles/macos-windows-first-impressions"
-    >
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="「报告」MacOS与Windows使用体验上手简单对比">
-    <meta
-      property="og:description"
-      content="报告 MacOS与Windows使用体验上手简单对比 本文参与影视飓风在2023.7.10 20举办的Mac与Win系统调查 背景说明 鄙人最近很幸运，得到了一次在互联网公司的实习经验。而公司分配的电脑是 MacBookPro 2019 15，配置如下 不选择win本是因为配备的"
-    >
-    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
-    <meta property="og:site_name" content="蓝汁酱的小站">
-    <meta property="og:locale" content="zh_CN">
-    <link rel="canonical" href="https://lanzhijiang.dev/articles/macos-windows-first-impressions">
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/variables.css">
-    <link rel="stylesheet" href="/articles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a
-        id="page-back"
-        class="typo-control flex-row spacing-xs items-center"
-        href="/"
-        onclick="
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>「报告」MacOS与Windows使用体验上手简单对比</title>
+        <meta name="description" content="报告 MacOS与Windows使用体验上手简单对比 本文参与影视飓风在2023.7.10 20举办的Mac与Win系统调查 背景说明 鄙人最近很幸运，得到了一次在互联网公司的实习经验。而公司分配的电脑是 MacBookPro 2019 15，配置如下 不选择win本是因为配备的" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/macos-windows-first-impressions" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="「报告」MacOS与Windows使用体验上手简单对比" />
+        <meta property="og:description" content="报告 MacOS与Windows使用体验上手简单对比 本文参与影视飓风在2023.7.10 20举办的Mac与Win系统调查 背景说明 鄙人最近很幸运，得到了一次在互联网公司的实习经验。而公司分配的电脑是 MacBookPro 2019 15，配置如下 不选择win本是因为配备的" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/macos-windows-first-impressions" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
                     if (history.length > 1) {
                         history.back();
                         return false;
                     }
                 "
-      >
-        <span class="material-symbols">arrow_back</span>
-        <span>返回</span>
-      </a>
-      <h1>「报告」MacOS与Windows使用体验上手简单对比</h1>
-      <dl id="meta">
-        <dt>最后更新于</dt>
-        <dd>
-          <time id="last-updated-at" class="localized" datetime="2023-07-13T08:11:00Z" />
-        </dd>
-        <!--firstWordAt
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>「报告」MacOS与Windows使用体验上手简单对比</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2023-07-13T08:11:00Z"
+                    />
+                </dd>
+                <!-- createdAt
                 <dt>开始于</dt>
                 <dd>
-                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                    <time datetime="2023-07-13T08:11:00Z">${data.createdAt}</time>
                 </dd>
-                firstWordAt-->
-      </dl>
-    </header>
-    <main>
-      <article>
-        <blockquote>
-          <p>本文还特别参与影视飓风在2023.7.10-20举办的Mac与Win系统调查</p>
-        </blockquote>
-        <h3>背景说明</h3>
-        <ul>
-          <li>
-            鄙人最近很幸运，得到了一次在互联网公司的实习经验。而公司分配的电脑是 MacBookPro 2019
-            15，配置如下
-            <ul>
-              <li>不选择win本是因为配备的win本性能赢弱。但是macbook的纸面性能也没好到哪里</li>
-              <li>
-                <img
-                  src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/85de998b0566dcb4e33e92d25a6f-2d56e894.png"
-                  alt=""
-                >
-              </li>
-            </ul>
-          </li>
-          <li>
-            现在，实习结束，我已经用Mac成功地开发了一些项目
-            <ul>
-              <li>Python、Docker、Rust、Swift</li>
-            </ul>
-          </li>
-          <li>
-            在此之前，长达8年的时光里，我都使用的是Win，我想我还是有发言权的
-            <ul>
-              <li>但是，我虽然有使用过win本，但是有整整5年，我都用的是Win的台式机</li>
-            </ul>
-          </li>
-        </ul>
-        <h3>介绍</h3>
-        <ul>
-          <li>
-            在这里，我将会就我这一个月对Mac的使用体验展开来谈谈
-            <ul>
-              <li>请注意！我不是专业人士，本对比只从我的直观使用上出发，不考虑性价比</li>
-              <li>和我使用场景越相近越准确，很有可能隔行如隔山</li>
-            </ul>
-          </li>
-          <li>桌面浅窥（没错，我是三个显示器，两个通过type-c外接）</li>
-        </ul>
-        <p>
-          <img
-            src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/8d40328188853e2eed85887a28be-cb65cd08.png"
-            alt=""
-          >
-        </p>
-        <p>
-          <img
-            src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/1efc8ad5f6506946200050042514-8bf44355.png"
-            alt=""
-          >
-        </p>
-        <p>
-          <img
-            src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/cb2c566f3aa8ed51188ce4e0f399-0d802e18.png"
-            alt=""
-          >
-        </p>
-        <h3>系统设置</h3>
-        <h4>印象：还行，上手要点力气</h4>
-        <h4>经过</h4>
-        <ul>
-          <li>里面的许多名词都比较...隐晦？而且分类不大好找</li>
-          <li>
-            自从13更新以后，和ios和ipad的设置界面就统一了7
-            <ul>
-              <li>在13之前，我记得是分了几大类的，图标也很明确，一点就行，但是现在很费眼力</li>
-            </ul>
-          </li>
-        </ul>
-        <h4>比较</h4>
-        <ul>
-          <li>没什么好比较的，设置这种东西本来就不好弄，你看windows也那个鬼样子</li>
-        </ul>
-        <h3>输入法</h3>
-        <h4>印象：有点无语</h4>
-        <h4>经过</h4>
-        <ul>
-          <li>
-            可以说是成功地改变了我切换中英文输入法的习惯，不知道为什么一定要设置在大小写锁上，很痛苦
-            <ul>
-              <li>
-                但是可以冷静下来想一想，在CapsLock切换输入法是很方便的，Shift还要扯一扯，输入大写直接Shift也行
-              </li>
-            </ul>
-          </li>
-          <li>
-            就算不说这个快捷键的问题，苹果自带的中文输入法经常用久了就很卡，太难受了
-            <ul>
-              <li>这不是蓝牙问题，因为我用自带的键盘也是这样</li>
-              <li>据说是因为爆内存</li>
-            </ul>
-          </li>
-        </ul>
-        <h4>比较</h4>
-        <ul>
-          <li>没有用过别的输入法，不知道别的输入法会不会这样 但是，这确实让我很不爽</li>
-          <li>可是，又要但是了，我的台式机的windows输入法很卡顿，卡到爆炸那种，不清楚原因</li>
-        </ul>
-        <h3>软件启动</h3>
-        <h4>印象：非常优秀</h4>
-        <h4>经过</h4>
-        <ul>
-          <li>启动速度都挺快的，就算不快，也可以看应用图标蹦跶，而不是那个烦死人的转圈圈</li>
-          <li>
-            我本人是不喜欢任务栏很多东西的。但是不知道为什么，Dock栏东西多我就没问题？很奇怪
-            而且就算Dock栏上面没有常驻，我也可以四指一收，进入应用界面启动，图标很大，找应用很方便
-            <ul>
-              <li>
-                <img
-                  src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/b488f03e4219793f6a38074341c7-425ff72a.png"
-                  alt="图"
-                >
-              </li>
-            </ul>
-          </li>
-          <li>
-            而且很多软件似乎关闭窗口后都不是真正退出，这个会在软件下方显示一个点。这样下次打开窗口会快很多
-            <ul>
-              <li>
-                <img
-                  src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/2fd92773f0daf53d2d0adc5eb215-98544658.png"
-                  alt=""
-                >
-              </li>
-            </ul>
-          </li>
-          <li>除此之外，还可以用聚焦搜索打开，这个超级方便</li>
-        </ul>
-        <h4>比较</h4>
-        <ul>
-          <li>
-            比起windows10的磁贴来说，整理好看了，半天找不到；可是不好好整理，风格不统一，丑到爆
-            不得不说Mac的应用启动很方便直观（看习惯之后，并不会觉得丑）
-          </li>
-          <li>windows有推出搜索功能，但是需要进行一些设置，不然搜索效果真的不好</li>
-          <li>
-            而且，就算设置了索引等等，还是会多出来很多我不想要的内容，很难受（换一个角度，搜索很强大）
-            <ul>
-              <li>
-                <img
-                  src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/e230608c95c3c002eb6ceadbde40-89cc53a2.png"
-                  alt=""
-                >
-              </li>
-            </ul>
-          </li>
-          <li>
-            总的来说，两家在这方面是无伤大雅的
-            需要提醒，Win的应用真的哪里都是，到处乱跑，在没有搜索之前，不知道桌面的快捷图标要怎样
-          </li>
-        </ul>
-        <h3>软件安装与卸载</h3>
-        <h4>印象：反直觉</h4>
-        <h4>经历</h4>
-        <ul>
-          <li>
-            不知道是不是新的技术还是怎样，Mac应用大多数都是拖进应用文件夹拷贝完毕就行了？！
-            于是，卸载也不要太方便，直接丢进垃圾桶即可
-          </li>
-          <li>
-            <img
-              src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/fa3220632533d74260b10422312c-e9ef3af6.png"
-              alt=""
-            >
-          </li>
-        </ul>
-        <h4>比较</h4>
-        <ul>
-          <li>
-            相比于win细心挑选安装目录以及更多的所谓软件数据、缓存文件夹（某微信）等等，Mac真的不要太放心
-          </li>
-          <li>大家也知道Mac对软件权限是严格管控的，小白用Mac真的不用担心流氓软件</li>
-        </ul>
-        <h3>文件管理</h3>
-        <h4>印象：不理解-&gt;理解-&gt;成为</h4>
-        <h4>经历</h4>
-        <ul>
-          <li>
-            我一直都认为文件管理一定要做好，而且电脑就应该有分区等等
-            可是Mac告诉我，你别管，就这一个分区，而且文件就都放在这些用户的文件夹下面
-          </li>
-          <li>
-            一开始我很抵触，截图放桌面、下载就在默认下载中...后来我摆烂了
-            代码和文档之类的就在文档就行，其它一切我都不在乎。桌面定期清理就好
-          </li>
-          <li>Finder的强大就不用我多说了，空格预览啦、丰富的视图选项啦...</li>
-          <li>
-            不过Finder还有一些操作我不大喜欢
-            <ul>
-              <li>剪切为什么不是cmd+x，还要套一个opt</li>
-              <li>还有复制与拷贝的区别，诶...</li>
-              <li>
-                <img
-                  src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/87de88143f58dd1e3914ea379ea3-3320397e.png"
-                  alt=""
-                >
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <h4>比较</h4>
-        <ul>
-          <li>
-            Finder还是薄纱Win的文件资源管理器的
-            <ul>
-              <li>气死我，这个迟迟不来不稳定的多标签页、预览等等功能都没有原生支持</li>
-            </ul>
-          </li>
-          <li>Mac虽然没有很突出分区的概念，但不是没有，我没有应该是因为我只有一个256g的小硬盘</li>
-        </ul>
-        <h3>快捷键</h3>
-        <h4>印象：还行</h4>
-        <h4>经历：</h4>
-        <ul>
-          <li>我得说，用win本的转过来，还挺要命</li>
-          <li>
-            但是习惯以后，会发现和 唱跳rap篮球
-            键绑定的都是什么牛马设计。这个边边角的按键，还真的不大行
-          </li>
-          <li>
-            除此之外，Mac的文本方面还有这一套组合很好用：opt+左右箭头
-            可以以分词为单位来移动光标，写代码真的很好用
-          </li>
-        </ul>
-        <h4>比较</h4>
-        <ul>
-          <li>没什么好比的，各有所爱，也都没有很逆天什么的</li>
-        </ul>
-        <h3>开发与工作</h3>
-        <h4>印象：好用</h4>
-        <h4>经历：</h4>
-        <ul>
-          <li>首先，我是做python方面的开发，用的是vscode，后面用过xcode做swift（纯纯xcode太烂）</li>
-          <li>
-            这一个月用下来，环境等等的配置都没有让我操心过，使用很舒畅，后面还写了一点点rust，也是ok的
-          </li>
-          <li>
-            终端且不谈，肯定是比win的体验好太多了，什么自动恢复、外观、与bash很贴合，就不展开了，谁用谁知道
-          </li>
-          <li>软件支持方面，其实我要用的都有对应的mac版本，可以看我上面贴出的所有应用</li>
-          <li>
-            但这些都是别的系统能实现的，真正提高我效率的是优秀的多桌面调度系统，每一个屏幕都独立切换，这不是必须的嘛，薄纱win
-            还有Mac独有的全屏应用，很沉浸，清爽
-          </li>
-          <li>
-            除了多桌面，调度中心本身也很优秀，不管我的桌面有多少窗口，我轻轻一扫就可以（前提得有触控板或者苹果鼠标）
-          </li>
-        </ul>
-        <h4>比较</h4>
-        <ul>
-          <li>
-            Mac用来做开发是好的，我们这边开发基本都用Mac，软件支持问题很少见
-            <ul>
-              <li>再补一句，价格合适的情况下，Mac是好，可是...</li>
-            </ul>
-          </li>
-          <li>
-            大爱Mac的桌面，动效优雅丝滑，强大的多桌面大大提升我的效率（不像某W到现在多桌面前不久才支持独立壁纸）
-          </li>
-          <li>Win也有类似调度中心的多任务界面，功能也行，就是动效和界面emmm</li>
-        </ul>
-        <h3>TourchBar</h3>
-        <h4>印象：听说鸡肋-&gt;还行-&gt;有点不妙</h4>
-        <h4>经历</h4>
-        <ul>
-          <li>
-            在用Mac之前，就听过有人吐槽TB不能盲点，交互效果不好。这一个月下来，我是认同的（虽然我没有盲点的需求）
-            但是，有一点我很不爽，有一些工具（比如截屏）的操作，在TB上，但是我不知道，我找遍整个屏幕都找不到，又退不出来，急死我
-          </li>
-        </ul>
-        <h4>比较</h4>
-        <ul>
-          <li>独占，没得比。win上比较类似的应该是副屏之类的</li>
-        </ul>
-        <h3>触控板</h3>
-        <h4>印象：不要太好用</h4>
-        <h4>经历</h4>
-        <ul>
-          <li>用过的人应该都知道这种丝滑的感受。</li>
-          <li>
-            就算抛开其质感，功能也非常亮眼。可以快速切换桌面(空间)，可以进入启动器(就是全部应用)，可以进入调度中心，炒鸡好用
-          </li>
-          <li>现在我终于理解为什么那么贵的妙控板也有人买了(只是一点点理解)</li>
-        </ul>
-        <h3>发热</h3>
-        <h4>印象：火龙</h4>
-        <h4>经历</h4>
-        <ul>
-          <li>虽然我没有对热源进行明确，但可以知道的是确实很烫，这也无可奈何，毕竟是轻薄本</li>
-          <li>我平时都是用支架垫起来使用的，改善效果不是很能感知到</li>
-          <li>
-            但是，我一般都是外接蓝牙键盘使用，关于机身键盘烫不烫手，我偶尔试过，不会烫到，但也不凉快
-          </li>
-        </ul>
-        <h4>评价</h4>
-        <ul>
-          <li>
-            挺NB，热成这个样子，带着三个显示器，一堆后台，也没有出现任何卡顿（输入法除外），动画依然丝滑
-          </li>
-          <li>Win这边不怎么用笔记本，不好评价，但是SurfacePro是挺SB的，SP的那个温度，MBP欢着呢</li>
-        </ul>
-        <h3>总结</h3>
-        <ul>
-          <li>Mac的美学、秩序以及系统，我很喜欢，就是价格不大美丽</li>
-          <li>
-            Win的历史包袱、兼容性要求摆在那里，这也无可奈何，我只能球球Win重回Win7那样的水准好吧
-          </li>
-        </ul>
-      </article>
-    </main>
-  </body>
+                createdAt-->
+                <!-- finishedAt
+                <dt>完成于</dt>
+                <dd>
+                    <time datetime="${data.finishedAt}">${data.finishedAt}</time>
+                </dd>
+                finishedAt -->
+            </dl>
+        </header>
+        <main>
+            <article><blockquote>
+<p>本文还特别参与影视飓风在2023.7.10-20举办的Mac与Win系统调查</p>
+</blockquote>
+<h3>背景说明</h3>
+<ul>
+<li>鄙人最近很幸运，得到了一次在互联网公司的实习经验。而公司分配的电脑是 MacBookPro 2019 15，配置如下<ul>
+<li>不选择win本是因为配备的win本性能赢弱。但是macbook的纸面性能也没好到哪里</li>
+<li><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/85de998b0566dcb4e33e92d25a6f-2d56e894.png" alt=""></li>
+</ul>
+</li>
+<li>现在，实习结束，我已经用Mac成功地开发了一些项目<ul>
+<li>Python、Docker、Rust、Swift</li>
+</ul>
+</li>
+<li>在此之前，长达8年的时光里，我都使用的是Win，我想我还是有发言权的<ul>
+<li>但是，我虽然有使用过win本，但是有整整5年，我都用的是Win的台式机</li>
+</ul>
+</li>
+</ul>
+<h3>介绍</h3>
+<ul>
+<li>在这里，我将会就我这一个月对Mac的使用体验展开来谈谈<ul>
+<li>请注意！我不是专业人士，本对比只从我的直观使用上出发，不考虑性价比</li>
+<li>和我使用场景越相近越准确，很有可能隔行如隔山</li>
+</ul>
+</li>
+<li>桌面浅窥（没错，我是三个显示器，两个通过type-c外接）</li>
+</ul>
+<p><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/8d40328188853e2eed85887a28be-cb65cd08.png" alt=""></p>
+<p><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/1efc8ad5f6506946200050042514-8bf44355.png" alt=""></p>
+<p><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/cb2c566f3aa8ed51188ce4e0f399-0d802e18.png" alt=""></p>
+<h3>系统设置</h3>
+<h4>印象：还行，上手要点力气</h4>
+<h4>经过</h4>
+<ul>
+<li>里面的许多名词都比较...隐晦？而且分类不大好找</li>
+<li>自从13更新以后，和ios和ipad的设置界面就统一了7  <ul>
+<li>在13之前，我记得是分了几大类的，图标也很明确，一点就行，但是现在很费眼力</li>
+</ul>
+</li>
+</ul>
+<h4>比较</h4>
+<ul>
+<li>没什么好比较的，设置这种东西本来就不好弄，你看windows也那个鬼样子</li>
+</ul>
+<h3>输入法</h3>
+<h4>印象：有点无语</h4>
+<h4>经过</h4>
+<ul>
+<li>可以说是成功地改变了我切换中英文输入法的习惯，不知道为什么一定要设置在大小写锁上，很痛苦<ul>
+<li>但是可以冷静下来想一想，在CapsLock切换输入法是很方便的，Shift还要扯一扯，输入大写直接Shift也行</li>
+</ul>
+</li>
+<li>就算不说这个快捷键的问题，苹果自带的中文输入法经常用久了就很卡，太难受了<ul>
+<li>这不是蓝牙问题，因为我用自带的键盘也是这样</li>
+<li>据说是因为爆内存</li>
+</ul>
+</li>
+</ul>
+<h4>比较</h4>
+<ul>
+<li>没有用过别的输入法，不知道别的输入法会不会这样
+但是，这确实让我很不爽</li>
+<li>可是，又要但是了，我的台式机的windows输入法很卡顿，卡到爆炸那种，不清楚原因</li>
+</ul>
+<h3>软件启动</h3>
+<h4>印象：非常优秀</h4>
+<h4>经过</h4>
+<ul>
+<li>启动速度都挺快的，就算不快，也可以看应用图标蹦跶，而不是那个烦死人的转圈圈</li>
+<li>我本人是不喜欢任务栏很多东西的。但是不知道为什么，Dock栏东西多我就没问题？很奇怪
+而且就算Dock栏上面没有常驻，我也可以四指一收，进入应用界面启动，图标很大，找应用很方便<ul>
+<li><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/b488f03e4219793f6a38074341c7-425ff72a.png" alt="图"></li>
+</ul>
+</li>
+<li>而且很多软件似乎关闭窗口后都不是真正退出，这个会在软件下方显示一个点。这样下次打开窗口会快很多<ul>
+<li><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/2fd92773f0daf53d2d0adc5eb215-98544658.png" alt=""></li>
+</ul>
+</li>
+<li>除此之外，还可以用聚焦搜索打开，这个超级方便</li>
+</ul>
+<h4>比较</h4>
+<ul>
+<li>比起windows10的磁贴来说，整理好看了，半天找不到；可是不好好整理，风格不统一，丑到爆
+不得不说Mac的应用启动很方便直观（看习惯之后，并不会觉得丑）</li>
+<li>windows有推出搜索功能，但是需要进行一些设置，不然搜索效果真的不好</li>
+<li>而且，就算设置了索引等等，还是会多出来很多我不想要的内容，很难受（换一个角度，搜索很强大）<ul>
+<li><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/e230608c95c3c002eb6ceadbde40-89cc53a2.png" alt=""></li>
+</ul>
+</li>
+<li>总的来说，两家在这方面是无伤大雅的
+需要提醒，Win的应用真的哪里都是，到处乱跑，在没有搜索之前，不知道桌面的快捷图标要怎样</li>
+</ul>
+<h3>软件安装与卸载</h3>
+<h4>印象：反直觉</h4>
+<h4>经历</h4>
+<ul>
+<li>不知道是不是新的技术还是怎样，Mac应用大多数都是拖进应用文件夹拷贝完毕就行了？！
+于是，卸载也不要太方便，直接丢进垃圾桶即可</li>
+<li><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/fa3220632533d74260b10422312c-e9ef3af6.png" alt=""></li>
+</ul>
+<h4>比较</h4>
+<ul>
+<li>相比于win细心挑选安装目录以及更多的所谓软件数据、缓存文件夹（某微信）等等，Mac真的不要太放心</li>
+<li>大家也知道Mac对软件权限是严格管控的，小白用Mac真的不用担心流氓软件</li>
+</ul>
+<h3>文件管理</h3>
+<h4>印象：不理解-&gt;理解-&gt;成为</h4>
+<h4>经历</h4>
+<ul>
+<li>我一直都认为文件管理一定要做好，而且电脑就应该有分区等等
+可是Mac告诉我，你别管，就这一个分区，而且文件就都放在这些用户的文件夹下面</li>
+<li>一开始我很抵触，截图放桌面、下载就在默认下载中...后来我摆烂了
+代码和文档之类的就在文档就行，其它一切我都不在乎。桌面定期清理就好</li>
+<li>Finder的强大就不用我多说了，空格预览啦、丰富的视图选项啦...</li>
+<li>不过Finder还有一些操作我不大喜欢<ul>
+<li>剪切为什么不是cmd+x，还要套一个opt</li>
+<li>还有复制与拷贝的区别，诶...</li>
+<li><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/macos-windows-first-impressions/87de88143f58dd1e3914ea379ea3-3320397e.png" alt=""></li>
+</ul>
+</li>
+</ul>
+<h4>比较</h4>
+<ul>
+<li>Finder还是薄纱Win的文件资源管理器的<ul>
+<li>气死我，这个迟迟不来不稳定的多标签页、预览等等功能都没有原生支持</li>
+</ul>
+</li>
+<li>Mac虽然没有很突出分区的概念，但不是没有，我没有应该是因为我只有一个256g的小硬盘</li>
+</ul>
+<h3>快捷键</h3>
+<h4>印象：还行</h4>
+<h4>经历：</h4>
+<ul>
+<li>我得说，用win本的转过来，还挺要命</li>
+<li>但是习惯以后，会发现和 唱跳rap篮球 键绑定的都是什么牛马设计。这个边边角的按键，还真的不大行</li>
+<li>除此之外，Mac的文本方面还有这一套组合很好用：opt+左右箭头 可以以分词为单位来移动光标，写代码真的很好用</li>
+</ul>
+<h4>比较</h4>
+<ul>
+<li>没什么好比的，各有所爱，也都没有很逆天什么的</li>
+</ul>
+<h3>开发与工作</h3>
+<h4>印象：好用</h4>
+<h4>经历：</h4>
+<ul>
+<li>首先，我是做python方面的开发，用的是vscode，后面用过xcode做swift（纯纯xcode太烂）</li>
+<li>这一个月用下来，环境等等的配置都没有让我操心过，使用很舒畅，后面还写了一点点rust，也是ok的</li>
+<li>终端且不谈，肯定是比win的体验好太多了，什么自动恢复、外观、与bash很贴合，就不展开了，谁用谁知道</li>
+<li>软件支持方面，其实我要用的都有对应的mac版本，可以看我上面贴出的所有应用</li>
+<li>但这些都是别的系统能实现的，真正提高我效率的是优秀的多桌面调度系统，每一个屏幕都独立切换，这不是必须的嘛，薄纱win
+还有Mac独有的全屏应用，很沉浸，清爽</li>
+<li>除了多桌面，调度中心本身也很优秀，不管我的桌面有多少窗口，我轻轻一扫就可以（前提得有触控板或者苹果鼠标）</li>
+</ul>
+<h4>比较</h4>
+<ul>
+<li>Mac用来做开发是好的，我们这边开发基本都用Mac，软件支持问题很少见<ul>
+<li>再补一句，价格合适的情况下，Mac是好，可是...</li>
+</ul>
+</li>
+<li>大爱Mac的桌面，动效优雅丝滑，强大的多桌面大大提升我的效率（不像某W到现在多桌面前不久才支持独立壁纸）</li>
+<li>Win也有类似调度中心的多任务界面，功能也行，就是动效和界面emmm</li>
+</ul>
+<h3>TourchBar</h3>
+<h4>印象：听说鸡肋-&gt;还行-&gt;有点不妙</h4>
+<h4>经历</h4>
+<ul>
+<li>在用Mac之前，就听过有人吐槽TB不能盲点，交互效果不好。这一个月下来，我是认同的（虽然我没有盲点的需求）
+但是，有一点我很不爽，有一些工具（比如截屏）的操作，在TB上，但是我不知道，我找遍整个屏幕都找不到，又退不出来，急死我</li>
+</ul>
+<h4>比较</h4>
+<ul>
+<li>独占，没得比。win上比较类似的应该是副屏之类的</li>
+</ul>
+<h3>触控板</h3>
+<h4>印象：不要太好用</h4>
+<h4>经历</h4>
+<ul>
+<li>用过的人应该都知道这种丝滑的感受。</li>
+<li>就算抛开其质感，功能也非常亮眼。可以快速切换桌面(空间)，可以进入启动器(就是全部应用)，可以进入调度中心，炒鸡好用</li>
+<li>现在我终于理解为什么那么贵的妙控板也有人买了(只是一点点理解)</li>
+</ul>
+<h3>发热</h3>
+<h4>印象：火龙</h4>
+<h4>经历</h4>
+<ul>
+<li>虽然我没有对热源进行明确，但可以知道的是确实很烫，这也无可奈何，毕竟是轻薄本</li>
+<li>我平时都是用支架垫起来使用的，改善效果不是很能感知到</li>
+<li>但是，我一般都是外接蓝牙键盘使用，关于机身键盘烫不烫手，我偶尔试过，不会烫到，但也不凉快</li>
+</ul>
+<h4>评价</h4>
+<ul>
+<li>挺NB，热成这个样子，带着三个显示器，一堆后台，也没有出现任何卡顿（输入法除外），动画依然丝滑</li>
+<li>Win这边不怎么用笔记本，不好评价，但是SurfacePro是挺SB的，SP的那个温度，MBP欢着呢</li>
+</ul>
+<h3>总结</h3>
+<ul>
+<li>Mac的美学、秩序以及系统，我很喜欢，就是价格不大美丽</li>
+<li>Win的历史包袱、兼容性要求摆在那里，这也无可奈何，我只能球球Win重回Win7那样的水准好吧</li>
+</ul>
+</article>
+        </main>
+    </body>
 
-  <script type="module">
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
 
-  for (const el of document.querySelectorAll("time.localized")) {
-    const date = new Date(el.dateTime);
-    el.textContent = formatter.format(date);
-  }
-  </script>
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>

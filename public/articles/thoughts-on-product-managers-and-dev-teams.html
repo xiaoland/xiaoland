@@ -1,167 +1,140 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="蓝汁酱">
-    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
-    <title>关于产品经理以及开发团队的随想</title>
-    <meta
-      name="description"
-      content="如头图所示，本文是关于零工经济下的软件开发团队的一些转型思考 从何而来？ 这个想法的出发点是关于工作制度的思考 我想到，如果一个人要持续进步，那他就不应该永远、或者说太长时间地做没有创新、改变的工作 而我恰好&quot;从事于&quot;互联网或者软件开发行业... 这是一个日新月异的行业。所以你可"
-    >
-    <meta
-      property="og:url"
-      content="https://lanzhijiang.dev/articles/thoughts-on-product-managers-and-dev-teams"
-    >
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="关于产品经理以及开发团队的随想">
-    <meta
-      property="og:description"
-      content="如头图所示，本文是关于零工经济下的软件开发团队的一些转型思考 从何而来？ 这个想法的出发点是关于工作制度的思考 我想到，如果一个人要持续进步，那他就不应该永远、或者说太长时间地做没有创新、改变的工作 而我恰好&quot;从事于&quot;互联网或者软件开发行业... 这是一个日新月异的行业。所以你可"
-    >
-    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
-    <meta property="og:site_name" content="蓝汁酱的小站">
-    <meta property="og:locale" content="zh_CN">
-    <link
-      rel="canonical"
-      href="https://lanzhijiang.dev/articles/thoughts-on-product-managers-and-dev-teams"
-    >
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/variables.css">
-    <link rel="stylesheet" href="/articles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a
-        id="page-back"
-        class="typo-control flex-row spacing-xs items-center"
-        href="/"
-        onclick="
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>关于产品经理以及开发团队的随想</title>
+        <meta name="description" content="如头图所示，本文是关于零工经济下的软件开发团队的一些转型思考 从何而来？ 这个想法的出发点是关于工作制度的思考 我想到，如果一个人要持续进步，那他就不应该永远、或者说太长时间地做没有创新、改变的工作 而我恰好&quot;从事于&quot;互联网或者软件开发行业... 这是一个日新月异的行业。所以你可" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/thoughts-on-product-managers-and-dev-teams" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="关于产品经理以及开发团队的随想" />
+        <meta property="og:description" content="如头图所示，本文是关于零工经济下的软件开发团队的一些转型思考 从何而来？ 这个想法的出发点是关于工作制度的思考 我想到，如果一个人要持续进步，那他就不应该永远、或者说太长时间地做没有创新、改变的工作 而我恰好&quot;从事于&quot;互联网或者软件开发行业... 这是一个日新月异的行业。所以你可" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/thoughts-on-product-managers-and-dev-teams" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
                     if (history.length > 1) {
                         history.back();
                         return false;
                     }
                 "
-      >
-        <span class="material-symbols">arrow_back</span>
-        <span>返回</span>
-      </a>
-      <h1>关于产品经理以及开发团队的随想</h1>
-      <dl id="meta">
-        <dt>最后更新于</dt>
-        <dd>
-          <time id="last-updated-at" class="localized" datetime="2024-03-15T12:58:00Z" />
-        </dd>
-        <!--firstWordAt
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>关于产品经理以及开发团队的随想</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2024-03-15T12:58:00Z"
+                    />
+                </dd>
+                <!-- createdAt
                 <dt>开始于</dt>
                 <dd>
-                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                    <time datetime="2024-03-15T12:58:00Z">${data.createdAt}</time>
                 </dd>
-                firstWordAt-->
-      </dl>
-    </header>
-    <main>
-      <article>
-        <p>
-          <img
-            src="https://oss.lanzhijiang.dev/xiaoland/images/articles/thoughts-on-product-managers-and-dev-teams/65f448532988a-c3c4a93c.jpeg"
-            alt="cover"
-          >
-        </p>
-        <p>如头图所示，本文是关于零工经济下的软件开发团队的一些转型思考</p>
-        <h3>从何而来？</h3>
-        <p>这个想法的出发点是关于工作制度的思考</p>
-        <p>
-          我想到，如果一个人要持续进步，那他就不应该永远、或者说太长时间地做没有创新、改变的工作
-          而我恰好&quot;从事于&quot;互联网或者软件开发行业...
-        </p>
-        <p>这是一个日新月异的行业。所以你可能会说，怎么会缺乏创新呢？ @(nu)</p>
-        <p>
-          实际上，大多数的创新、真正的创新并不发生在普通公司的开发岗上
-          因为我们开发的不是技术，而是产品
-        </p>
-        <p>
-          当然，我们可以说为了实现产品，可能会出现技术研发的需求——没错，
-          但概率很小...大多数的我们是不会遇到的
-        </p>
-        <p>而且研发新技术，并不意味着你就有了对你足够有效的进步...</p>
-        <p>
-          什么是足够有效的进步？
-          我们都知道，如果一个岗位具备大量招人的可行性，那就一定有不可替代性的降低——
-          换句话说，你一定会面临被替代的风险
-        </p>
-        <p>
-          本质上，这不是技术问题 因为公司替换不替换你，考虑的是成本与收益的问题
-          从全局来看，你的技术可能真的不是很重要... @(xinsui)
-        </p>
-        <p>
-          为什么你可以被替换？ 我认为这是价值的单一性...脱离了公司，你能做商业吗？
-          我这里不打算赘述，只要你能清清楚楚明明白白地讲清楚一个完整的商业逻辑，那就可以...
-          大多数人都不行，因为他们，我们都只是打工人...我们被塑造成形状固定的零件
-        </p>
-        <p>然而，我们并不总是可塑的、或者重塑的代价太大了（年龄的增长、家庭）...</p>
-        <p>
-          所以，我认为，我们必须要持续学习与进步——
-          而最好的学习方法就是，以用为学（当然以教为学也很好，但我认为那样缺乏实际应用）
-        </p>
-        <p>在工作中学习无疑是最好的选择...</p>
-        <h3>趋势是什么</h3>
-        <p>实际上，就算我们现在不这么做，未来也会往这个方向发展...</p>
-        <p>因为互联网、终端技术的进一步发展，远程办公势必会成为更加高效的办公途径</p>
-        <p>
-          想象一下，你不必再为了公司而做出这样那样生活上的妥协，将自己与公司深深绑定...
-          做完一个业务，你就可以离开这个团队...随之加入别的团队
-        </p>
-        <h3>有什么好处</h3>
-        <p>
-          显而易见的，对你自己来说，可以见识、了解更多，从而拥有丰富的学习机会。
-          你也不用再被劳务合同绑定，你是一个灵活的、自由的人。
-        </p>
-        <p>对于公司来说，也可以大大降低人事管理成本、薪酬成本（福利的削减）</p>
-        <p>
-          而且实际上，很多公司的产品开发团队也是各种团队拉人组成的
-          在项目完成之后就会解散，只留下一些人来做运营与迭代
-        </p>
-        <h3>为什么会这样</h3>
-        <p>这里只探讨软件产品服务的开发...因为别的领域我没有什么经验</p>
-        <p>
-          随着AI的发展、新的终端设备的出现，SaaS公司肯定是越来越多的
-          大公司、巨头可能占据很大一部分市场，但细分市场的空隙会由小型公司来填补
-          无论是旁依别的软件的生态，还是自己有一个独立的软件产品...这类公司终归是不会少的
-        </p>
-        <p>这些产品的特点就是，体量小，数量多... 那么就特别适合类似零工经济的雇用方式</p>
-        <h3>完全这样？</h3>
-        <p>我当然不是这个意思 但肯定会有这个模式的出现，且迎来增长，然后持续存在...</p>
-        <p>
-          当然，目前讨论的还只是一个开发团队、产品团队...
-          如果要探讨整个公司变成一群灵活的零工加上核心成员的设想，我觉得要探讨的内容就特别多
-        </p>
-        <p>想要记录下来，只是觉得这个想法很有可能发生，而且对我们也有一些指导意义</p>
-        <h3>我们应该做什么</h3>
-        <blockquote>
-          <p>什 么 都 不 做 ...（神奇海螺） @(huaji_han)</p>
-        </blockquote>
-        <p>好吧...每个人要做的都不一样</p>
-        <p>
-          我的建议是一定一定不要用为别人打工的思维去做事...
-          时刻都要思考你经手的业务、事情背后的原因、链路等等
-        </p>
-      </article>
-    </main>
-  </body>
+                createdAt-->
+                <!-- finishedAt
+                <dt>完成于</dt>
+                <dd>
+                    <time datetime="${data.finishedAt}">${data.finishedAt}</time>
+                </dd>
+                finishedAt -->
+            </dl>
+        </header>
+        <main>
+            <article><p><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/thoughts-on-product-managers-and-dev-teams/65f448532988a-c3c4a93c.jpeg" alt="cover"></p>
+<p>如头图所示，本文是关于零工经济下的软件开发团队的一些转型思考</p>
+<h3>从何而来？</h3>
+<p>这个想法的出发点是关于工作制度的思考</p>
+<p>我想到，如果一个人要持续进步，那他就不应该永远、或者说太长时间地做没有创新、改变的工作
+而我恰好&quot;从事于&quot;互联网或者软件开发行业...</p>
+<p>这是一个日新月异的行业。所以你可能会说，怎么会缺乏创新呢？ @(nu) </p>
+<p>实际上，大多数的创新、真正的创新并不发生在普通公司的开发岗上
+因为我们开发的不是技术，而是产品</p>
+<p>当然，我们可以说为了实现产品，可能会出现技术研发的需求——没错，
+但概率很小...大多数的我们是不会遇到的</p>
+<p>而且研发新技术，并不意味着你就有了对你足够有效的进步...</p>
+<p>什么是足够有效的进步？
+我们都知道，如果一个岗位具备大量招人的可行性，那就一定有不可替代性的降低——
+换句话说，你一定会面临被替代的风险</p>
+<p>本质上，这不是技术问题
+因为公司替换不替换你，考虑的是成本与收益的问题
+从全局来看，你的技术可能真的不是很重要... @(xinsui) </p>
+<p>为什么你可以被替换？
+我认为这是价值的单一性...脱离了公司，你能做商业吗？
+我这里不打算赘述，只要你能清清楚楚明明白白地讲清楚一个完整的商业逻辑，那就可以...
+大多数人都不行，因为他们，我们都只是打工人...我们被塑造成形状固定的零件</p>
+<p>然而，我们并不总是可塑的、或者重塑的代价太大了（年龄的增长、家庭）...</p>
+<p>所以，我认为，我们必须要持续学习与进步——
+而最好的学习方法就是，以用为学（当然以教为学也很好，但我认为那样缺乏实际应用）</p>
+<p>在工作中学习无疑是最好的选择...</p>
+<h3>趋势是什么</h3>
+<p>实际上，就算我们现在不这么做，未来也会往这个方向发展...</p>
+<p>因为互联网、终端技术的进一步发展，远程办公势必会成为更加高效的办公途径</p>
+<p>想象一下，你不必再为了公司而做出这样那样生活上的妥协，将自己与公司深深绑定...
+做完一个业务，你就可以离开这个团队...随之加入别的团队</p>
+<h3>有什么好处</h3>
+<p>显而易见的，对你自己来说，可以见识、了解更多，从而拥有丰富的学习机会。
+你也不用再被劳务合同绑定，你是一个灵活的、自由的人。</p>
+<p>对于公司来说，也可以大大降低人事管理成本、薪酬成本（福利的削减）</p>
+<p>而且实际上，很多公司的产品开发团队也是各种团队拉人组成的
+在项目完成之后就会解散，只留下一些人来做运营与迭代</p>
+<h3>为什么会这样</h3>
+<p>这里只探讨软件产品服务的开发...因为别的领域我没有什么经验</p>
+<p>随着AI的发展、新的终端设备的出现，SaaS公司肯定是越来越多的
+大公司、巨头可能占据很大一部分市场，但细分市场的空隙会由小型公司来填补
+无论是旁依别的软件的生态，还是自己有一个独立的软件产品...这类公司终归是不会少的</p>
+<p>这些产品的特点就是，体量小，数量多...
+那么就特别适合类似零工经济的雇用方式</p>
+<h3>完全这样？</h3>
+<p>我当然不是这个意思
+但肯定会有这个模式的出现，且迎来增长，然后持续存在...</p>
+<p>当然，目前讨论的还只是一个开发团队、产品团队...
+如果要探讨整个公司变成一群灵活的零工加上核心成员的设想，我觉得要探讨的内容就特别多</p>
+<p>想要记录下来，只是觉得这个想法很有可能发生，而且对我们也有一些指导意义</p>
+<h3>我们应该做什么</h3>
+<blockquote>
+<p>什 么 都 不 做 ...（神奇海螺） @(huaji_han) </p>
+</blockquote>
+<p>好吧...每个人要做的都不一样</p>
+<p>我的建议是一定一定不要用为别人打工的思维去做事...
+时刻都要思考你经手的业务、事情背后的原因、链路等等</p>
+</article>
+        </main>
+    </body>
 
-  <script type="module">
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
 
-  for (const el of document.querySelectorAll("time.localized")) {
-    const date = new Date(el.dateTime);
-    el.textContent = formatter.format(date);
-  }
-  </script>
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>

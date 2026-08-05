@@ -1,82 +1,83 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="蓝汁酱">
-    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
-    <title>「教程」flask生产环境部署</title>
-    <meta
-      name="description"
-      content="教程 flask生产环境部署 关于这个，网络上很多教程都抄来抄去，讲得东西不好好说明，弄的小白一头雾水 现在弄懂了，所以写一篇教程 我使用的是gunicorn结合supervisor的方案， 所以只能在linux上运行 关系图 ! 截屏2023 06 22 17.25.50.pn"
-    >
-    <meta property="og:url" content="https://lanzhijiang.dev/articles/flask-production-deployment">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="「教程」flask生产环境部署">
-    <meta
-      property="og:description"
-      content="教程 flask生产环境部署 关于这个，网络上很多教程都抄来抄去，讲得东西不好好说明，弄的小白一头雾水 现在弄懂了，所以写一篇教程 我使用的是gunicorn结合supervisor的方案， 所以只能在linux上运行 关系图 ! 截屏2023 06 22 17.25.50.pn"
-    >
-    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
-    <meta property="og:site_name" content="蓝汁酱的小站">
-    <meta property="og:locale" content="zh_CN">
-    <link rel="canonical" href="https://lanzhijiang.dev/articles/flask-production-deployment">
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/variables.css">
-    <link rel="stylesheet" href="/articles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a
-        id="page-back"
-        class="typo-control flex-row spacing-xs items-center"
-        href="/"
-        onclick="
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>「教程」flask生产环境部署</title>
+        <meta name="description" content="教程 flask生产环境部署 关于这个，网络上很多教程都抄来抄去，讲得东西不好好说明，弄的小白一头雾水 现在弄懂了，所以写一篇教程 我使用的是gunicorn结合supervisor的方案， 所以只能在linux上运行 关系图 ! 截屏2023 06 22 17.25.50.pn" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/flask-production-deployment" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="「教程」flask生产环境部署" />
+        <meta property="og:description" content="教程 flask生产环境部署 关于这个，网络上很多教程都抄来抄去，讲得东西不好好说明，弄的小白一头雾水 现在弄懂了，所以写一篇教程 我使用的是gunicorn结合supervisor的方案， 所以只能在linux上运行 关系图 ! 截屏2023 06 22 17.25.50.pn" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/flask-production-deployment" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
                     if (history.length > 1) {
                         history.back();
                         return false;
                     }
                 "
-      >
-        <span class="material-symbols">arrow_back</span>
-        <span>返回</span>
-      </a>
-      <h1>「教程」flask生产环境部署</h1>
-      <dl id="meta">
-        <dt>最后更新于</dt>
-        <dd>
-          <time id="last-updated-at" class="localized" datetime="2023-06-22T09:18:00Z" />
-        </dd>
-        <!--firstWordAt
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>「教程」flask生产环境部署</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2023-06-22T09:18:00Z"
+                    />
+                </dd>
+                <!-- createdAt
                 <dt>开始于</dt>
                 <dd>
-                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                    <time datetime="2023-06-22T09:18:00Z">${data.createdAt}</time>
                 </dd>
-                firstWordAt-->
-      </dl>
-    </header>
-    <main>
-      <article>
-        <ul>
-          <li>关于这个，网络上很多教程都抄来抄去，讲得东西不好好说明，弄的小白一头雾水</li>
-          <li>现在弄懂了，所以写一篇教程</li>
-          <li>我使用的是gunicorn结合supervisor的方案，<strong>所以只能在linux上运行</strong></li>
-        </ul>
-        <h3>关系图</h3>
-        <p>
-          <img
-            src="https://oss.lanzhijiang.dev/xiaoland/images/articles/flask-production-deployment/3392397338-dcca715b.png"
-            alt="截屏2023-06-22 17.25.50.png"
-          >截屏2023-06-22 17.25.50.png
-        </p>
-        <h3>gunicorn</h3>
-        <ul>
-          <li>传统的，使用pip安装即可</li>
-          <li>配置gunicorn(.py):</li>
-        </ul>
-        <pre><code>import gevent.monkey # 这个gevent也是pip安装即可，是用于协程的
+                createdAt-->
+                <!-- finishedAt
+                <dt>完成于</dt>
+                <dd>
+                    <time datetime="${data.finishedAt}">${data.finishedAt}</time>
+                </dd>
+                finishedAt -->
+            </dl>
+        </header>
+        <main>
+            <article><ul>
+<li>关于这个，网络上很多教程都抄来抄去，讲得东西不好好说明，弄的小白一头雾水</li>
+<li>现在弄懂了，所以写一篇教程</li>
+<li>我使用的是gunicorn结合supervisor的方案，<strong>所以只能在linux上运行</strong></li>
+</ul>
+<h3>关系图</h3>
+<p><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/flask-production-deployment/3392397338-dcca715b.png" alt="截屏2023-06-22 17.25.50.png">截屏2023-06-22 17.25.50.png</p>
+<h3>gunicorn</h3>
+<ul>
+<li>传统的，使用pip安装即可</li>
+<li>配置gunicorn(.py):</li>
+</ul>
+<pre><code>import gevent.monkey # 这个gevent也是pip安装即可，是用于协程的
 
 gevent.monkey.patch_all()
 debug = False
@@ -103,12 +104,12 @@ worker_connections = 2000  # 最大并发
 
 x_forwarded_for_header = &#39;X-FORWARDED-FOR&#39;
 </code></pre>
-        <h3>supervisor</h3>
-        <ul>
-          <li>不同的系统不一样，但是一般使用包管理器安装就可以了</li>
-          <li>配置supervisor(.conf)：</li>
-        </ul>
-        <pre><code>[program:项目名称]
+<h3>supervisor</h3>
+<ul>
+<li>不同的系统不一样，但是一般使用包管理器安装就可以了</li>
+<li>配置supervisor(.conf)：</li>
+</ul>
+<pre><code>[program:项目名称]
 command=gunicorn可执行文件的路径 -c gunicorn的配置文件 你的项目中flask启动文件:app
 directory=flask项目地址
 autorestart=truestdout_logfile=log路径/server_running.log
@@ -116,35 +117,28 @@ redirect_stderr=true
 user=root  # 运行用户，一般不推荐root 
 priority=999
 </code></pre>
-        <h3>启动</h3>
-        <ul>
-          <li>
-            <p>引入我们的项目：<code>supervisord -c myproject/supervisor_app.conf </code></p>
-          </li>
-          <li>
-            <p>启动项目：<code>sudo supervisorctl start 项目名称</code></p>
-          </li>
-          <li>
-            <p>
-              其他操作，比如停止、启动、重启（<strong
-                >不重新加载supervisor项目的配置文件</strong
-              >）就是对应的英文关键词就是了
-            </p>
-          </li>
-        </ul>
-      </article>
-    </main>
-  </body>
+<h3>启动</h3>
+<ul>
+<li><p>引入我们的项目：<code>supervisord -c myproject/supervisor_app.conf </code></p>
+</li>
+<li><p>启动项目：<code>sudo supervisorctl start 项目名称</code></p>
+</li>
+<li><p>其他操作，比如停止、启动、重启（<strong>不重新加载supervisor项目的配置文件</strong>）就是对应的英文关键词就是了</p>
+</li>
+</ul>
+</article>
+        </main>
+    </body>
 
-  <script type="module">
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
 
-  for (const el of document.querySelectorAll("time.localized")) {
-    const date = new Date(el.dateTime);
-    el.textContent = formatter.format(date);
-  }
-  </script>
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>

@@ -107,8 +107,9 @@ async function mdToHtml(articleSlug: string, htmlTemplatePath: string) {
     console.log(`-----------`);
     return;
   }
-  const lastUpdatedAt = data.updatedAt ?? data.createdAt;
-  const firstWordAt = data.firstWordAt ?? null;
+  const updatedAt = data.updatedAt ?? data.createdAt;
+  const createdAt = data.createdAt ?? null;
+  const finishedAt = data.finishedAt ?? null;
   const canonicalUrl = new URL(
     `/articles/${articleSlug}`,
     SITE_ORIGIN,
@@ -122,13 +123,18 @@ async function mdToHtml(articleSlug: string, htmlTemplatePath: string) {
       "${data.description}",
       normalizeIntoTagAttributeSafeString(data.description ?? ""),
     )
-    .replaceAll("${data.datetime}", lastUpdatedAt)
+    .replaceAll("${data.datetime}", updatedAt)
     .replaceAll("${data.canonicalUrl}", canonicalUrl);
   // handling optional data fields
-  if (firstWordAt !== null) {
-    html = html.replace("${data.firstWordAt}", firstWordAt);
-    html = html.replace("<--firstWordAt", "");
-    html = html.replace("firstWordAt-->", "");
+  if (createdAt !== null) {
+    html = html.replace("${data.createdAt}", createdAt);
+    html = html.replace("<-- createdAt", "");
+    html = html.replace("createdAt -->", "");
+  }
+  if (finishedAt !== null) {
+    html = html.replace("${data.finishedAt}", finishedAt);
+    html = html.replace("<-- finishedAt", "");
+    html = html.replace("finishedAt -->", "");
   }
 
   await mkdir(dirname(output), { recursive: true });
@@ -136,7 +142,7 @@ async function mdToHtml(articleSlug: string, htmlTemplatePath: string) {
   await formatWithBiome(output);
 
   console.log(`Generated: ${output}`);
-  console.log(`Last updated at: ${lastUpdatedAt}`);
+  console.log(`Updated at: ${updatedAt}`);
   console.log(`-----------`);
 }
 

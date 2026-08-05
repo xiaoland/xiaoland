@@ -1,184 +1,179 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="蓝汁酱">
-    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
-    <title>「总结」tar指令使用方法总结</title>
-    <meta
-      name="description"
-      content="总结 tar指令使用方法总结 tar指令用于解压/生成tar.gz/bz/.bz2等等的压缩包 需要注意的是zip/rar不可使用tar指令操作，只可以用unzip/unrar或zip/rar来进行压缩或解压缩 本文是整理常见的压缩包格式的配置选项，而不是详解这个指令 示例 ta"
-    >
-    <meta property="og:url" content="https://lanzhijiang.dev/articles/tar-command-summary">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="「总结」tar指令使用方法总结">
-    <meta
-      property="og:description"
-      content="总结 tar指令使用方法总结 tar指令用于解压/生成tar.gz/bz/.bz2等等的压缩包 需要注意的是zip/rar不可使用tar指令操作，只可以用unzip/unrar或zip/rar来进行压缩或解压缩 本文是整理常见的压缩包格式的配置选项，而不是详解这个指令 示例 ta"
-    >
-    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
-    <meta property="og:site_name" content="蓝汁酱的小站">
-    <meta property="og:locale" content="zh_CN">
-    <link rel="canonical" href="https://lanzhijiang.dev/articles/tar-command-summary">
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/variables.css">
-    <link rel="stylesheet" href="/articles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a
-        id="page-back"
-        class="typo-control flex-row spacing-xs items-center"
-        href="/"
-        onclick="
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>「总结」tar指令使用方法总结</title>
+        <meta name="description" content="总结 tar指令使用方法总结 tar指令用于解压/生成tar.gz/bz/.bz2等等的压缩包 需要注意的是zip/rar不可使用tar指令操作，只可以用unzip/unrar或zip/rar来进行压缩或解压缩 本文是整理常见的压缩包格式的配置选项，而不是详解这个指令 示例 ta" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/tar-command-summary" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="「总结」tar指令使用方法总结" />
+        <meta property="og:description" content="总结 tar指令使用方法总结 tar指令用于解压/生成tar.gz/bz/.bz2等等的压缩包 需要注意的是zip/rar不可使用tar指令操作，只可以用unzip/unrar或zip/rar来进行压缩或解压缩 本文是整理常见的压缩包格式的配置选项，而不是详解这个指令 示例 ta" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/tar-command-summary" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
                     if (history.length > 1) {
                         history.back();
                         return false;
                     }
                 "
-      >
-        <span class="material-symbols">arrow_back</span>
-        <span>返回</span>
-      </a>
-      <h1>「总结」tar指令使用方法总结</h1>
-      <dl id="meta">
-        <dt>最后更新于</dt>
-        <dd>
-          <time id="last-updated-at" class="localized" datetime="2022-02-04T12:08:00Z" />
-        </dd>
-        <!--firstWordAt
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>「总结」tar指令使用方法总结</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2022-02-04T12:08:00Z"
+                    />
+                </dd>
+                <!-- createdAt
                 <dt>开始于</dt>
                 <dd>
-                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                    <time datetime="2022-02-04T12:08:00Z">${data.createdAt}</time>
                 </dd>
-                firstWordAt-->
-      </dl>
-    </header>
-    <main>
-      <article>
-        <ul>
-          <li>tar指令用于解压/生成tar.gz/bz/.bz2等等的压缩包</li>
-          <li>
-            需要注意的是zip/rar不可使用tar指令操作，只可以用unzip/unrar或zip/rar来进行压缩或解压缩
-          </li>
-          <li>本文是整理常见的压缩包格式的配置选项，而不是详解这个指令</li>
-        </ul>
-        <h2>示例</h2>
-        <pre><code>tar -xzvf test.tar.gz
+                createdAt-->
+                <!-- finishedAt
+                <dt>完成于</dt>
+                <dd>
+                    <time datetime="${data.finishedAt}">${data.finishedAt}</time>
+                </dd>
+                finishedAt -->
+            </dl>
+        </header>
+        <main>
+            <article><ul>
+<li>tar指令用于解压/生成tar.gz/bz/.bz2等等的压缩包</li>
+<li>需要注意的是zip/rar不可使用tar指令操作，只可以用unzip/unrar或zip/rar来进行压缩或解压缩</li>
+<li>本文是整理常见的压缩包格式的配置选项，而不是详解这个指令</li>
+</ul>
+<h2>示例</h2>
+<pre><code>tar -xzvf test.tar.gz
 </code></pre>
-        <h2>解压缩</h2>
-        <ul>
-          <li><p>比较常用的是解压缩</p></li>
-          <li>
-            <p>解压缩要加上-x 参数后面跟着文件名加-f</p>
-            <div id="table-wrapper">
-              <table>
-                <thead>
-                  <tr>
-                    <th align="left">文件类型</th>
-                    <th>参数</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td align="left">*.tar</td>
-                    <td>-xvf</td>
-                  </tr>
-                  <tr>
-                    <td align="left">*.tar.gz</td>
-                    <td>-xzvf</td>
-                  </tr>
-                  <tr>
-                    <td align="left">*.tar.bz2</td>
-                    <td>-xjf</td>
-                  </tr>
-                  <tr>
-                    <td align="left">*.tar.xz</td>
-                    <td>-zJf</td>
-                  </tr>
-                  <tr>
-                    <td align="left">*.tar.Z</td>
-                    <td>-xZf</td>
-                  </tr>
-                  <tr>
-                    <td align="left">*.bz2</td>
-                    <td>bunzip2/bzip2-d</td>
-                  </tr>
-                  <tr>
-                    <td align="left">*.xz</td>
-                    <td>xz -d</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </li>
-          <li><p>前三个常用，要记好：-xvf -xzvf -xjf</p></li>
-        </ul>
-        <h2>压缩</h2>
-        <ul>
-          <li>压缩的参数则是-c 参数后面跟着文件名加-f</li>
-          <li>
-            示例
-            <ul>
-              <li>
-                <code>tar -czf jpg.tar.gz *.jpg</code>
-                <code>tar -czf pi.tar.gz /home/pi</code>
-                <div id="table-wrapper">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th align="left">文件类型</th>
-                        <th>参数</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td align="left">*.tar</td>
-                        <td>-cvf</td>
-                      </tr>
-                      <tr>
-                        <td align="left">*.tar.gz</td>
-                        <td>-czf</td>
-                      </tr>
-                      <tr>
-                        <td align="left">*.tar.bz2</td>
-                        <td>-cjf</td>
-                      </tr>
-                      <tr>
-                        <td align="left">*.tar.Z</td>
-                        <td>-zZf</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <h2>参考</h2>
-        <ul>
-          <li>
-            <a href="https://www.cnblogs.com/luozeng/p/8674529.html"
-              >https://www.cnblogs.com/luozeng/p/8674529.html</a
-            >
-          </li>
-        </ul>
-      </article>
-    </main>
-  </body>
+<h2>解压缩</h2>
+<ul>
+<li><p>比较常用的是解压缩</p>
+</li>
+<li><p>解压缩要加上-x
+参数后面跟着文件名加-f</p>
+<div id="table-wrapper">
+<table>
+<thead>
+<tr>
+<th align="left">文件类型</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">*.tar</td>
+<td>-xvf</td>
+</tr>
+<tr>
+<td align="left">*.tar.gz</td>
+<td>-xzvf</td>
+</tr>
+<tr>
+<td align="left">*.tar.bz2</td>
+<td>-xjf</td>
+</tr>
+<tr>
+<td align="left">*.tar.xz</td>
+<td>-zJf</td>
+</tr>
+<tr>
+<td align="left">*.tar.Z</td>
+<td>-xZf</td>
+</tr>
+<tr>
+<td align="left">*.bz2</td>
+<td>bunzip2/bzip2-d</td>
+</tr>
+<tr>
+<td align="left">*.xz</td>
+<td>xz -d</td>
+</tr>
+</tbody></table>
+</div>
+</li>
+<li><p>前三个常用，要记好：-xvf -xzvf -xjf</p>
+</li>
+</ul>
+<h2>压缩</h2>
+<ul>
+<li>压缩的参数则是-c
+参数后面跟着文件名加-f</li>
+<li>示例<ul>
+<li><code>tar -czf jpg.tar.gz *.jpg</code>
+<code>tar -czf pi.tar.gz /home/pi</code><div id="table-wrapper">
+<table>
+<thead>
+<tr>
+<th align="left">文件类型</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">*.tar</td>
+<td>-cvf</td>
+</tr>
+<tr>
+<td align="left">*.tar.gz</td>
+<td>-czf</td>
+</tr>
+<tr>
+<td align="left">*.tar.bz2</td>
+<td>-cjf</td>
+</tr>
+<tr>
+<td align="left">*.tar.Z</td>
+<td>-zZf</td>
+</tr>
+</tbody></table>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<h2>参考</h2>
+<ul>
+<li><a href="https://www.cnblogs.com/luozeng/p/8674529.html">https://www.cnblogs.com/luozeng/p/8674529.html</a></li>
+</ul>
+</article>
+        </main>
+    </body>
 
-  <script type="module">
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
 
-  for (const el of document.querySelectorAll("time.localized")) {
-    const date = new Date(el.dateTime);
-    el.textContent = formatter.format(date);
-  }
-  </script>
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>

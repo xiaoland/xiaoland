@@ -1,159 +1,130 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="蓝汁酱">
-    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
-    <title>DevOps 初尝试</title>
-    <meta
-      name="description"
-      content="在国内服务器上安装K3S，配置基于FluxCD的GitOps，并部署Postgres,Redis和两个Python应用。"
-    >
-    <meta property="og:url" content="https://lanzhijiang.dev/articles/devops-setup">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="DevOps 初尝试">
-    <meta
-      property="og:description"
-      content="在国内服务器上安装K3S，配置基于FluxCD的GitOps，并部署Postgres,Redis和两个Python应用。"
-    >
-    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
-    <meta property="og:site_name" content="蓝汁酱的小站">
-    <meta property="og:locale" content="zh_CN">
-    <link rel="canonical" href="https://lanzhijiang.dev/articles/devops-setup">
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/variables.css">
-    <link rel="stylesheet" href="/articles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a
-        id="page-back"
-        class="typo-control flex-row spacing-xs items-center"
-        href="/"
-        onclick="
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>DevOps 初尝试</title>
+        <meta name="description" content="在国内服务器上安装K3S，配置基于FluxCD的GitOps，并部署Postgres,Redis和两个Python应用。" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/devops-setup" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="DevOps 初尝试" />
+        <meta property="og:description" content="在国内服务器上安装K3S，配置基于FluxCD的GitOps，并部署Postgres,Redis和两个Python应用。" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/devops-setup" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
                     if (history.length > 1) {
                         history.back();
                         return false;
                     }
                 "
-      >
-        <span class="material-symbols">arrow_back</span>
-        <span>返回</span>
-      </a>
-      <h1>DevOps 初尝试</h1>
-      <dl id="meta">
-        <dt>最后更新于</dt>
-        <dd>
-          <time id="last-updated-at" class="localized" datetime="2025-11-25T12:03:53.549Z" />
-        </dd>
-        <!--firstWordAt
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>DevOps 初尝试</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2025-11-25T12:03:53.549Z"
+                    />
+                </dd>
+                <!-- createdAt
                 <dt>开始于</dt>
                 <dd>
-                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                    <time datetime="2025-11-25T12:03:53.549Z">${data.createdAt}</time>
                 </dd>
-                firstWordAt-->
-      </dl>
-    </header>
-    <main>
-      <article>
-        <h2>前置知识</h2>
-        <p>K8S 的控制平面组成：API Server,</p>
-        <p>
-          K8S 的所有组件都是
-          Pod，Pod是最小部署单位，但不等同于一个容器。Pod里面可以有主容器和附属容器。
-        </p>
-        <p>管理Pod的有 StatefulSet, Deployment等。</p>
-        <p>在 Deployment 之上的是 Service，Service将 Pod 暴露提供的服务暴露到集群内部。</p>
-        <p>而要让 Pod 对外提供服务，要在 Service 外面再套 Ingress。</p>
-        <h2>K3S</h2>
-        <pre
-        ><code class="language-bash">curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn INSTALL_K3S_SKIP_SELINUX_RPM=true sh -s - \
+                createdAt-->
+                <!-- finishedAt
+                <dt>完成于</dt>
+                <dd>
+                    <time datetime="${data.finishedAt}">${data.finishedAt}</time>
+                </dd>
+                finishedAt -->
+            </dl>
+        </header>
+        <main>
+            <article><h2>前置知识</h2>
+<p>K8S 的控制平面组成：API Server,</p>
+<p>K8S 的所有组件都是 Pod，Pod是最小部署单位，但不等同于一个容器。Pod里面可以有主容器和附属容器。</p>
+<p>管理Pod的有 StatefulSet, Deployment等。</p>
+<p>在 Deployment 之上的是 Service，Service将 Pod 暴露提供的服务暴露到集群内部。</p>
+<p>而要让 Pod 对外提供服务，要在 Service 外面再套 Ingress。</p>
+<h2>K3S</h2>
+<pre><code class="language-bash">curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn INSTALL_K3S_SKIP_SELINUX_RPM=true sh -s - \
 --system-default-registry &quot;registry.cn-hangzhou.aliyuncs.com&quot;
 </code></pre>
-        <p>通过 <code>kubectl</code> 查看</p>
-        <h3>禁用服务</h3>
-        <p>
-          禁用 Metrics Server 和 Traefik 可以添加环境变量
-          <code
-            >INSTALL_K3S_EXEC=&quot;server --disable traefik --disable metrics-server&quot;</code
-          >
-        </p>
-        <p>或者安装之后编辑 <code>/etc/rancher/k3s/config.yaml</code>:</p>
-        <pre><code class="language-yaml">disable:
+<p>通过 <code>kubectl</code> 查看</p>
+<h3>禁用服务</h3>
+<p>禁用 Metrics Server 和 Traefik 可以添加环境变量 <code>INSTALL_K3S_EXEC=&quot;server --disable traefik --disable metrics-server&quot;</code></p>
+<p>或者安装之后编辑 <code>/etc/rancher/k3s/config.yaml</code>:</p>
+<pre><code class="language-yaml">disable:
   - traefik
   - metrics-server
 </code></pre>
-        <p>记得重启 k3s。</p>
-        <p>
-          运行 <code>kubectl get pods -n kube-system</code>，里面没有 metrics-server, traefik 的 Pod
-          就是禁用了。
-        </p>
-        <h3>iptables tools not found</h3>
-        <p>如果安装过程出现这样的日志：</p>
-        <pre><code class="language-bash">[INFO]  Host iptables-save/iptables-restore tools not found
+<p>记得重启 k3s。</p>
+<p>运行 <code>kubectl get pods -n kube-system</code>，里面没有 metrics-server, traefik 的 Pod 就是禁用了。</p>
+<h3>iptables tools not found</h3>
+<p>如果安装过程出现这样的日志：</p>
+<pre><code class="language-bash">[INFO]  Host iptables-save/iptables-restore tools not found
 [INFO]  Host ip6tables-save/ip6tables-restore tools not found
 </code></pre>
-        <p>务必重视！这可能影响 k3s 的服务发现、Pod通信，还可能导致性能问题。</p>
-        <p>
-          通过安装 iptables 软件包来解决这个问题。安装好之后运行
-          <code>systemctl restart k3s</code> 并检查 <code>kubectl get pods -n kube-system</code>
-        </p>
-        <h2>Flux</h2>
-        <p>
-          Flux 是实现 GitOps 的关键，其会自动拉取给定 Git 仓库的更新并应用修改到 K8S
-          集群上（通过K8S的配置平面）。
-        </p>
-        <h3>安装</h3>
-        <pre><code class="language-bash">curl -s https://fluxcd.io/install.sh | sudo bash
+<p>务必重视！这可能影响 k3s 的服务发现、Pod通信，还可能导致性能问题。</p>
+<p>通过安装 iptables 软件包来解决这个问题。安装好之后运行 <code>systemctl restart k3s</code> 并检查 <code>kubectl get pods -n kube-system</code></p>
+<h2>Flux</h2>
+<p>Flux 是实现 GitOps 的关键，其会自动拉取给定 Git 仓库的更新并应用修改到 K8S 集群上（通过K8S的配置平面）。</p>
+<h3>安装</h3>
+<pre><code class="language-bash">curl -s https://fluxcd.io/install.sh | sudo bash
 </code></pre>
-        <p>
-          该指令不会直接在 K8S 集群中安装 Flux 控制器，只是一个CLI安装。通过
-          <code>flux --version</code> 来验证安装。
-        </p>
-        <p>要安装 Flux 到 K8S 集群，运行</p>
-        <pre><code class="language-bash">flux install \
+<p>该指令不会直接在 K8S 集群中安装 Flux 控制器，只是一个CLI安装。通过 <code>flux --version</code> 来验证安装。</p>
+<p>要安装 Flux 到 K8S 集群，运行</p>
+<pre><code class="language-bash">flux install \
   --namespace=flux-system \
   --components=source-controller,kustomize-controller,helm-controller,notification-controller
 </code></pre>
-        <p>
-          可以清晰地看到，这将会创建一个命名空间，并在其中安装一系列控制器； 其中
-          <code>helm-controller</code> 是 Flux 用来识别和执行
-          <code>HelmRelease</code> 清单的控制器。如果你的 K8S 只用纯 YAML （不打算用任何 Helm
-          Chart），可以不安装。如果不需要 Slack / Webhook / Alert，可以去掉
-          <code>notification-controller</code>
-        </p>
-        <p>
-          如果遇到
-          <code
-            >&quot;http://localhost:8080/api&quot;: dial tcp [::1]:8080: connect: connection refused</code
-          >
-          之类的字样，意味着无法连接到你 K8S 集群的 API 服务器。此时如果你
-          <code>kubectl get nodes</code> 正常，那就只是没找对集群的位置，可能是因为你在 root
-          账户下，于是因为 root 用户默认的 kubeconfig 通常是空的，就找错了服务器。此时应该显示指定
-          kubeconfig: <code>--kubeconfig /etc/rancher/k3s/k3s.yaml</code>
-        </p>
-        <p>可以使用 <code>kubectl -n flux-system get pods</code> 来校验安装。</p>
-        <h3>Bootstrap</h3>
-        <h4>配置源</h4>
-        <p>Flux 会通过 SSH 的方式访问 Git 仓库，运行该指令来添加一个源</p>
-        <pre><code class="language-bash">flux create source git flux-system \
+<p>可以清晰地看到，这将会创建一个命名空间，并在其中安装一系列控制器；
+其中 <code>helm-controller</code> 是 Flux 用来识别和执行 <code>HelmRelease</code> 清单的控制器。如果你的 K8S 只用纯 YAML （不打算用任何 Helm Chart），可以不安装。如果不需要 Slack / Webhook / Alert，可以去掉 <code>notification-controller</code></p>
+<p>如果遇到 <code>&quot;http://localhost:8080/api&quot;: dial tcp [::1]:8080: connect: connection refused</code> 之类的字样，意味着无法连接到你 K8S 集群的 API 服务器。此时如果你 <code>kubectl get nodes</code> 正常，那就只是没找对集群的位置，可能是因为你在 root 账户下，于是因为 root 用户默认的 kubeconfig 通常是空的，就找错了服务器。此时应该显示指定 kubeconfig: <code>--kubeconfig /etc/rancher/k3s/k3s.yaml</code></p>
+<p>可以使用 <code>kubectl -n flux-system get pods</code> 来校验安装。</p>
+<h3>Bootstrap</h3>
+<h4>配置源</h4>
+<p>Flux 会通过 SSH 的方式访问 Git 仓库，运行该指令来添加一个源</p>
+<pre><code class="language-bash">flux create source git flux-system \
   --url=ssh://git@your.githost.com/yourname/cluster-config.git \
   --branch=main \
   --interval=1m
 </code></pre>
-        <p>接着按照提示来配置好SSH Key。</p>
-        <p>或者：</p>
-        <pre><code class="language-bash">flux bootstrap github \
+<p>接着按照提示来配置好SSH Key。</p>
+<p>或者：</p>
+<pre><code class="language-bash">flux bootstrap github \
   --owner=&lt;你的GitHub用户名&gt; \
   --repository=&lt;你的仓库名&gt; \
   --branch=main \
   --path=clusters/my-cluster
 </code></pre>
-        <p>又或者你可以手动应用 GitRepository + Kustomization YAML:</p>
-        <pre><code class="language-yaml">apiVersion: source.toolkit.fluxcd.io/v1
+<p>又或者你可以手动应用 GitRepository + Kustomization YAML:</p>
+<pre><code class="language-yaml">apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: infra
@@ -166,18 +137,12 @@ spec:
   ref:
     branch: main
 </code></pre>
-        <blockquote>
-          <p>
-            你可能需要配置 secret :
-            <code
-              >flux create secret git flux-git-deploy
-              --url=ssh://git@github.com/partner-up-dev/ops.git --namespace=flux-system</code
-            >
-          </p>
-        </blockquote>
-        <p>执行 <code>flux get sources all</code> 来查看源的配置情况。</p>
-        <h4>配置 Kustomization</h4>
-        <pre><code class="language-yaml">apiVersion: kustomize.toolkit.fluxcd.io/v1
+<blockquote>
+<p>你可能需要配置 secret : <code>flux create secret git flux-git-deploy --url=ssh://git@github.com/partner-up-dev/ops.git  --namespace=flux-system</code></p>
+</blockquote>
+<p>执行 <code>flux get sources all</code> 来查看源的配置情况。</p>
+<h4>配置 Kustomization</h4>
+<pre><code class="language-yaml">apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: infra
@@ -190,78 +155,65 @@ spec:
     kind: GitRepository
     name: infra
 </code></pre>
-        <p>其它字段说明：</p>
-        <ul>
-          <li>
-            <code>spec.targetNamespace</code>: If set (as here to staging), all resources in the
-            Kustomization are deployed into that namespace, overriding any namespace specified in
-            the individual resource manifests. If omitted, resources deploy into the namespace of
-            the Kustomization itself (in this case, flux-system).
-          </li>
-        </ul>
-        <h2>K3S 问题排查</h2>
-        <h3>常用指令</h3>
-        <pre><code class="language-bash">kubectl get pods -n kube-system | grep ...
+<p>其它字段说明：</p>
+<ul>
+<li><code>spec.targetNamespace</code>: If set (as here to staging), all resources in the Kustomization are deployed into that namespace, overriding any namespace specified in the individual resource manifests. If omitted, resources deploy into the namespace of the Kustomization itself (in this case, flux-system).</li>
+</ul>
+<h2>K3S 问题排查</h2>
+<h3>常用指令</h3>
+<pre><code class="language-bash">kubectl get pods -n kube-system | grep ...
 kubectl get svc -n kube-system &lt;service-name&gt;
 </code></pre>
-        <h2>镜像拉取问题</h2>
-        <p>修改 <code>/etc/rancher/k3s/registries.yaml</code>:</p>
-        <pre><code class="language-yaml">mirrors:
+<h2>镜像拉取问题</h2>
+<p>修改 <code>/etc/rancher/k3s/registries.yaml</code>:</p>
+<pre><code class="language-yaml">mirrors:
   docker.io:
     endpoint:
       - &quot;https://docker.m.daocloud.io&quot;
       - &quot;https://registry.aliyuncs.com&quot;
 </code></pre>
-        <p>重启 k3s 。</p>
-        <h2>Traefik</h2>
-        <p>
-          添加 <code>/var/lib/rancher/k3s/server/manifests/traefik-config.yaml</code> 配置一个
-          HelmChartConfig。
-        </p>
-        <pre
-        ><code class="language-bash">kubectl get svc -n kube-system traefik -o yaml | grep -A 5 ports:
+<p>重启 k3s 。</p>
+<h2>Traefik</h2>
+<p>添加 <code>/var/lib/rancher/k3s/server/manifests/traefik-config.yaml</code> 配置一个 HelmChartConfig。</p>
+<pre><code class="language-bash">kubectl get svc -n kube-system traefik -o yaml | grep -A 5 ports:
 ss -tulnp | grep traefik
 kubectl get helmchartconfig traefik -n kube-system -o yaml
 </code></pre>
-        <p>重新部署</p>
-        <pre><code class="language-bash">kubectl -n kube-system scale deploy traefik --replicas 0
+<p>重新部署</p>
+<pre><code class="language-bash">kubectl -n kube-system scale deploy traefik --replicas 0
 kubectl -n kube-system scale deploy traefik --replicas 1
 </code></pre>
-        <h3>ACME</h3>
-        <pre><code class="language-yaml">additionalArguments:
+<h3>ACME</h3>
+<pre><code class="language-yaml">additionalArguments:
   - &quot;--certificatesresolvers.letsencrypt.acme.email=lanzhijiang@foxmail.com&quot;
   - &quot;--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json&quot;
   - &quot;--certificatesresolvers.letsencrypt.acme.tlschallenge=true&quot;
 </code></pre>
-        <blockquote>
-          <p>
-            特别是在 HelmRelease 的 values 中，不可以通过
-            <code>values.certificatesResolvers</code> 来配置，否则会报错找不到对应的 certResolver
-          </p>
-        </blockquote>
-        <pre><code class="language-bash">kubectl logs -n kube-system deploy/traefik | grep acme
+<blockquote>
+<p>特别是在 HelmRelease 的 values 中，不可以通过 <code>values.certificatesResolvers</code> 来配置，否则会报错找不到对应的 certResolver</p>
+</blockquote>
+<pre><code class="language-bash">kubectl logs -n kube-system deploy/traefik | grep acme
 </code></pre>
-        <p>或者检查</p>
-        <pre
-        ><code class="language-bash">kubectl exec -it -n kube-system deploy/traefik -- cat /data/acme.json
+<p>或者检查</p>
+<pre><code class="language-bash">kubectl exec -it -n kube-system deploy/traefik -- cat /data/acme.json
 </code></pre>
-        <pre><code class="language-sh"># kubectl get svc -n kube-system traefik
+<pre><code class="language-sh"># kubectl get svc -n kube-system traefik
 NAME      TYPE           CLUSTER-IP      EXTERNAL-IP      PORT(S)                      AGE
 traefik   LoadBalancer   10.43.134.188   172.24.128.166   80:30341/TCP,443:30086/TCP   11h
 </code></pre>
-      </article>
-    </main>
-  </body>
+</article>
+        </main>
+    </body>
 
-  <script type="module">
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
 
-  for (const el of document.querySelectorAll("time.localized")) {
-    const date = new Date(el.dateTime);
-    el.textContent = formatter.format(date);
-  }
-  </script>
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>

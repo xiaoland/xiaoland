@@ -1,151 +1,128 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="蓝汁酱">
-    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
-    <title>「总结」非关系型数据库的设计</title>
-    <meta
-      name="description"
-      content="总结 非关系型数据库的设计 前言 大家想必都知道非关系型数据库（MongoDB、Redis）等等的了。 他们不同于传统的关系型数据库（Mysql）最大的一点就是不依赖于泛式，每个应用的设计都是随意的，自由的，不必被拘束的 也正因如此，我们必须针对自身的应用，对数据库的结构进行最实"
-    >
-    <meta property="og:url" content="https://lanzhijiang.dev/articles/nosql-database-design">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="「总结」非关系型数据库的设计">
-    <meta
-      property="og:description"
-      content="总结 非关系型数据库的设计 前言 大家想必都知道非关系型数据库（MongoDB、Redis）等等的了。 他们不同于传统的关系型数据库（Mysql）最大的一点就是不依赖于泛式，每个应用的设计都是随意的，自由的，不必被拘束的 也正因如此，我们必须针对自身的应用，对数据库的结构进行最实"
-    >
-    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
-    <meta property="og:site_name" content="蓝汁酱的小站">
-    <meta property="og:locale" content="zh_CN">
-    <link rel="canonical" href="https://lanzhijiang.dev/articles/nosql-database-design">
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/variables.css">
-    <link rel="stylesheet" href="/articles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a
-        id="page-back"
-        class="typo-control flex-row spacing-xs items-center"
-        href="/"
-        onclick="
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>「总结」非关系型数据库的设计</title>
+        <meta name="description" content="总结 非关系型数据库的设计 前言 大家想必都知道非关系型数据库（MongoDB、Redis）等等的了。 他们不同于传统的关系型数据库（Mysql）最大的一点就是不依赖于泛式，每个应用的设计都是随意的，自由的，不必被拘束的 也正因如此，我们必须针对自身的应用，对数据库的结构进行最实" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/nosql-database-design" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="「总结」非关系型数据库的设计" />
+        <meta property="og:description" content="总结 非关系型数据库的设计 前言 大家想必都知道非关系型数据库（MongoDB、Redis）等等的了。 他们不同于传统的关系型数据库（Mysql）最大的一点就是不依赖于泛式，每个应用的设计都是随意的，自由的，不必被拘束的 也正因如此，我们必须针对自身的应用，对数据库的结构进行最实" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/nosql-database-design" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
                     if (history.length > 1) {
                         history.back();
                         return false;
                     }
                 "
-      >
-        <span class="material-symbols">arrow_back</span>
-        <span>返回</span>
-      </a>
-      <h1>「总结」非关系型数据库的设计</h1>
-      <dl id="meta">
-        <dt>最后更新于</dt>
-        <dd>
-          <time id="last-updated-at" class="localized" datetime="2022-02-02T07:07:00Z" />
-        </dd>
-        <!--firstWordAt
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>「总结」非关系型数据库的设计</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2022-02-02T07:07:00Z"
+                    />
+                </dd>
+                <!-- createdAt
                 <dt>开始于</dt>
                 <dd>
-                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                    <time datetime="2022-02-02T07:07:00Z">${data.createdAt}</time>
                 </dd>
-                firstWordAt-->
-      </dl>
-    </header>
-    <main>
-      <article>
-        <h3>前言</h3>
-        <ul>
-          <li>
-            大家想必都知道非关系型数据库（MongoDB、Redis）等等的了。
-            他们不同于传统的关系型数据库（Mysql）最大的一点就是不依赖于泛式，每个应用的设计都是随意的，自由的，不必被拘束的
-          </li>
-          <li>
-            也正因如此，我们必须针对自身的应用，对数据库的结构进行最实用的设计。而不是把关系型数据库的生搬硬套过来，造成不必要的开销
-            最大的例子就是关系型数据库中的「引用」，这是不被推荐的。在开销上很大，在分布式系统中更是恐怖如斯。
-          </li>
-          <li>
-            ...本文章是根据MongoDB团队的一次公开沙龙总结而来的。 我本人在做的<a
-              href="https://github.com/NothingLeftProject"
-              >NothingLeft</a
-            >就有用到MongoDB作为数据库。
-          </li>
-          <li>
-            听完课，我还是很庆幸自己没有使用老一套的设计，而是根据自己的需求进行设计，符合了那次沙龙的基本原则「一切从实用出发，衡量代价与利益」。
-            但是也还有很多不足，因此想跟大家分享一下收获
-          </li>
-        </ul>
-        <h3>嵌入，不引用</h3>
-        <ul>
-          <li>
-            我们最忌讳的就是追求数据结构上的好看，而不在乎实际需求，如下：
-            <ul>
-              <li>
-                一个生产电脑配件的公司想在首页展示三款产品的数据，分别包括他们的名称、生产代号、优缺点、使用了哪些零件等，这些零件还可以点开查看其详细信息。
-              </li>
-              <li>
-                如果一味地追求完美，那很有可能会把每款产品的基本信息放在一个document里面，然后零件采用引用的方式join过去。
-                这样，当我需要展示一款产品的信息，就需要查询两次，获取基本信息与零件的信息。
-              </li>
-            </ul>
-          </li>
-          <li>
-            但，如果使用嵌入的方法，把零件的一部分信息（如在首页展示中肯定会用到的「名称」）嵌入到产品基本信息的document里面去就更加实用了。
-            这就是「一切从实用出发」
-          </li>
-          <li>虽然增加了存储开销，但是获得了速度上的优势。这就是「衡量代价与利益」</li>
-        </ul>
-        <h3>一对多关系的优化</h3>
-        <ul>
-          <li>一对一些 一对很多</li>
-          <li>
-            都可以采用
-            <ul>
-              <li>多个嵌入到一个中(零件(多)与产品(一)）</li>
-              <li>一个嵌入到多个中（log信息(多)与log_host(一)）</li>
-              <li>双向嵌入</li>
-            </ul>
-          </li>
-        </ul>
-        <h3>聚合</h3>
-        <ul>
-          <li>
-            分桶存储的原理。
-            将批量使用的数据放在一个document里面（温度传感器数据每分钟采集一次，按一个小时为一桶，存在一个document里）
-          </li>
-          <li>
-            去掉那些为了展示规律而保存的信息，能够简单计算获得的信息，以此提高查询速度，减少存储开销。
-          </li>
-        </ul>
-        <h3>一张有用的图</h3>
-        <ul>
-          <li>
-            <p>
-              <img
-                src="https://oss.lanzhijiang.dev/xiaoland/images/articles/nosql-database-design/9c967a4f6588882e6446ced1902a-9eba6c31.png"
-                alt="根据不同的应用类型而不同的数据库模式设计"
-              >
-            </p>
-          </li>
-        </ul>
-      </article>
-    </main>
-  </body>
+                createdAt-->
+                <!-- finishedAt
+                <dt>完成于</dt>
+                <dd>
+                    <time datetime="${data.finishedAt}">${data.finishedAt}</time>
+                </dd>
+                finishedAt -->
+            </dl>
+        </header>
+        <main>
+            <article><h3>前言</h3>
+<ul>
+<li>大家想必都知道非关系型数据库（MongoDB、Redis）等等的了。
+他们不同于传统的关系型数据库（Mysql）最大的一点就是不依赖于泛式，每个应用的设计都是随意的，自由的，不必被拘束的</li>
+<li>也正因如此，我们必须针对自身的应用，对数据库的结构进行最实用的设计。而不是把关系型数据库的生搬硬套过来，造成不必要的开销
+最大的例子就是关系型数据库中的「引用」，这是不被推荐的。在开销上很大，在分布式系统中更是恐怖如斯。</li>
+<li>...本文章是根据MongoDB团队的一次公开沙龙总结而来的。
+我本人在做的<a href="https://github.com/NothingLeftProject">NothingLeft</a>就有用到MongoDB作为数据库。</li>
+<li>听完课，我还是很庆幸自己没有使用老一套的设计，而是根据自己的需求进行设计，符合了那次沙龙的基本原则「一切从实用出发，衡量代价与利益」。
+但是也还有很多不足，因此想跟大家分享一下收获</li>
+</ul>
+<h3>嵌入，不引用</h3>
+<ul>
+<li>我们最忌讳的就是追求数据结构上的好看，而不在乎实际需求，如下：<ul>
+<li>一个生产电脑配件的公司想在首页展示三款产品的数据，分别包括他们的名称、生产代号、优缺点、使用了哪些零件等，这些零件还可以点开查看其详细信息。</li>
+<li>如果一味地追求完美，那很有可能会把每款产品的基本信息放在一个document里面，然后零件采用引用的方式join过去。
+这样，当我需要展示一款产品的信息，就需要查询两次，获取基本信息与零件的信息。</li>
+</ul>
+</li>
+<li>但，如果使用嵌入的方法，把零件的一部分信息（如在首页展示中肯定会用到的「名称」）嵌入到产品基本信息的document里面去就更加实用了。
+这就是「一切从实用出发」</li>
+<li>虽然增加了存储开销，但是获得了速度上的优势。这就是「衡量代价与利益」</li>
+</ul>
+<h3>一对多关系的优化</h3>
+<ul>
+<li>一对一些
+一对很多</li>
+<li>都可以采用<ul>
+<li>多个嵌入到一个中(零件(多)与产品(一)）</li>
+<li>一个嵌入到多个中（log信息(多)与log_host(一)）</li>
+<li>双向嵌入</li>
+</ul>
+</li>
+</ul>
+<h3>聚合</h3>
+<ul>
+<li>分桶存储的原理。
+将批量使用的数据放在一个document里面（温度传感器数据每分钟采集一次，按一个小时为一桶，存在一个document里）</li>
+<li>去掉那些为了展示规律而保存的信息，能够简单计算获得的信息，以此提高查询速度，减少存储开销。</li>
+</ul>
+<h3>一张有用的图</h3>
+<ul>
+<li><p><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/nosql-database-design/9c967a4f6588882e6446ced1902a-9eba6c31.png" alt="根据不同的应用类型而不同的数据库模式设计"></p>
+</li>
+</ul>
+</article>
+        </main>
+    </body>
 
-  <script type="module">
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
 
-  for (const el of document.querySelectorAll("time.localized")) {
-    const date = new Date(el.dateTime);
-    el.textContent = formatter.format(date);
-  }
-  </script>
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>

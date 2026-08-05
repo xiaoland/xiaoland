@@ -1,117 +1,108 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="蓝汁酱">
-    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
-    <title>「教程」snowboy的构建编译使用</title>
-    <meta
-      name="description"
-      content="教程 snowboy的构建与使用 snowboy是kitt.ai chengguoguo 开发的一款热词检测式语音唤醒开源软件 许多项目如HadreamAssistant与wukong robot都用过它 要将snowboy加入到自己的项目的关键一步，就是编译出符合系统的swig"
-    >
-    <meta property="og:url" content="https://lanzhijiang.dev/articles/build-and-use-snowboy">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="「教程」snowboy的构建编译使用">
-    <meta
-      property="og:description"
-      content="教程 snowboy的构建与使用 snowboy是kitt.ai chengguoguo 开发的一款热词检测式语音唤醒开源软件 许多项目如HadreamAssistant与wukong robot都用过它 要将snowboy加入到自己的项目的关键一步，就是编译出符合系统的swig"
-    >
-    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
-    <meta property="og:site_name" content="蓝汁酱的小站">
-    <meta property="og:locale" content="zh_CN">
-    <link rel="canonical" href="https://lanzhijiang.dev/articles/build-and-use-snowboy">
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/variables.css">
-    <link rel="stylesheet" href="/articles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a
-        id="page-back"
-        class="typo-control flex-row spacing-xs items-center"
-        href="/"
-        onclick="
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>「教程」snowboy的构建编译使用</title>
+        <meta name="description" content="教程 snowboy的构建与使用 snowboy是kitt.ai chengguoguo 开发的一款热词检测式语音唤醒开源软件 许多项目如HadreamAssistant与wukong robot都用过它 要将snowboy加入到自己的项目的关键一步，就是编译出符合系统的swig" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/build-and-use-snowboy" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="「教程」snowboy的构建编译使用" />
+        <meta property="og:description" content="教程 snowboy的构建与使用 snowboy是kitt.ai chengguoguo 开发的一款热词检测式语音唤醒开源软件 许多项目如HadreamAssistant与wukong robot都用过它 要将snowboy加入到自己的项目的关键一步，就是编译出符合系统的swig" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/build-and-use-snowboy" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
                     if (history.length > 1) {
                         history.back();
                         return false;
                     }
                 "
-      >
-        <span class="material-symbols">arrow_back</span>
-        <span>返回</span>
-      </a>
-      <h1>「教程」snowboy的构建编译使用</h1>
-      <dl id="meta">
-        <dt>最后更新于</dt>
-        <dd>
-          <time id="last-updated-at" class="localized" datetime="2023-06-25T13:23:00Z" />
-        </dd>
-        <!--firstWordAt
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>「教程」snowboy的构建编译使用</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2023-06-25T13:23:00Z"
+                    />
+                </dd>
+                <!-- createdAt
                 <dt>开始于</dt>
                 <dd>
-                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                    <time datetime="2023-06-25T13:23:00Z">${data.createdAt}</time>
                 </dd>
-                firstWordAt-->
-      </dl>
-    </header>
-    <main>
-      <article>
-        <ul>
-          <li>snowboy是kitt.ai(chengguoguo)开发的一款热词检测式语音唤醒开源软件</li>
-          <li>许多项目如HadreamAssistant与wukong-robot都用过它</li>
-          <li>
-            要将snowboy加入到自己的项目的关键一步，就是编译出符合系统的swig以及_snowboydetect.so，否则不论怎么调试，都不会好的
-          </li>
-          <li>本文参考<a href="https://github.com/Kitt-AI/snowboy#dependencies">官方教程</a></li>
-        </ul>
-        <h3>依赖</h3>
-        <ul>
-          <li>SoX</li>
-          <li>PortAudio/PyAduio</li>
-          <li>
-            SWIG 3.0.10+
-            <ul>
-              <li>
-                安装swig看<a href="https://blog.csdn.net/sinat_28442665/article/details/114412554"
-                  >这篇</a
-                >就行
-              </li>
-              <li>
-                但官方也是有<a
-                  href="https://github.com/Kitt-AI/snowboy#ubunturaspberry-pipine64nvidia-jetson-tx1nvidia-jetson-tx2"
-                  >教程</a
-                >的
-              </li>
-            </ul>
-          </li>
-          <li>ATLAS/OpenBLAS</li>
-        </ul>
-        <h3>编译</h3>
-        <ul>
-          <li>
-            我们需要获得_snowboydetect.so与snowboydetect.py这两个文件
-            demo.py中有对于调用snowboydetect的示例，可以按照demo来调用
-          </li>
-          <li><code>git clone https://github.com/Kitt-AI/snowboy</code></li>
-          <li>然后进入snowboy-master的swig/Python（或者选择你自己想要的语言）</li>
-          <li><code>make</code>就可以得到这两个文件啦！</li>
-        </ul>
-      </article>
-    </main>
-  </body>
+                createdAt-->
+                <!-- finishedAt
+                <dt>完成于</dt>
+                <dd>
+                    <time datetime="${data.finishedAt}">${data.finishedAt}</time>
+                </dd>
+                finishedAt -->
+            </dl>
+        </header>
+        <main>
+            <article><ul>
+<li>snowboy是kitt.ai(chengguoguo)开发的一款热词检测式语音唤醒开源软件</li>
+<li>许多项目如HadreamAssistant与wukong-robot都用过它</li>
+<li>要将snowboy加入到自己的项目的关键一步，就是编译出符合系统的swig以及_snowboydetect.so，否则不论怎么调试，都不会好的</li>
+<li>本文参考<a href="https://github.com/Kitt-AI/snowboy#dependencies">官方教程</a></li>
+</ul>
+<h3>依赖</h3>
+<ul>
+<li>SoX</li>
+<li>PortAudio/PyAduio</li>
+<li>SWIG 3.0.10+<ul>
+<li>安装swig看<a href="https://blog.csdn.net/sinat_28442665/article/details/114412554">这篇</a>就行</li>
+<li>但官方也是有<a href="https://github.com/Kitt-AI/snowboy#ubunturaspberry-pipine64nvidia-jetson-tx1nvidia-jetson-tx2">教程</a>的</li>
+</ul>
+</li>
+<li>ATLAS/OpenBLAS</li>
+</ul>
+<h3>编译</h3>
+<ul>
+<li>我们需要获得_snowboydetect.so与snowboydetect.py这两个文件
+demo.py中有对于调用snowboydetect的示例，可以按照demo来调用</li>
+<li><code>git clone https://github.com/Kitt-AI/snowboy</code></li>
+<li>然后进入snowboy-master的swig/Python（或者选择你自己想要的语言）</li>
+<li><code>make</code>就可以得到这两个文件啦！</li>
+</ul>
+</article>
+        </main>
+    </body>
 
-  <script type="module">
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
 
-  for (const el of document.querySelectorAll("time.localized")) {
-    const date = new Date(el.dateTime);
-    el.textContent = formatter.format(date);
-  }
-  </script>
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>

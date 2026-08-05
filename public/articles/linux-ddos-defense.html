@@ -1,98 +1,100 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="蓝汁酱">
-    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
-    <title>「教程」Linux防御DDoS攻击</title>
-    <meta
-      name="description"
-      content="教程 Linux防御软件型DDoS攻击 相信大家都知道DDoS攻击的危害性是极大的，造成的损失不计其数 昨天我的服务器就被DDoS攻击了，给我带来了巨额的流量账单和服务器响应慢速 还好目前我受到的只是 大量连接型 DDoS攻击 查看网络连接数 我们可以通过netstat来查看连接"
-    >
-    <meta property="og:url" content="https://lanzhijiang.dev/articles/linux-ddos-defense">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="「教程」Linux防御DDoS攻击">
-    <meta
-      property="og:description"
-      content="教程 Linux防御软件型DDoS攻击 相信大家都知道DDoS攻击的危害性是极大的，造成的损失不计其数 昨天我的服务器就被DDoS攻击了，给我带来了巨额的流量账单和服务器响应慢速 还好目前我受到的只是 大量连接型 DDoS攻击 查看网络连接数 我们可以通过netstat来查看连接"
-    >
-    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
-    <meta property="og:site_name" content="蓝汁酱的小站">
-    <meta property="og:locale" content="zh_CN">
-    <link rel="canonical" href="https://lanzhijiang.dev/articles/linux-ddos-defense">
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/variables.css">
-    <link rel="stylesheet" href="/articles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a
-        id="page-back"
-        class="typo-control flex-row spacing-xs items-center"
-        href="/"
-        onclick="
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>「教程」Linux防御DDoS攻击</title>
+        <meta name="description" content="教程 Linux防御软件型DDoS攻击 相信大家都知道DDoS攻击的危害性是极大的，造成的损失不计其数 昨天我的服务器就被DDoS攻击了，给我带来了巨额的流量账单和服务器响应慢速 还好目前我受到的只是 大量连接型 DDoS攻击 查看网络连接数 我们可以通过netstat来查看连接" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/linux-ddos-defense" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="「教程」Linux防御DDoS攻击" />
+        <meta property="og:description" content="教程 Linux防御软件型DDoS攻击 相信大家都知道DDoS攻击的危害性是极大的，造成的损失不计其数 昨天我的服务器就被DDoS攻击了，给我带来了巨额的流量账单和服务器响应慢速 还好目前我受到的只是 大量连接型 DDoS攻击 查看网络连接数 我们可以通过netstat来查看连接" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/linux-ddos-defense" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
                     if (history.length > 1) {
                         history.back();
                         return false;
                     }
                 "
-      >
-        <span class="material-symbols">arrow_back</span>
-        <span>返回</span>
-      </a>
-      <h1>「教程」Linux防御DDoS攻击</h1>
-      <dl id="meta">
-        <dt>最后更新于</dt>
-        <dd>
-          <time id="last-updated-at" class="localized" datetime="2021-05-23T03:18:00Z" />
-        </dd>
-        <!--firstWordAt
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>「教程」Linux防御DDoS攻击</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2021-05-23T03:18:00Z"
+                    />
+                </dd>
+                <!-- createdAt
                 <dt>开始于</dt>
                 <dd>
-                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                    <time datetime="2021-05-23T03:18:00Z">${data.createdAt}</time>
                 </dd>
-                firstWordAt-->
-      </dl>
-    </header>
-    <main>
-      <article>
-        <ul>
-          <li>相信大家都知道DDoS攻击的危害性是极大的，造成的损失不计其数</li>
-          <li>昨天我的服务器就被DDoS攻击了，给我带来了巨额的流量账单和服务器响应慢速</li>
-          <li>还好目前我受到的只是<strong>大量连接型</strong>DDoS攻击</li>
-        </ul>
-        <h2>查看网络连接数</h2>
-        <ul>
-          <li>我们可以通过netstat来查看连接到你的服务器上的ip及其连接数目统计</li>
-          <li>
-            正因为DDoS实现的手段是通过多个ip的大量请求已至服务器瘫痪。所以我们可以这样子进行检测
-          </li>
-          <li>
-            <code>netstat -ntu | awk &#39; { print $5}&#39; | cut -d: -f1 | uniq -c | sort -n</code>
-          </li>
-        </ul>
-        <h2>解决方案</h2>
-        <ul>
-          <li>有一款轻量的防DDoS攻击脚本：DDoS deflate</li>
-          <li>其工作原理就是：检测连接情况-&gt;大于一定阈值的ip封禁一定时间</li>
-        </ul>
-        <h2>安装DDoS deflate</h2>
-        <ul>
-          <li><code>wget http://www.inetbase.com/scripts/ddos/install.sh</code></li>
-          <li><code>chmod +x install.sh </code></li>
-          <li><code>./install.sh</code> (注意！需要网络）</li>
-          <li>安装结束以后会有协议书，按&#39;q&#39;退出</li>
-          <li>之后就可以在/usr/local/ddos里面找到其配置文件等</li>
-        </ul>
-        <h2>配置DDoS deflate</h2>
-        <pre><code class="language-bash">cd /usr/local/ddos
+                createdAt-->
+                <!-- finishedAt
+                <dt>完成于</dt>
+                <dd>
+                    <time datetime="${data.finishedAt}">${data.finishedAt}</time>
+                </dd>
+                finishedAt -->
+            </dl>
+        </header>
+        <main>
+            <article><ul>
+<li>相信大家都知道DDoS攻击的危害性是极大的，造成的损失不计其数</li>
+<li>昨天我的服务器就被DDoS攻击了，给我带来了巨额的流量账单和服务器响应慢速</li>
+<li>还好目前我受到的只是<strong>大量连接型</strong>DDoS攻击</li>
+</ul>
+<h2>查看网络连接数</h2>
+<ul>
+<li>我们可以通过netstat来查看连接到你的服务器上的ip及其连接数目统计</li>
+<li>正因为DDoS实现的手段是通过多个ip的大量请求已至服务器瘫痪。所以我们可以这样子进行检测</li>
+<li><code>netstat -ntu | awk &#39;{print $5}&#39; | cut -d: -f1 | uniq -c | sort -n</code></li>
+</ul>
+<h2>解决方案</h2>
+<ul>
+<li>有一款轻量的防DDoS攻击脚本：DDoS deflate</li>
+<li>其工作原理就是：检测连接情况-&gt;大于一定阈值的ip封禁一定时间</li>
+</ul>
+<h2>安装DDoS deflate</h2>
+<ul>
+<li><code>wget http://www.inetbase.com/scripts/ddos/install.sh</code></li>
+<li><code>chmod +x install.sh </code></li>
+<li><code>./install.sh</code> (注意！需要网络） </li>
+<li>安装结束以后会有协议书，按&#39;q&#39;退出</li>
+<li>之后就可以在/usr/local/ddos里面找到其配置文件等</li>
+</ul>
+<h2>配置DDoS deflate</h2>
+<pre><code class="language-bash">cd /usr/local/ddos
 nano ddos.conf
 </code></pre>
-        <p>输入以下内容：</p>
-        <pre><code class="language-txt">PROGDIR=&quot;/usr/local/ddos&quot; #文件存放目录
+<p>输入以下内容：</p>
+<pre><code class="language-txt">PROGDIR=&quot;/usr/local/ddos&quot; #文件存放目录
 PROG=&quot;/usr/local/ddos/ddos.sh&quot; #主要功能脚本
 IGNORE_IP_LIST=&quot;/usr/local/ddos/ignore.ip.list&quot; #可以设置IP白名单
 CRON=&quot;/etc/cron.d/ddos.cron&quot; #crond定时任务脚本
@@ -105,63 +107,49 @@ KILL=1    #是否屏蔽IP 1：屏蔽，0：不屏蔽
 EMAIL_TO=&quot;root&quot; #发送电子邮件报警的邮箱地址，换成自己使用的邮箱
 BAN_PERIOD=600  #禁用IP时间，可根据情况调整，默认单位：秒
 </code></pre>
-        <p>修改 <code>/etc/cron.d/ddos.cron</code> 中的内容：</p>
-        <pre><code class="language-txt">SHELL=/bin/sh
+<p>修改 <code>/etc/cron.d/ddos.cron</code> 中的内容：</p>
+<pre><code class="language-txt">SHELL=/bin/sh
 1 * * * * root /usr/local/ddos/ddos.sh &gt;/dev/null 2&gt;&amp;1‘
 # 现在是1min检查一次，可以根据自己的需要修改
 </code></pre>
-        <p>
-          运行 <code>tail -f /var/log/cron</code> 来查看 crond 的日志，从而确定 ddos.sh 有被正常执行
-        </p>
-        <h2>测试</h2>
-        <ul>
-          <li>
-            我们这样模拟ddos攻击：
-            <ul>
-              <li><code>ab -n 1000 -c 10 你的服务器地址（可访问的端口）</code></li>
-            </ul>
-          </li>
-          <li>
-            然后每一分钟就查看一下iptables策略
-            <ul>
-              <li><code>iptables -nL</code></li>
-              <li>你就可以知道那些请求大的ip有没有被封禁了</li>
-            </ul>
-          </li>
-          <li>其实这个脚本对于那种以大量请求占用宽带的攻击方式都是有用的，比如CC攻击</li>
-        </ul>
-        <h2>卸载DDoS deflate</h2>
-        <ul>
-          <li><code>wget http://www.inetbase.com/scripts/ddos/uninstall.ddos</code></li>
-          <li><code>chmod +x uninstall.ddos </code></li>
-          <li><code>./uninstall.ddos </code></li>
-        </ul>
-        <h2>参考文章：</h2>
-        <ul>
-          <li>
-            <a href="https://www.cnblogs.com/bigdevilking/p/9375287.html"
-              >https://www.cnblogs.com/bigdevilking/p/9375287.html</a
-            >
-          </li>
-          <li>
-            <a href="https://blog.csdn.net/sunguoqiang1213/article/details/78349690"
-              >https://blog.csdn.net/sunguoqiang1213/article/details/78349690</a
-            >
-          </li>
-        </ul>
-      </article>
-    </main>
-  </body>
+<p>运行 <code>tail -f /var/log/cron</code> 来查看 crond 的日志，从而确定 ddos.sh 有被正常执行</p>
+<h2>测试</h2>
+<ul>
+<li>我们这样模拟ddos攻击：<ul>
+<li><code>ab -n 1000 -c 10 你的服务器地址（可访问的端口）</code></li>
+</ul>
+</li>
+<li>然后每一分钟就查看一下iptables策略<ul>
+<li><code>iptables -nL</code></li>
+<li>你就可以知道那些请求大的ip有没有被封禁了</li>
+</ul>
+</li>
+<li>其实这个脚本对于那种以大量请求占用宽带的攻击方式都是有用的，比如CC攻击</li>
+</ul>
+<h2>卸载DDoS deflate</h2>
+<ul>
+<li><code>wget http://www.inetbase.com/scripts/ddos/uninstall.ddos</code></li>
+<li><code>chmod +x uninstall.ddos </code></li>
+<li><code>./uninstall.ddos </code></li>
+</ul>
+<h2>参考文章：</h2>
+<ul>
+<li><a href="https://www.cnblogs.com/bigdevilking/p/9375287.html">https://www.cnblogs.com/bigdevilking/p/9375287.html</a></li>
+<li><a href="https://blog.csdn.net/sunguoqiang1213/article/details/78349690">https://blog.csdn.net/sunguoqiang1213/article/details/78349690</a></li>
+</ul>
+</article>
+        </main>
+    </body>
 
-  <script type="module">
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
 
-  for (const el of document.querySelectorAll("time.localized")) {
-    const date = new Date(el.dateTime);
-    el.textContent = formatter.format(date);
-  }
-  </script>
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>

@@ -1,100 +1,94 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="蓝汁酱">
-    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
-    <title>样式工程</title>
-    <meta
-      name="description"
-      content="本文介绍一个工作流，将 Figma 设计稿作为 SSoT，自动生成多平台（Web、Flutter、UniApp）的 Design Tokens，从而实现跨端视觉一致、多尺寸、布局、模式适配。"
-    >
-    <meta property="og:url" content="https://lanzhijiang.dev/articles/styling-engineering">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="样式工程">
-    <meta
-      property="og:description"
-      content="本文介绍一个工作流，将 Figma 设计稿作为 SSoT，自动生成多平台（Web、Flutter、UniApp）的 Design Tokens，从而实现跨端视觉一致、多尺寸、布局、模式适配。"
-    >
-    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
-    <meta property="og:site_name" content="蓝汁酱的小站">
-    <meta property="og:locale" content="zh_CN">
-    <link rel="canonical" href="https://lanzhijiang.dev/articles/styling-engineering">
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/variables.css">
-    <link rel="stylesheet" href="/articles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a
-        id="page-back"
-        class="typo-control flex-row spacing-xs items-center"
-        href="/"
-        onclick="
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>样式工程</title>
+        <meta name="description" content="本文介绍一个工作流，将 Figma 设计稿作为 SSoT，自动生成多平台（Web、Flutter、UniApp）的 Design Tokens，从而实现跨端视觉一致、多尺寸、布局、模式适配。" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/styling-engineering" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="样式工程" />
+        <meta property="og:description" content="本文介绍一个工作流，将 Figma 设计稿作为 SSoT，自动生成多平台（Web、Flutter、UniApp）的 Design Tokens，从而实现跨端视觉一致、多尺寸、布局、模式适配。" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/styling-engineering" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
                     if (history.length > 1) {
                         history.back();
                         return false;
                     }
                 "
-      >
-        <span class="material-symbols">arrow_back</span>
-        <span>返回</span>
-      </a>
-      <h1>样式工程</h1>
-      <dl id="meta">
-        <dt>最后更新于</dt>
-        <dd>
-          <time id="last-updated-at" class="localized" datetime="2025-11-25T12:03:53.562Z" />
-        </dd>
-        <!--firstWordAt
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>样式工程</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2025-11-25T12:03:53.562Z"
+                    />
+                </dd>
+                <!-- createdAt
                 <dt>开始于</dt>
                 <dd>
-                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                    <time datetime="2025-11-25T12:03:53.562Z">${data.createdAt}</time>
                 </dd>
-                firstWordAt-->
-      </dl>
-    </header>
-    <main>
-      <article>
-        <h2>TL;DR</h2>
-        <ol>
-          <li>
-            打开你的 Figma 设计稿，搜索 Plugin <code>Design Tokens</code> (by lukasoppermann) 并保存
-          </li>
-          <li>使用 Figma Variables 定义色彩、尺寸、圆角，用 Figma Styles 定义字体、阴影等</li>
-          <li>
-            Ctrl + K 运行
-            <code>Design Tokens &gt; Send Design Token To Url</code>
-            <ul>
-              <li>
-                Server Url 指向你代码托管平台接受 Webhook 的地址，比如 Github 是
-                <code>https://github.com/:username/:repo/disptaches</code>
-              </li>
-              <li>Auth Type 根据你的代码托管平台的机制来选择</li>
-              <li>
-                Access Token 这里以 Github 为例，打开 Setting 页面，在底部可以找到 Developer
-                Setting，在其中找到 Personal Access Token 并创建 （fine-grained 注意配置好授权的
-                repo 以及权限）
-              </li>
-            </ul>
-          </li>
-        </ol>
-      </article>
-    </main>
-  </body>
+                createdAt-->
+                <!-- finishedAt
+                <dt>完成于</dt>
+                <dd>
+                    <time datetime="${data.finishedAt}">${data.finishedAt}</time>
+                </dd>
+                finishedAt -->
+            </dl>
+        </header>
+        <main>
+            <article><h2>TL;DR</h2>
+<ol>
+<li>打开你的 Figma 设计稿，搜索 Plugin <code>Design Tokens</code> (by lukasoppermann) 并保存</li>
+<li>使用 Figma Variables 定义色彩、尺寸、圆角，用 Figma Styles 定义字体、阴影等</li>
+<li>Ctrl + K 运行 <code>Design Tokens &gt; Send Design Token To Url</code><ul>
+<li>Server Url 指向你代码托管平台接受 Webhook 的地址，比如 Github 是 <code>https://github.com/:username/:repo/disptaches</code></li>
+<li>Auth Type 根据你的代码托管平台的机制来选择</li>
+<li>Access Token 这里以 Github 为例，打开 Setting 页面，在底部可以找到 Developer Setting，在其中找到 Personal Access Token 并创建 （fine-grained 注意配置好授权的 repo 以及权限）</li>
+</ul>
+</li>
+</ol>
+</article>
+        </main>
+    </body>
 
-  <script type="module">
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
 
-  for (const el of document.querySelectorAll("time.localized")) {
-    const date = new Date(el.dateTime);
-    el.textContent = formatter.format(date);
-  }
-  </script>
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>

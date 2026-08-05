@@ -1,169 +1,144 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="蓝汁酱">
-    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
-    <title>「教程」flutter开发环境搭建</title>
-    <meta
-      name="description"
-      content="教程 flutter开发环境搭建 这里就不对flutter作介绍了，就是一个google开发的，便于开发ui应用（web/mobile）的SDK flutter使用Dart语言 在官网和中文官网上，都有交你如何搭建flutter开发环境的教程 但是我搭建过程中，依然遇到很多坑，所"
-    >
-    <meta
-      property="og:url"
-      content="https://lanzhijiang.dev/articles/flutter-dev-environment-setup"
-    >
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="「教程」flutter开发环境搭建">
-    <meta
-      property="og:description"
-      content="教程 flutter开发环境搭建 这里就不对flutter作介绍了，就是一个google开发的，便于开发ui应用（web/mobile）的SDK flutter使用Dart语言 在官网和中文官网上，都有交你如何搭建flutter开发环境的教程 但是我搭建过程中，依然遇到很多坑，所"
-    >
-    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
-    <meta property="og:site_name" content="蓝汁酱的小站">
-    <meta property="og:locale" content="zh_CN">
-    <link rel="canonical" href="https://lanzhijiang.dev/articles/flutter-dev-environment-setup">
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/variables.css">
-    <link rel="stylesheet" href="/articles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a
-        id="page-back"
-        class="typo-control flex-row spacing-xs items-center"
-        href="/"
-        onclick="
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>「教程」flutter开发环境搭建</title>
+        <meta name="description" content="教程 flutter开发环境搭建 这里就不对flutter作介绍了，就是一个google开发的，便于开发ui应用（web/mobile）的SDK flutter使用Dart语言 在官网和中文官网上，都有交你如何搭建flutter开发环境的教程 但是我搭建过程中，依然遇到很多坑，所" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/flutter-dev-environment-setup" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="「教程」flutter开发环境搭建" />
+        <meta property="og:description" content="教程 flutter开发环境搭建 这里就不对flutter作介绍了，就是一个google开发的，便于开发ui应用（web/mobile）的SDK flutter使用Dart语言 在官网和中文官网上，都有交你如何搭建flutter开发环境的教程 但是我搭建过程中，依然遇到很多坑，所" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/flutter-dev-environment-setup" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
                     if (history.length > 1) {
                         history.back();
                         return false;
                     }
                 "
-      >
-        <span class="material-symbols">arrow_back</span>
-        <span>返回</span>
-      </a>
-      <h1>「教程」flutter开发环境搭建</h1>
-      <dl id="meta">
-        <dt>最后更新于</dt>
-        <dd>
-          <time id="last-updated-at" class="localized" datetime="2021-09-21T06:14:00Z" />
-        </dd>
-        <!--firstWordAt
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>「教程」flutter开发环境搭建</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2021-09-21T06:14:00Z"
+                    />
+                </dd>
+                <!-- createdAt
                 <dt>开始于</dt>
                 <dd>
-                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                    <time datetime="2021-09-21T06:14:00Z">${data.createdAt}</time>
                 </dd>
-                firstWordAt-->
-      </dl>
-    </header>
-    <main>
-      <article>
-        <ul>
-          <li>
-            这里就不对flutter作介绍了，就是一个google开发的，便于开发ui应用（web/mobile）的SDK
-            flutter使用Dart语言
-          </li>
-          <li>
-            在官网和中文官网上，都有交你如何搭建flutter开发环境的教程
-            但是我搭建过程中，依然遇到很多坑，所以就有了这篇文章
-          </li>
-          <li>注意本文章是windows上的搭建的教程</li>
-        </ul>
-        <h3>flutterSDK</h3>
-        <ul>
-          <li>
-            首先是flutter的sdk，我们只要从<a
-              href="https://storage.flutter-io.cn/flutter_infra_release/releases/stable/windows/flutter_windows_2.5.1-stable.zip"
-              >官网下载</a
-            >即可
-          </li>
-          <li>
-            安装步骤很简单：
-            <ul>
-              <li>解压到除了C:\Program Files等需要管理员权限的文件夹以外的位置</li>
-              <li>然后win+s搜索env，打开环境变量</li>
-              <li>系统变量中的Path添加&lt;flutter安装根目录&gt;/bin: 如：E:\Program\flutter\bin</li>
-            </ul>
-          </li>
-          <li>
-            效验：
-            <ul>
-              <li>
-                在cmd中执行flutter doctor，若成功执行就代表安装成功 第一次运行flutter
-                doctor会比较久，请耐心等待，且这个命令会检查现有的环境是否齐全
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <h3>调试环境</h3>
-        <ul>
-          <li>这个部分是为了flutter进行安卓的应用程序编译和调试而存在的 也是最难弄的部分</li>
-          <li>简单地说，该部分需要安装java-openjdk8和adb，最后才是android-sdk</li>
-          <li>不论你使用AndroidStudio还是VsCode，我都建议你认真地执行这一步</li>
-        </ul>
-        <h4>JAVA-OPENJDK8</h4>
-        <ul>
-          <li>
-            注意必须安装Java8版本，别的版本运行会存在问题
-            而且得是JDK，而不是JRE，我这里提供一份jdk-8u301-x64的<a
-              href="http://share.hadream.ltd/software/sharing/jdk-8u301-windows-x64.exe"
-              >下载</a
-            >
-          </li>
-          <li>运行安装，不建议安装在C盘</li>
-          <li>
-            安装完毕后打开环境变量编辑
-            <ul>
-              <li>添加系统变量 JAVA_HOME: &lt;你的JDK安装目录(不到bin)&gt;</li>
-              <li>系统变量的Path变量中添加 %JAVA_HOME%/bin</li>
-            </ul>
-          </li>
-          <li>cmd测试java能否正常输出</li>
-        </ul>
-        <h4>Adb</h4>
-        <ul>
-          <li>
-            不多介绍这是个什么了，但是为了你能够使用各种模拟器或者实机来调试你的程序，我建议你配置好这个
-          </li>
-          <li>安装照旧：下载-&gt;解压-&gt;环境变量到可执行文件</li>
-          <li>最后cmd测试adb看看能否正常运行</li>
-        </ul>
-        <h4>AndroidSDK</h4>
-        <ul>
-          <li>通过这个SDK，你可以方便地管理各种包(SDK Manager)以及安卓模拟设备(AVD Manager)</li>
-          <li>
-            在国内有专门的<a href="https://www.androiddevtools.cn/"
-              >下载网站</a
-            >，访问后找到AndroidSDK工具的SDK Tools点击即可下载对应版本
-          </li>
-          <li>全自动安装文件，自己操作就好</li>
-        </ul>
-        <h3>踩坑</h3>
-        <ul>
-          <li>
-            <p>如果你遇到gradle问题，请先修改android/gradle.properties中的distributionUrl：</p>
-            <ul>
-              <li>将gradle-x.x.x-all.zip改为gradle-6.3-all.zip或者更高版本</li>
-            </ul>
-          </li>
-        </ul>
-      </article>
-    </main>
-  </body>
+                createdAt-->
+                <!-- finishedAt
+                <dt>完成于</dt>
+                <dd>
+                    <time datetime="${data.finishedAt}">${data.finishedAt}</time>
+                </dd>
+                finishedAt -->
+            </dl>
+        </header>
+        <main>
+            <article><ul>
+<li>这里就不对flutter作介绍了，就是一个google开发的，便于开发ui应用（web/mobile）的SDK
+flutter使用Dart语言</li>
+<li>在官网和中文官网上，都有交你如何搭建flutter开发环境的教程
+但是我搭建过程中，依然遇到很多坑，所以就有了这篇文章</li>
+<li>注意本文章是windows上的搭建的教程</li>
+</ul>
+<h3>flutterSDK</h3>
+<ul>
+<li>首先是flutter的sdk，我们只要从<a href="https://storage.flutter-io.cn/flutter_infra_release/releases/stable/windows/flutter_windows_2.5.1-stable.zip">官网下载</a>即可</li>
+<li>安装步骤很简单：<ul>
+<li>解压到除了C:\Program Files等需要管理员权限的文件夹以外的位置</li>
+<li>然后win+s搜索env，打开环境变量</li>
+<li>系统变量中的Path添加&lt;flutter安装根目录&gt;/bin: 如：E:\Program\flutter\bin</li>
+</ul>
+</li>
+<li>效验：<ul>
+<li>在cmd中执行flutter doctor，若成功执行就代表安装成功
+第一次运行flutter doctor会比较久，请耐心等待，且这个命令会检查现有的环境是否齐全</li>
+</ul>
+</li>
+</ul>
+<h3>调试环境</h3>
+<ul>
+<li>这个部分是为了flutter进行安卓的应用程序编译和调试而存在的
+也是最难弄的部分</li>
+<li>简单地说，该部分需要安装java-openjdk8和adb，最后才是android-sdk</li>
+<li>不论你使用AndroidStudio还是VsCode，我都建议你认真地执行这一步</li>
+</ul>
+<h4>JAVA-OPENJDK8</h4>
+<ul>
+<li>注意必须安装Java8版本，别的版本运行会存在问题
+而且得是JDK，而不是JRE，我这里提供一份jdk-8u301-x64的<a href="http://share.hadream.ltd/software/sharing/jdk-8u301-windows-x64.exe">下载</a></li>
+<li>运行安装，不建议安装在C盘</li>
+<li>安装完毕后打开环境变量编辑<ul>
+<li>添加系统变量 JAVA_HOME: &lt;你的JDK安装目录(不到bin)&gt;</li>
+<li>系统变量的Path变量中添加 %JAVA_HOME%/bin</li>
+</ul>
+</li>
+<li>cmd测试java能否正常输出</li>
+</ul>
+<h4>Adb</h4>
+<ul>
+<li>不多介绍这是个什么了，但是为了你能够使用各种模拟器或者实机来调试你的程序，我建议你配置好这个</li>
+<li>安装照旧：下载-&gt;解压-&gt;环境变量到可执行文件</li>
+<li>最后cmd测试adb看看能否正常运行</li>
+</ul>
+<h4>AndroidSDK</h4>
+<ul>
+<li>通过这个SDK，你可以方便地管理各种包(SDK Manager)以及安卓模拟设备(AVD Manager)</li>
+<li>在国内有专门的<a href="https://www.androiddevtools.cn/">下载网站</a>，访问后找到AndroidSDK工具的SDK Tools点击即可下载对应版本</li>
+<li>全自动安装文件，自己操作就好</li>
+</ul>
+<h3>踩坑</h3>
+<ul>
+<li><p>如果你遇到gradle问题，请先修改android/gradle.properties中的distributionUrl：</p>
+<ul>
+<li>将gradle-x.x.x-all.zip改为gradle-6.3-all.zip或者更高版本</li>
+</ul>
+</li>
+</ul>
+</article>
+        </main>
+    </body>
 
-  <script type="module">
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
 
-  for (const el of document.querySelectorAll("time.localized")) {
-    const date = new Date(el.dateTime);
-    el.textContent = formatter.format(date);
-  }
-  </script>
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>

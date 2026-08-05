@@ -1,141 +1,124 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="蓝汁酱">
-    <meta name="google-adsense-account" content="ca-pub-2521214392427276">
-    <title>「事件」B站崩了</title>
-    <meta
-      name="description"
-      content="观点 B站崩了 2021.7.13，B站所有服务全面崩溃将近2个小时 说实话，这次事故真的算是很严重了 当时我在刷着B漫，刷着刷着就： ! 截屏1 1 就很形象，B站的楼炸了——事实上B站办公楼也停电了，不过B站办公楼停电可谓是和服务器挂了没半毛钱关系的 然后我马上就去访问官网看"
-    >
-    <meta property="og:url" content="https://lanzhijiang.dev/articles/bilibili-outage">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="「事件」B站崩了">
-    <meta
-      property="og:description"
-      content="观点 B站崩了 2021.7.13，B站所有服务全面崩溃将近2个小时 说实话，这次事故真的算是很严重了 当时我在刷着B漫，刷着刷着就： ! 截屏1 1 就很形象，B站的楼炸了——事实上B站办公楼也停电了，不过B站办公楼停电可谓是和服务器挂了没半毛钱关系的 然后我马上就去访问官网看"
-    >
-    <!--<meta property="og:image" content="https://example.com/og/article.png">-->
-    <meta property="og:site_name" content="蓝汁酱的小站">
-    <meta property="og:locale" content="zh_CN">
-    <link rel="canonical" href="https://lanzhijiang.dev/articles/bilibili-outage">
-    <link rel="stylesheet" href="/assets/main.css">
-    <link rel="stylesheet" href="/assets/variables.css">
-    <link rel="stylesheet" href="/articles/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols" rel="stylesheet">
-  </head>
-  <body>
-    <header>
-      <a
-        id="page-back"
-        class="typo-control flex-row spacing-xs items-center"
-        href="/"
-        onclick="
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>「事件」B站崩了</title>
+        <meta name="description" content="观点 B站崩了 2021.7.13，B站所有服务全面崩溃将近2个小时 说实话，这次事故真的算是很严重了 当时我在刷着B漫，刷着刷着就： ! 截屏1 1 就很形象，B站的楼炸了——事实上B站办公楼也停电了，不过B站办公楼停电可谓是和服务器挂了没半毛钱关系的 然后我马上就去访问官网看" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/bilibili-outage" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="「事件」B站崩了" />
+        <meta property="og:description" content="观点 B站崩了 2021.7.13，B站所有服务全面崩溃将近2个小时 说实话，这次事故真的算是很严重了 当时我在刷着B漫，刷着刷着就： ! 截屏1 1 就很形象，B站的楼炸了——事实上B站办公楼也停电了，不过B站办公楼停电可谓是和服务器挂了没半毛钱关系的 然后我马上就去访问官网看" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/bilibili-outage" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
                     if (history.length > 1) {
                         history.back();
                         return false;
                     }
                 "
-      >
-        <span class="material-symbols">arrow_back</span>
-        <span>返回</span>
-      </a>
-      <h1>「事件」B站崩了</h1>
-      <dl id="meta">
-        <dt>最后更新于</dt>
-        <dd>
-          <time id="last-updated-at" class="localized" datetime="2021-07-17T06:45:00Z" />
-        </dd>
-        <!--firstWordAt
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>「事件」B站崩了</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="2021-07-17T06:45:00Z"
+                    />
+                </dd>
+                <!-- createdAt
                 <dt>开始于</dt>
                 <dd>
-                    <time datetime="${data.firstWordAt}">${data.firstWordAt}</time>
+                    <time datetime="2021-07-17T06:45:00Z">${data.createdAt}</time>
                 </dd>
-                firstWordAt-->
-      </dl>
-    </header>
-    <main>
-      <article>
-        <ul>
-          <li>2021.7.13，B站所有服务全面崩溃将近2个小时</li>
-          <li>说实话，这次事故真的算是很严重了</li>
-          <li>
-            当时我在刷着B漫，刷着刷着就：
-            <ul>
-              <li>
-                <img
-                  src="https://oss.lanzhijiang.dev/xiaoland/images/articles/bilibili-outage/73ccbb75ae7a5ca97c71af0dff7b-e3b0623b.png"
-                  alt="截屏1"
-                >
-              </li>
-              <li>
-                就很形象，B站的楼炸了——事实上B站办公楼也停电了，不过B站办公楼停电可谓是和服务器挂了没半毛钱关系的
-              </li>
-            </ul>
-          </li>
-          <li>然后我马上就去访问官网看看，结果这波服务器真的挂了，还是全部服务</li>
-        </ul>
-        <h3>个人觉得为什么</h3>
-        <ul>
-          <li>
-            其实全部服务在一瞬间都挂了，我第一个想到的其实是被入侵了，但规模如此巨大，我还佩服了起来
-            现在想想其实这不大可能的，这么大规模的入侵，应该很难做到，也应该没有人/组织要这么做吧...
-          </li>
-          <li>
-            网上各种谣言也穿得很多，知乎上靠谱一点，说是CDN和网关的问题 我也觉得这是最有可能的
-            <ul>
-              <li>
-                虽然我没有运营过那么巨大的服务器，但是想想啊，这么大的流量，肯定是要多个节点，负载均衡什么的
-                有这么一句话：“网关一挂，服务没爹”，所以网关一般都有熔断措施什么的
-              </li>
-            </ul>
-          </li>
-          <li>嗯...总之就是...弄服务器很不容易，嗯...</li>
-          <li>
-            而且通过B站那404的页面，我还了解到了tengine（一款taobao带头开发的基于nginx改进的web服务引擎）
-          </li>
-        </ul>
-        <h3>最后</h3>
-        <ul>
-          <li>其实这个话题没什么好说的，就是很正常的一次崩溃事件</li>
-          <li>
-            通过本次事件，我也看了看web服务器优化性能的问题，大多数都是是对网站静态资源的优化：<a
-              href=""
-              >「教程」针对静态资源的web优化</a
-            >
-            我还发现了不少人对B站现任CEO：陈睿 的仇视，这个就确实引起了一些思考了，所以：
-            <ul>
-              <li><a href="">「感想」老粉们都在骂B战CEO</a></li>
-            </ul>
-          </li>
-        </ul>
-        <h3>后续</h3>
-        <ul>
-          <li><p>似乎在一年以后，我看到了一篇详细的分析报告</p></li>
-          <li><p>响应慢到这个地步和维护人员少，事发突然有很大关系</p></li>
-          <li>
-            <p>
-              相关还有很多技术细节，不过有一个根本的原因是lua语言的某一个函数的输入有问题，没有作校验（太经典了
-              @(toukan) ）
-            </p>
-          </li>
-        </ul>
-      </article>
-    </main>
-  </body>
+                createdAt-->
+                <!-- finishedAt
+                <dt>完成于</dt>
+                <dd>
+                    <time datetime="${data.finishedAt}">${data.finishedAt}</time>
+                </dd>
+                finishedAt -->
+            </dl>
+        </header>
+        <main>
+            <article><ul>
+<li>2021.7.13，B站所有服务全面崩溃将近2个小时</li>
+<li>说实话，这次事故真的算是很严重了</li>
+<li>当时我在刷着B漫，刷着刷着就：<ul>
+<li><img src="https://oss.lanzhijiang.dev/xiaoland/images/articles/bilibili-outage/73ccbb75ae7a5ca97c71af0dff7b-e3b0623b.png" alt="截屏1"></li>
+<li>就很形象，B站的楼炸了——事实上B站办公楼也停电了，不过B站办公楼停电可谓是和服务器挂了没半毛钱关系的</li>
+</ul>
+</li>
+<li>然后我马上就去访问官网看看，结果这波服务器真的挂了，还是全部服务</li>
+</ul>
+<h3>个人觉得为什么</h3>
+<ul>
+<li>其实全部服务在一瞬间都挂了，我第一个想到的其实是被入侵了，但规模如此巨大，我还佩服了起来
+现在想想其实这不大可能的，这么大规模的入侵，应该很难做到，也应该没有人/组织要这么做吧...</li>
+<li>网上各种谣言也穿得很多，知乎上靠谱一点，说是CDN和网关的问题
+我也觉得这是最有可能的<ul>
+<li>虽然我没有运营过那么巨大的服务器，但是想想啊，这么大的流量，肯定是要多个节点，负载均衡什么的
+有这么一句话：“网关一挂，服务没爹”，所以网关一般都有熔断措施什么的</li>
+</ul>
+</li>
+<li>嗯...总之就是...弄服务器很不容易，嗯...</li>
+<li>而且通过B站那404的页面，我还了解到了tengine（一款taobao带头开发的基于nginx改进的web服务引擎）</li>
+</ul>
+<h3>最后</h3>
+<ul>
+<li>其实这个话题没什么好说的，就是很正常的一次崩溃事件</li>
+<li>通过本次事件，我也看了看web服务器优化性能的问题，大多数都是是对网站静态资源的优化：<a href="">「教程」针对静态资源的web优化</a>
+我还发现了不少人对B站现任CEO：陈睿 的仇视，这个就确实引起了一些思考了，所以：<ul>
+<li><a href="">「感想」老粉们都在骂B战CEO</a></li>
+</ul>
+</li>
+</ul>
+<h3>后续</h3>
+<ul>
+<li><p>似乎在一年以后，我看到了一篇详细的分析报告</p>
+</li>
+<li><p>响应慢到这个地步和维护人员少，事发突然有很大关系</p>
+</li>
+<li><p>相关还有很多技术细节，不过有一个根本的原因是lua语言的某一个函数的输入有问题，没有作校验（太经典了 @(toukan) ）</p>
+</li>
+</ul>
+</article>
+        </main>
+    </body>
 
-  <script type="module">
-  const formatter = new Intl.DateTimeFormat(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
 
-  for (const el of document.querySelectorAll("time.localized")) {
-    const date = new Date(el.dateTime);
-    el.textContent = formatter.format(date);
-  }
-  </script>
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
 </html>
