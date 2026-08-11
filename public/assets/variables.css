@@ -59,6 +59,7 @@
     /* 没法在 media query 中使用，仅做记录 */
     --sys-breakpoint-mobile: 375px;
     --sys-breakpoint-tablet: 720px;
+    --sys-breakpoint-desktop: 1200px;
 }
 
 @media (prefers-color-scheme: dark) {

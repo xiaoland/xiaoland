@@ -1,5 +1,8 @@
 body {
     margin: var(--sys-spacing-md) !important;  /* Vite 打包顺序存在问题，临时解决方案 */
+    @media (min-width: 1200px) {
+        margin: var(--sys-spacing-md) 14vw !important;
+    }
 }
 
 header {

@@ -75,7 +75,11 @@ async function main() {
       }
     }
   } else {
-    articleSlugs.push(articleSlug);
+    if (articleSlug) {
+      articleSlugs.push(articleSlug);
+    } else {
+      console.log("Will do nothing");
+    }
   }
 
   const results = await Promise.allSettled(
@@ -107,7 +111,7 @@ async function mdToHtml(articleSlug: string, htmlTemplatePath: string) {
     console.log(`-----------`);
     return;
   }
-  const updatedAt = data.updatedAt ?? data.createdAt;
+  const updatedAt = data.updatedAt ?? data.finishedAt ?? data.createdAt;
   const createdAt = data.createdAt ?? null;
   const finishedAt = data.finishedAt ?? null;
   const canonicalUrl = new URL(
@@ -127,13 +131,13 @@ async function mdToHtml(articleSlug: string, htmlTemplatePath: string) {
     .replaceAll("${data.canonicalUrl}", canonicalUrl);
   // handling optional data fields
   if (createdAt !== null) {
-    html = html.replace("${data.createdAt}", createdAt);
-    html = html.replace("<-- createdAt", "");
+    html = html.replaceAll("${data.createdAt}", createdAt);
+    html = html.replace("<!-- createdAt", "");
     html = html.replace("createdAt -->", "");
   }
   if (finishedAt !== null) {
-    html = html.replace("${data.finishedAt}", finishedAt);
-    html = html.replace("<-- finishedAt", "");
+    html = html.replaceAll("${data.finishedAt}", finishedAt);
+    html = html.replace("<!-- finishedAt", "");
     html = html.replace("finishedAt -->", "");
   }
 
