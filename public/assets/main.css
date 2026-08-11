@@ -18,7 +18,8 @@ html {
     }
 }
 
-body {
+/* 零特异性 */
+:where(body) {
     margin: 0;
     background-color: var(--sys-color-surface);
     color: var(--sys-color-text-base);
