@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="author" content="蓝汁酱" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>翻译「编程的五顶帽子」</title>
+        <meta name="description" content="" />
+        <meta property="og:url" content="https://lanzhijiang.dev/articles/zh-translation-of-five-coding-hats" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="翻译「编程的五顶帽子」" />
+        <meta property="og:description" content="" />
+        <!--<meta property="og:image" content="https://example.com/og/article.png">-->
+        <meta property="og:site_name" content="蓝汁酱的小站" />
+        <meta property="og:locale" content="zh_CN" />
+        <link rel="canonical" href="https://lanzhijiang.dev/articles/zh-translation-of-five-coding-hats" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link rel="stylesheet" href="/articles/index.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a
+                id="page-back"
+                class="typo-control flex-row spacing-xs items-center"
+                href="/"
+                onclick="
+                    if (history.length > 1) {
+                        history.back();
+                        return false;
+                    }
+                "
+            >
+                <span class="material-symbols">arrow_back</span>
+                <span>返回</span>
+            </a>
+            <h1>翻译「编程的五顶帽子」</h1>
+            <dl id="meta">
+                <dt>最后更新于</dt>
+                <dd>
+                    <time
+                        id="last-updated-at"
+                        class="localized"
+                        datetime="Thu Aug 06 2026 14:15:00 GMT+0800 (China Standard Time)"
+                    />
+                </dd>
+                
+                <dt>开始于</dt>
+                <dd>
+                    <time
+                        id="created-at"
+                        class="localized"
+                        datetime="Sun Aug 02 2026 20:46:00 GMT+0800 (China Standard Time)"
+                    />
+                </dd>
+                
+                
+                <dt>完成于</dt>
+                <dd>
+                    <time
+                        id="finished-at"
+                        class="localized"
+                        datetime="Thu Aug 06 2026 14:15:00 GMT+0800 (China Standard Time)"
+                    />
+                </dd>
+                
+            </dl>
+        </header>
+        <main>
+            <article><blockquote>
+<p>本文章是对 <a href="https://dubroy.com/blog/five-coding-hats/">Partick Dubroy 的博客文章「Five coding hats」</a> 
+的2025年2月3日版本的中文简体翻译，翻译是人工完成的，可能借助了 AI 阅读、理解文章内容；也会包含我自己的一些见解。</p>
+</blockquote>
+<p>在我职业生涯的早期，我认为是存在“好代码”与“坏代码”的。
+那是一种你可以只是盯着它 —— 不需要知晓任何上下文 —— 然后就可以直接下判断的东西。</p>
+<p>最近，我的观点发生了一些微妙的变化。我尝试将我自己的风格适应到具体的场景中去。
+我写的代码、我所使用的处理模式，很大程度上取决于目的是什么。
+我是在做快速地搭建一个原型以学习某些事物？还是在修复一个可能影响成千上万用户的软件缺陷？
+这两种场景里面，我所采取的方法是完全不同的。</p>
+<p>几年前，我读了 Edward De Bono 的 [Six Thinking Hats](Six Thinking Hats)，里面描述了一个
+解决问题和创造性思考的框架。其核心思想是你可以通过“戴起一顶帽子”来应用一个特定的思考模式。
+这有点粗野(crony)但我认为这很有效。</p>
+<p>这应该也能应用到不同的编程风格上，不是吗？我现在应该用什么“编程帽子”？</p>
+<h3>机长帽 🧑‍✈️</h3>
+<p>「机长帽」是按教科书行事：小心谨慎、慢慢推进并且慎重地跟随着正确的程序。
+这是我在一个失误可能导致<a href="https://en.wikipedia.org/wiki/2024_CrowdStrike-related_IT_outages">八百万多个系统崩溃</a>时会采用的态度。</p>
+<p>随着我戴上机长帽，我会关注在晓得、聚焦的、独立的提交上 —— 当问题发生的时候可以快速回滚的事情上。
+我会保证我的所有 PR 都包括测试。我会将提交信息写得很细致并且保证代码都被复审过。</p>
+<p>这是最接近我过去所认为的“正确的做法”的模式。我曾经弄错的是 —— 可以说是很严重的错误 —— 这
+并不是一个对所有情况来说都正确的方法，甚至一点都不。</p>
+<h3>调皮帽 🐕</h3>
+<p>几个月前，我分享了我做的一个原型给我朋友。
+在我给他看代码之前，我觉得应该来点类似“这是我花费了很多心思，遵循极简风格写出来的”，
+“我是在追求一个最小的解决方案”这样的免责声明。
+最后我开始觉得，我是戴着「调皮帽」写出来的。</p>
+<p>调皮帽的核心是让事情“瘦” —— 采取最直接的可能的解决方案去达成你的目标，跳过那些冠冕堂皇的东西。
+没有代码复审、最小化测试。有时候你只需要几种在讨论上；
+随着调皮帽被戴上，你可以快速地把东西揉捏在一起并且后续再来看哪些是值得保留的。</p>
+<p>这其实很接近大多数小型初创公司的运作模式。这是一顶关于“最小可行”和“80-20法则”的帽子。</p>
+<blockquote>
+<p>我的想法：
+我认为这可能是对今天 AI Coding 来说最有用的一顶帽子。
+因为好的代码是“长出来的”，不是 day 1 就能做好的（不论是因为需求变化，还是自己经验不足）。
+那么，为什么不让 Agent 戴上这顶「调皮帽」，先做 MVP，找 minium possible path 去实现。</p>
+</blockquote>
+<h3>MG(MacGyver)帽 🛠️</h3>
+<p>MacGyver 帽就是要拿到一个结果。有时候你不在乎要付出多少代价，代码会有多糟糕 ——
+你只需要弄清楚这是可能的吗、这是否值得花更多时间在上面。
+It’s the quick-and-dirty, any-which-way, by-hook-or-by-crook mode. </p>
+<blockquote>
+<p>太难翻译了，直接贴原句了</p>
+</blockquote>
+<p>我曾经在做性能优化工作的时候戴上过这顶帽子。我那时候有五个不同的想法可以让它运行得更快。
+每个方法大概都要花一到两天才能实现得比较好（干净），但如果我根本就不在乎代码写得怎样呢？
+答案是我每个方法只要一个小时就能搞定。一旦我发现某个方向是有希望的，我就会马上投入时间把它
+做得“对”（干净）。</p>
+<h3>厨师长帽 🧑‍🍳</h3>
+<p>厨师长帽是为展示而生的。你想要你的代码看起来很好看，功能只是附加的目的。
+还真的有几个真实的场景会需要你戴上厨师长帽，但其是大多数时候，这就是你想做的事情。</p>
+<p>有些时候，我会通过设定一个明确的时间限制来戴上这顶帽子 —— 一旦我跑通了基础的功能，我就会
+“戴上厨师长帽”约30分钟来看看我是不是能把代码高干净点。</p>
+<p>和机长帽一样，这顶帽子有时候被误解为唯一正确的做法，并且经常被过度使用。
+你可以很轻易地说服自己你是在做一些有价值的事情，让代码更加具备可读性和可维护性。</p>
+<h3>教师帽 🧑‍🏫</h3>
+<p>戴上教师帽，你就要考虑你的代码沟通了什么，而对于代码实际上做什么就不那么重要了。
+你应该会在想要给一个开源项目写示例代码，或者在你的博客文章中解释一个概念的时候戴上这顶帽子。</p>
+<p>你大概会跳过错误检查，因为这反而会掩盖你主要想要展现的事物。而且你应该还会相较于平常，
+将变量名、函数名写得更描述性。你还会选择最易于理解的思路，而不是最高效的思路。</p>
+<hr>
+<p>听着，我没打算劝你接受这个框架。我也不会开设什么培训工作坊。
+不过我确实认为，我们值得有意识地辨别自己当前采用的是哪种工作模式，
+并时常问问自己：换一种方法是否更合适？</p>
+</article>
+        </main>
+    </body>
+
+    <script type="module">
+        const formatter = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "medium",
+            timeStyle: "short",
+        });
+
+        for (const el of document.querySelectorAll("time.localized")) {
+            const date = new Date(el.dateTime);
+            el.textContent = formatter.format(date);
+        }
+    </script>
+</html>
