@@ -132,7 +132,7 @@ footer {
     align-items: center;
 
     @media (max-width: 768px) {
-        padding: var(--sys-spacing-sm) var(--sys-spacing-md);
+        padding: var(--sys-spacing-xs) var(--sys-spacing-md);
     }
 
     #social-links {
@@ -146,15 +146,15 @@ footer {
 
     #pages {
         display: flex;
-        gap: var(--sys-spacing-sm);
+        gap: var(--sys-spacing-md);
 
         @media (max-width: 375px) {
-            gap: var(--sys-spacing-md);
+            gap: var(--sys-spacing-sm);
         }
     }
 
     a {
         --comp-link-color: var(--sys-color-text-on-primary);
-        --comp-link-color-hover: var(--sys-color-text-base);
+        --comp-link-color-hover: var(--sys-color-text-on-primary-hover);
     }
 }

@@ -29,7 +29,12 @@ a {
     color: var(--comp-link-color, inherit);
     text-decoration: none;
 
-    &:hover {
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            color: var(--comp-link-color-hover, var(--sys-color-primary));
+        }
+    }
+    &:active {
         color: var(--comp-link-color-hover, var(--sys-color-primary));
     }
 }
@@ -55,6 +60,11 @@ a {
     font-size: var(--sys-typo-control-font-size);
     line-height: var(--sys-typo-control-line-height);
     letter-spacing: var(--sys-typo-control-letter-spacing);
+}
+.typo-title {
+    font-size: var(--sys-typo-title-font-size);
+    line-height: var(--sys-typo-title-line-height);
+    letter-spacing: var(--sys-typo-title-letter-spacing);
 }
 
 .flex-col {
@@ -83,7 +93,13 @@ a {
     justify-content: center;
     color: var(--sys-color-text-base);
 
-    &:hover {
+    &:active {
         background-color: var(--sys-color-container);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background-color: var(--sys-color-container);
+        }
     }
 }

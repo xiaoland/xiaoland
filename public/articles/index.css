@@ -30,7 +30,8 @@ header {
         row-gap: var(--sys-spacing-sm);
         align-items: center;
 
-        dt,dd {
+        dt,
+        dd {
             font-size: var(--sys-typo-caption-font-size);
             line-height: var(--sys-typo-caption-line-height);
         }
@@ -114,39 +115,55 @@ article {
         inline-size: 100%;
         min-inline-size: 36rem;
 
-        border-collapse: collapse;  /* 把相邻单元格的边框合并，否则表格边框可能会出现间隙 */
+        border-collapse: collapse; /* 把相邻单元格的边框合并，否则表格边框可能会出现间隙 */
         border-spacing: 0;
 
         font-size: var(--comp-article-table-font-size, 0.95rem);
         line-height: var(--comp-article-table-line-height, 1.6);
 
         thead {
-          background: var(--comp-article-thead-color-bg, var(--sys-color-container-low));
-          color: var(--comp-article-thead-color-text, var(--sys-color-text-on-container-low));
+            background: var(
+                --comp-article-thead-color-bg,
+                var(--sys-color-container-low)
+            );
+            color: var(
+                --comp-article-thead-color-text,
+                var(--sys-color-text-on-container-low)
+            );
         }
 
         tr {
-          border-block-end: 1px solid var(--sys-color-border-muted);
+            border-block-end: 1px solid var(--sys-color-border-muted);
         }
 
         th,
         td {
-          padding: var(--sys-spacing-sm);
-          text-align: start;
-          vertical-align: top;
+            padding: var(--sys-spacing-sm);
+            text-align: start;
+            vertical-align: top;
         }
 
         th {
-          font-weight: 600;
-          color: var(--sys-color-text-on-container-low);
+            font-weight: 600;
+            color: var(--sys-color-text-on-container-low);
         }
 
-        tbody tr:hover {
-          background: var(--sys-color-container);
+        @media (hover: hover) and (pointer: fine) {
+            tbody tr:hover {
+                background: var(--sys-color-container);
 
-          td {
-              color: var(--sys-color-text-on-container);
-          }
+                td {
+                    color: var(--sys-color-text-on-container);
+                }
+            }
+        }
+
+        tbody tr:active {
+            background: var(--sys-color-container);
+
+            td {
+                color: var(--sys-color-text-on-container);
+            }
         }
     }
 
