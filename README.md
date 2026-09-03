@@ -19,10 +19,12 @@
 
 ### Links
 
-- New Blog: <https://lanzhijiang.dev> (The new one is still WIP, check [Old One](https://blog.hadream.ltd) also)
+- Blog: <https://lanzhijiang.dev> (WIP)
+- Linked-In: <https://www.linkedin.com/in/yihong-yuan/>
 
 ### Trivias
 
-- Nickname in Chinese: 蓝汁酱
-- Game I like: Minecraft (Original Survival), Apex Legends, Slime Rancher, Lobotomy Corporation
+- Nickname: 蓝汁酱 (aka. Lan_zhijiang)
+- Playing: Minecraft (Original, Survival), Apex Legends, Slime Rancher, Lobotomy Corporation
 - Anime I like: Psycho Pass, Pantheon, Kono Suba, Rick & Morty
+
