@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#2a4ec6" />
+        <meta name="google-adsense-account" content="ca-pub-2521214392427276" />
+        <title>蓝汁酱的日程</title>
+        <meta name="description" content="查看蓝汁酱的日程并预约他的时间。" />
+        <link rel="stylesheet" href="index.css" />
+        <link rel="stylesheet" href="/assets/main.css" />
+        <link rel="stylesheet" href="/assets/variables.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <a class="back-link typo-control" href="/">
+                <span aria-hidden="true">←</span>
+                <span>返回</span>
+            </a>
+            <button class="request-coffee-chat" popovertarget="coffee-chat">
+                约个咖啡聊
+            </button>
+        </header>
+        <main>
+            <div id="event-list">
+                <article>
+                    <h2></h2>
+                    <div id="time"></div>
+                    <p id="location"></p>
+                    <p id="description"></p>
+                </article>
+            </div>
+        </main>
+        <div id="coffee-chat" popover>
+            <h1 class="typo-title">
+                <span>约个 Coffee Chat </span>
+                <span class="coffee">☕️</span>
+            </h1>
+            <form id="invite">
+                <label>
+                    <span>选择日期</span>
+                    <input
+                        id="coffee-chat-date"
+                        required
+                        name="date"
+                        type="date"
+                    />
+                </label>
+                <label>
+                    <span>选个时间</span>
+                    <select id="coffee-chat-slot" name="time"></select>
+                </label>
+                <button type="submit">创建日程</button>
+            </form>
+        </div>
+    </body>
+    <script type="module" src="../base.js"></script>
+    <script type="module" src="./index.js"></script>
+</html>

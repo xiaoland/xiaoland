@@ -5,7 +5,8 @@ import { secureHeaders } from "hono/secure-headers";
 import { createMiddleware } from "hono/factory";
 import type { AppEnv } from "../worker/env";
 import { createDb } from "../db";
-import authApp from "./auth";
+// import authApp from "./auth";
+import calendarApp from "./calendar";
 
 const app = new Hono<AppEnv>().basePath("/api");
 
@@ -59,6 +60,7 @@ app.use(
 
 app.get("/health", (c) => c.json({ ok: true }));
 
-app.route("/auth", authApp);
+// app.route("/auth", authApp);
+app.route("/calendar", calendarApp);
 
 export default app;

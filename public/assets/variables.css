@@ -24,6 +24,7 @@
     --sys-color-border-primary: #1f65ff;
     --sys-color-border-base: #b9b9b9;
     --sys-color-border-muted: #e0e0e0;
+    --sys-color-scrim-base: rgb(0 0 0 / 0.4);
 
     /* Typography Token */
     --sys-typo-code-font-size: 0.92rem;

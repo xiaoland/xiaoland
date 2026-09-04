@@ -39,6 +39,11 @@ a {
     }
 }
 
+h1,
+h2 {
+    font-weight: 400;
+}
+
 :root {
     .material-symbols {
         font-variation-settings:

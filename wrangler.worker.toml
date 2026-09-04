@@ -1,15 +1,21 @@
 name = "lanzhijiang"
 main = "src/worker/index.ts"
-compatibility_date = "2026-03-01"
+compatibility_date = "2026-03-17"
 routes = [
   { pattern = "lanzhijiang.dev/api/*", zone_name = "lanzhijiang.dev" }
 ]
 
 [vars]
 APP_ORIGIN = "https://lanzhijiang.dev"
+CALENDAR_TIMEZONE = "Asia/Shanghai"
+CALENDAR_URL = "https://drive.hadream.ltd/remote.php/dav/calendars/Workspace"
+CALENDAR_PUBLIC = "lecture,meeting"
 
 [env.production.vars]
 APP_ORIGIN = "https://lanzhijiang.dev"
+CALENDAR_TIMEZONE = "Asia/Shanghai"
+CALENDAR_URL = "https://drive.hadream.ltd/remote.php/dav/calendars/Workspace"
+CALENDAR_PUBLIC = "lecture,meeting"
 
 [env.preview.vars]
 APP_ORIGIN = "https://xiaoland.pages.dev"
